@@ -4,8 +4,8 @@
             <thead>
             <tr>
                 <th v-for="item in rule"
-                    class="col_{{$index+1}}"
                     :style="getStyle(item)"
+                    :class="getThClass(item, $index)"
                     @click="thColClick(item, $event)">
                     {{item.name}}
                 </th>
@@ -64,6 +64,13 @@
                     }
                 }
                 return tdData
+            },
+            //获得头部样式
+            getThClass: function (item, index) {
+                var obj = {
+                };
+                obj["col_"+(index+1)] = true;
+                return obj
             },
             //设置样式
             getStyle: function (col) {
