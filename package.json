@@ -1,9 +1,9 @@
 {
-  "name": "y",
+  "name": "mumbleUI",
   "version": "1.0.0",
-  "description": "y",
-  "author": "y",
-  "private": true,
+  "description": "微众银行Vue组件",
+  "author": "wanchun",
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "babel-runtime": "^6.0.0",
-    "mint-ui": "^0.1.17",
-    "vue": "^1.0.21"
+    "vue": "^1.0.21",
+    "vue-router": "^0.7.13"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

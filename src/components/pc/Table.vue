@@ -12,14 +12,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(rowIndex, trData) in data | table rule" class="row_{{rowIndex+1}}" @click="bodyTrClick(data[rowIndex], $event)">
-                <td v-for="(colIndex, tdData) in trData"
+            <tr v-for="(rowIndex, trData) in data" class="row_{{rowIndex+1}}" @click="bodyTrClick(trData, $event)">
+                <td v-for="(colIndex, item) in rule"
                     track-by="$index"
-                    :style="getStyle(rule[colIndex])"
+                    :style="getStyle(item)"
                     class="col_{{colIndex+1}}">
-                    {{render(tdData, rule[colIndex])}}
-                    <template v-if="tdData === null && rule[colIndex].action">
-                        <span v-for="actionItem in rule[colIndex].action" @click.stop="fireAction(actionItem, data[rowIndex], $event)">
+                    {{render(trData[item.dataKey], item)}}
+                    <template v-if="trData[item.dataKey] == null && item.action">
+                        <span v-for="actionItem in item.action" @click.stop="fireAction(actionItem, trData, $event)">
                             {{actionItem.text}}
                         </span>
                     </template>
@@ -49,23 +49,18 @@
                     obj[p] = child[p]
                 }
                 _this.rule.push(obj)
-            })
+            });
         },
         methods: {
             //渲染列 可以根据类型渲染不同的样式，比如说渲染普通文本，渲染数字，渲染过滤后的文本，可以自定义渲染的td
             render: function (tdData, rule) {
                 //如果filter存在
-                if(rule.filter){
-                    var filter = rule.filter;
-                    if(typeof filter == "string"){
-                        tdData = (this[filter] && this[filter](tdData)) || tdData;
-                    }else if(util.isArray(filter)){
-                        var theOne = filter.filter(function (o) {
-                            return o.key == tdData;
-                        });
-                        if(theOne.length > 0){
-                            tdData = theOne[0].value
-                        }
+                if(rule.filter && util.isArray(rule.filter)){
+                    var theOne = rule.filter.filter(function (o) {
+                        return o.key == tdData;
+                    });
+                    if(theOne.length > 0){
+                        tdData = theOne[0].value
                     }
                 }
                 return tdData
@@ -93,19 +88,11 @@
                 if(typeof action.func == "function"){
                     action.func(rowData)
                 }
-            },
-            //其实是一个过滤器
-            status: function (value) {
-                var arr = {
-                    "1" : "有效",
-                    "2" : "无效"
-                };
-                return arr[value]
             }
         }
     }
 </script>
-<style scoped>
+<style>
     table {
         width: 100%;
         max-width: 100%;

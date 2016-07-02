@@ -1,12 +1,21 @@
 import Vue from 'vue'
-import App from './App'
-import MintUI from 'mint-ui';
-import 'mint-ui/lib/style.css';
+import vueRouter from 'vue-router'
+import App from './views/App'
 
-Vue.use(MintUI);
+//=====================加载路由配置=================
+import { configRouter } from './route-config'
 
-/* eslint-disable no-new */
-new Vue({
-  el: 'body',
-  components: { App }
-});
+//======================全局配置====================
+Vue.config.debug = true;
+
+//====================== 安装插件===================
+// install router
+Vue.use(vueRouter);
+
+//======================配置路由=====================
+const router = new vueRouter();
+configRouter(router);
+
+
+//启动路由 路由器会创建一个 App 实例
+router.start(App, 'body');

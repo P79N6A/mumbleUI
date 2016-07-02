@@ -4,25 +4,23 @@
             <thead>
             <tr>
                 <th v-for="item in rule"
-                    :style="getStyle(item)"
                     class="col_{{$index+1}}"
-                    :class="{sort:sortKey==item.dataKey, up:order>=0, down:order<0 }"
+                    :style="getStyle(item)"
+                    :class="{sort:item.dataKey==sortKey,up:order==1, down:order==-1  }"
                     @click="thColClick(item, $event)">
                     {{item.name}}
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(rowIndex, trData) in data | orderBy sortKey order | table rule"  class="row_{{rowIndex+1}}"
-                @click="bodyTrClick(data[rowIndex], $event)">
-                <td v-for="(colIndex, tdData) in trData"
+            <tr v-for="(rowIndex, trData) in data | orderBy sortKey order" class="row_{{rowIndex+1}}" @click="bodyTrClick(trData, $event)">
+                <td v-for="(colIndex, item) in rule"
                     track-by="$index"
-                    :style="getStyle(rule[colIndex])"
+                    :style="getStyle(item)"
                     class="col_{{colIndex+1}}">
-                    {{render(tdData, rule[colIndex])}}
-                    <template v-if="tdData === null && rule[colIndex].action">
-                        <span v-for="actionItem in rule[colIndex].action"
-                              @click.stop="fireAction(actionItem, data[rowIndex], $event)">
+                    {{render(trData[item.dataKey], item)}}
+                    <template v-if="trData[item.dataKey] == null && item.action">
+                        <span v-for="actionItem in item.action" @click.stop="fireAction(actionItem, trData, $event)">
                             {{actionItem.text}}
                         </span>
                     </template>
@@ -54,6 +52,7 @@
                         this.order = 1;
                     }
                 }
+                this.$dispatch("th-col-click", rule);
             }
         }
     }
