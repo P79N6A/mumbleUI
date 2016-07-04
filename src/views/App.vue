@@ -16,3 +16,4 @@
         }
     }
 </script>
+<style src="../assets/styles/main.scss" lang="scss"></style>

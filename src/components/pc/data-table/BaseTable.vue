@@ -99,7 +99,7 @@
         }
     }
 </script>
-<style>
+<style lang="scss">
     table {
         width: 100%;
         max-width: 100%;

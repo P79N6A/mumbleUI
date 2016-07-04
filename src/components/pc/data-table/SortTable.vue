@@ -69,7 +69,7 @@
         }
     }
 </script>
-<style scoped>
+<style scoped lang="scss">
     th.sort {
     }
 
