@@ -1,4 +1,10 @@
+@import "variables.scss";
+@import "reset.scss";
+@import "mixin.scss";
+@import "common.scss";
+
 h2{
-    font-size: 30px;
     color: red;
 }
+
+

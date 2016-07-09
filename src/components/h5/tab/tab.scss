@@ -1,0 +1,45 @@
+//tab
+.tab-btn-group{
+    padding: px2rem(20px) 0;
+    text-align: center;
+    button{
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        background-image: none;
+        background-color: $cntColor;
+        color: $blue;
+        border: 1px solid $blue;
+        height: px2rem(64px);
+        line-height: px2rem(64px);
+        width: px2rem(180px);
+        margin-left: -1px;
+        &:first-child:nth-last-child(2),
+        &:first-child:nth-last-child(2) ~ & {
+            width: px2rem(210px);
+        }
+
+        &:first-child{
+            margin-left: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        &:last-child{
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        &.choose{
+            color: $cntColor;
+            background-color: $blue;
+        }
+    }
+}
+.tab{
+    @extend %borderLine-tb;
+    border-width: 1px 0 0;
+    min-height: px2rem(400px);
+}
