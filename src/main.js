@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import vueRouter from 'vue-router'
-import App from './views/App'
+import App from './App'
 
 //=====================加载路由配置=================
 import { configRouter } from './route-config'
