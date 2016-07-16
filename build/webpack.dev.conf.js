@@ -14,7 +14,7 @@ module.exports = merge(baseWebpackConfig, {
         loaders: utils.styleLoaders()
     },
     // eval-source-map is faster for development
-    //devtool: '#cheap-module-source-map',
+    devtool: '#cheap-module-source-map',
     plugins: [
         // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
         new webpack.optimize.OccurenceOrderPlugin(),
@@ -27,11 +27,11 @@ module.exports = merge(baseWebpackConfig, {
             inject: true
         }),
         //columns: false可以防止调试时定位不准的情况
-        new webpack.SourceMapDevToolPlugin({
-            filename: '[file].map',
-            include: ['app.js'],
-            exclude: ['vendor.js'],
-            columns: false
-        }),
+        // new webpack.SourceMapDevToolPlugin({
+        //     filename: '[file].map',
+        //     include: ['app.js'],
+        //     exclude: ['vendor.js'],
+        //     columns: false
+        // }),
     ]
 })
