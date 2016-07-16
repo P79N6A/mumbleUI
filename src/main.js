@@ -18,4 +18,4 @@ configRouter(router);
 
 
 //启动路由 路由器会创建一个 App 实例
-router.start(App, 'body');
+router.start(App, '#app');

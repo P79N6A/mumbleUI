@@ -1,14 +1,12 @@
 <template>
-    <div id="wrapper">
-        <!-- main view -->
-        <router-view v-ref:pageview keep-alive>
-        </router-view>
-    </div>
+    <!-- main view -->
+    <router-view v-ref:pageview keep-alive>
+    </router-view>
 </template>
 <script type="text/ecmascript-6">
     export default {
         replace: false,
-        data:function() {
+        data: function() {
             return {
             }
         },
@@ -16,4 +14,4 @@
         }
     }
 </script>
-<style src="../assets/styles/main.scss" lang="scss"></style>
+<style src="./assets/styles/main.scss" lang="scss"></style>

@@ -8,6 +8,10 @@ export function configRouter(router){
             title: 'PC-table组件',     //标题
             component: require('./views/pc/table')
         },
+        '/pc/modal':{
+            title: 'PC-table组件',     //标题
+            component: require('./views/pc/modal')
+        },
 
         //// not found handler
         //'*': {

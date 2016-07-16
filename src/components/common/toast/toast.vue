@@ -1,3 +1,27 @@
+<template>
+    <div class="toast">
+        <i :class="{'icon-toast-error':type=='error', 'icon-toast-success':type=='success'}"></i>
+        <span>{{msg}}</span>
+    </div>
+</template>
+<script type="text/ecmascript-6">
+    export default {
+        props: {
+            type : {
+                type : String
+            },
+            msg: {
+                type : String
+            }
+        },
+        data: function() {
+            return {
+            }
+        },
+        ready: function () {
+        }
+    }
+</script>
 <style lang="scss">
    .toast {
        position: fixed;
@@ -28,27 +52,3 @@
         filter: none\9;
     }
 </style>
-<template>
-    <div class="toast">
-        <i :class="{'icon-toast-error':type=='error', 'icon-toast-success':type=='success'}"></i>
-        <span>{{msg}}</span>
-    </div>
-</template>
-<script type="text/ecmascript-6">
-    export default {
-        props: {
-            type : {
-                type : String
-            },
-            msg: {
-                type : String
-            }
-        },
-        data: function() {
-            return {
-            }
-        },
-        ready: function () {
-        }
-    }
-</script>
