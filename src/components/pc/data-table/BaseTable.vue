@@ -3,23 +3,23 @@
         <table>
             <thead>
             <tr>
-                <th v-for="item in rule"
-                    :style="getStyle(item)"
-                    :class="getThClass(item, $index)"
-                    @click="thColClick(item, $event)">
-                    {{item.name}}
+                <th v-for="col in rule"
+                    :style="getStyle(col, $index)"
+                    :class="getThClass(col, $index)"
+                    @click="thColClick(col, $index, $event)">
+                    {{col.name}}
                 </th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(rowIndex, trData) in data" class="row_{{rowIndex+1}}" @click="bodyTrClick(trData, $event)">
-                <td v-for="(colIndex, item) in rule"
+                <td v-for="(colIndex, col) in rule"
                     track-by="$index"
-                    :style="getStyle(item)"
-                    class="col_{{colIndex+1}}">
-                    {{render(trData[item.dataKey], item)}}
-                    <template v-if="trData[item.dataKey] == null && item.action">
-                        <span v-for="actionItem in item.action" @click.stop="fireAction(actionItem, trData, $event)">
+                    :style="getStyle(col, colIndex)"
+                    :class="getTbClass(col, colIndex, trData[col.dataKey])">
+                    {{render(col, trData[col.dataKey])}}
+                    <template v-if="trData[col.dataKey] == null && col.action">
+                        <span v-for="actionItem in col.action" @click.stop="fireAction(actionItem, trData, $event)">
                             {{actionItem.text}}
                         </span>
                     </template>
@@ -32,7 +32,7 @@
 </template>
 <script>
     import Vue from 'vue'
-    var util = Vue.util;
+    import _ from 'lodash/core';
     export default {
         props: ['data'],
         data: function () {
@@ -53,35 +53,54 @@
         },
         methods: {
             //渲染列 可以根据类型渲染不同的样式，比如说渲染普通文本，渲染数字，渲染过滤后的文本，可以自定义渲染的td
-            render: function (tdData, rule) {
+            render: function (col, tdData) {
                 //如果filter存在
-                if(rule.filter && util.isArray(rule.filter)){
-                    var theOne = rule.filter.filter(function (o) {
+                if(_.isArray(col.filter)){
+                    var theOne = col.filter.filter(function (o) {
                         return o.key == tdData;
                     });
                     if(theOne.length > 0){
                         tdData = theOne[0].value
                     }
+                }else if(_.isFunction(col.filter)){
+                    tdData = col.filter(tdData)
                 }
                 return tdData
             },
             //获得头部样式
-            getThClass: function (item, index) {
+            getThClass: function (col, index) {
                 var obj = {
+                    ["col_"+(index+1)] : true
                 };
-                obj["col_"+(index+1)] = true;
+                return obj
+            },
+            //设置td的个性样式
+            getTbClass(col, index, tdData){
+                var obj = {
+                    ["col_"+(index+1)] : true
+                };
+                if(col.addClass){
+                    if(_.isString(col.addClass)){
+                        obj[col.addClass] = true
+                    }else if(_.isFunction(col.addClass)){
+                        var rst = col.addClass(tdData);
+                        if(_.isString(rst)){
+                            obj[rst] = true
+                        }
+                    }
+                }
                 return obj
             },
             //设置样式
-            getStyle: function (col) {
+            getStyle: function (col, index) {
                 return {
                     "text-align" : col.align,
                     "width" : col.width
                 }
             },
             //点击th列
-            thColClick: function (item, event) {
-                this.$dispatch("th-col-click", item);
+            thColClick: function (col, index, event) {
+                this.$dispatch("th-col-click", col, index);
             },
             //点击内容行
             bodyTrClick: function (rowData, event) {
@@ -89,10 +108,10 @@
             },
             //触发action动作
             fireAction: function (action, rowData, event) {
-                if(typeof action.func == "string"){
+                if(_.isString(action.func)){
                     this.$parent[action.func].call(this.$parent, rowData)
                 }
-                if(typeof action.func == "function"){
+                if(_.isFunction(action.func)){
                     action.func(rowData)
                 }
             }

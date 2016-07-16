@@ -1,9 +1,10 @@
 <template>
     <h2>普通组件：</h2>
     <mytable :data="data" @th-col-click="thColClick" @body-tr-click="trClick">
-        <column slot data-key="a" name="col-a" align="center" width="130px"></column>
-        <column slot data-key="b" name="col-b" width="130px"></column>
+        <column slot data-key="a" name="col-a" align="center" :add-class="addClass" width="130px"></column>
+        <column slot data-key="b" name="col-b" add-class="red" width="130px"></column>
         <column slot data-key="c" name="col-c" filter="[{ key : 1,value : '星期一'},{ key : 2,value : '星期二'}]"></column>
+        <column slot data-key="d" name="col-d" :filter="filterFunc"></column>
         <column slot name="操作"  align="center" width="230px" action="{text:'删除',func:'callback'}"></column>
     </mytable>
 
@@ -29,15 +30,23 @@
         data: function () {
             return {
                 data: [{
-                    a : 1, b:1, c:1
+                    a : 1, b:1, c:1, d: "丹"
                 },{
-                    a : 2, b:2, c:2
+                    a : 2, b:2, c:2, d: "纯"
                 }]
             }
         },
         ready: function () {
         },
         methods: {
+            addClass(data){
+                if(data == 1){
+                    return "blue"
+                }
+            },
+            filterFunc(data){
+                return data + " | " + data;
+            },
             callback: function (data) {
                 console.log(data)
             },
@@ -50,3 +59,11 @@
         }
     }
 </script>
+<style lang="scss">
+    .blue{
+        color: blue;
+    }
+    .red {
+        color: red;
+    }
+</style>
