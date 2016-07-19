@@ -1,9 +1,9 @@
 <template>
-    <div class="ui-banner" @touchmove.stop="touchmove"
-         @transitionend="isTransitioning=false;"
-         @webkitTransitionEnd="isTransitioning=false;"
-         @oTransitionEnd="isTransitioning=false;"
-         @otransitionend="isTransitioning=false;">
+    <div class="ui-banner" @touchmove.stop="touchmove" @touchend.stop="touchend" @touchstart.stop="touchstart"
+         @transitionend="animateend"
+         @webkitTransitionEnd="animateend"
+         @oTransitionEnd="animateend"
+         @otransitionend="animateend">
         <ul class="ui-banner-list" :class="{ 'animate': animate }" :style="getStyle()">
             <li class="item" v-for="item in list" track-by="$index">
                 <a v-if="item.init" :href="item.link">
@@ -12,7 +12,7 @@
             </li>
         </ul>
         <ul class="ui-banner-dot" v-if="list.length > 1">
-            <li class="item" v-for="a in list.length-1" v-bind:class="{ 'cur': (num==$index+1) }"></li>
+            <li class="item" v-for="a in list.length-1" :class="{ 'cur': (num==$index+1) }"></li>
         </ul>
     </div>
 </template>
@@ -42,6 +42,7 @@
                 dataReady: false,        //数据是否加载完毕
                 baseWidth: baseWidth,    //基准宽度
                 num: 1,                  //当前在第几个
+                movingX: 0,
                 moving: false,           //是否使用touch移动banner
                 touchStartX: 0,          //touch的初始x
                 touchStartY: 0,          //touch的初始y
@@ -97,6 +98,8 @@
         },
         ready () {
             console.log("ready")
+            window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+            this.ulDom = this.$el.querySelector(".ui-banner-list");
             //创建自动滚动
             this.timerId = this.createTimer();
         },
@@ -107,13 +110,15 @@
         },
         methods: {
             getStyle(){
+                var x = this.displaceX
                 return {
+                    "opacity" : 1,
                     "width" : this.listWidth + "px",
-                    "-ms-transform" : "translate3d("+ this.displaceX+ "px, 0, 0)",
-                    "-moz-transform" : "translate3d("+ this.displaceX+ "px, 0, 0)",
-                    "-o-transform" : "translate3d("+ this.displaceX+ "px, 0, 0)",
-                    "-webkit-transform" : "translate3d("+ this.displaceX+ "px, 0, 0)",
-                    "transform" : "translate3d("+ this.displaceX+ "px, 0, 0)",
+                    "-ms-transform" : "translate3d("+ x + "px, 0, 0)",
+                    "-moz-transform" : "translate3d("+ x + "px, 0, 0)",
+                    "-o-transform" : "translate3d("+ x + "px, 0, 0)",
+                    "-webkit-transform" : "translate3d("+ x + "px, 0, 0)",
+                    "transform" : "translate3d("+ x + "px, 0, 0)",
                 }
             },
             createTimer(){
@@ -148,20 +153,23 @@
                     }
                 }, this.time);
             },
-            clearTouch(){
-                this.touchStartX = 0;
-                this.touchStartY = 0;
-                this.moving = true;
-                setTimeout(()=> {
-                    this.moving = false;
-                }, 300);
+            // clearTouch(){
+            //     this.touchStartX = 0;
+            //     this.touchStartY = 0;
+            //     this.ending = true;
+            //     setTimeout(()=> {
+            //         this.ending = false;
+            //     }, 300);
+            // },
+            touchstart(e){
+                clearTimeout(this.timerId);
+                this.animate = false;
             },
             touchmove(e){
                 //如果没有touch
                 if (!e.touches.length) return;
                 //如果正在滚动，return
                 if (this.isTransitioning) return;
-                if (this.moving) return;
 
                 var touch = e.touches[0];
                 if (this.touchStartX == 0) {
@@ -169,24 +177,40 @@
                     this.touchStartY = touch.pageY;
                     return;
                 } else {
-                    var x = touch.pageX - this.touchStartX;
-                    var y = touch.pageY - this.touchStartY;
+                    this.x = touch.pageX - this.touchStartX;
+                    this.y = touch.pageY - this.touchStartY;
                 }
+
                 //这里是为了手指一定是横向滚动的,原理是计算X位置的偏移要比Y的偏移大
-                if (Math.abs(x) > Math.abs(y)) {
-                    clearTimeout(this.timerId);
+                if (Math.abs(this.x) > Math.abs(this.y)) {
+                    if(!(this.num == 1 && this.x > 0) && !(this.num + 1 > this.list.length - 1 && this.x < 0)){
+                        var movingX = -(this.baseWidth * this.num) + this.x;
+                        window.requestAnimationFrame(()=>{
+                            this.ulDom.style.transform = "translate3d("+ movingX + "px, 0, 0)";
+                            this.ulDom.style["-ms-transform"] = "translate3d("+ movingX + "px, 0, 0)"
+                            this.ulDom.style["-moz-transform"] = "translate3d("+ movingX + "px, 0, 0)"
+                            this.ulDom.style["-o-transform"] = "translate3d("+ movingX + "px, 0, 0)"
+                            this.ulDom.style["-webkit-transform"] = "translate3d("+ movingX + "px, 0, 0)"
+                        })
+                        
+                    }
+                }
+            },
+            touchend(e){
+                this.animate = true;
+                //这里是为了手指一定是横向滚动的,原理是计算X位置的偏移要比Y的偏移大
+                if (Math.abs(this.x) > Math.abs(this.y) && Math.abs(this.x) > this.baseWidth/2.4) {
                     //向右滑动
-                    if (x > 40) {
+                    if (this.x > 0) {
                         if (this.num - 1 == 0) { //正处于第一个，所以不能向右滑动了
                             this.timerId = this.createTimer();
                         } else {
                             this.isTransitioning = true;
                             this.num -= 1;
                         }
-                        this.clearTouch();
                     }
                     //向左滑动
-                    else if (x < -40) {
+                    else if (this.x < 0) {
                         if (this.num + 1 > this.list.length - 1) {
                             this.timerId = this.createTimer();
                         } else {
@@ -198,9 +222,23 @@
                                 }));
                             }
                         }
-                        this.clearTouch();
                     }
+                }else{
+                    window.requestAnimationFrame(()=>{
+                        this.ulDom.style.transform = "translate3d("+ this.displaceX + "px, 0, 0)";
+                        this.ulDom.style["-ms-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
+                        this.ulDom.style["-moz-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
+                        this.ulDom.style["-o-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
+                        this.ulDom.style["-webkit-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
+                    })
+                    this.timerId = this.createTimer();
                 }
+                this.moving = false;
+                this.touchStartX = 0;
+                this.touchStartY = 0;
+            },
+            animateend(e){
+                this.isTransitioning = false;
             }
         }
     }

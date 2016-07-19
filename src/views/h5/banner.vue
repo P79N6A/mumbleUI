@@ -9,7 +9,7 @@
         },
         data: function () {
             return {
-                time : 2000,
+                time : 5000,
                 list : []
             }
         },
@@ -23,7 +23,7 @@
                     imgUrl : "http://static.fangdd.com/activityh5/img/xfbanner2016013101.png",
                         link : ""
                 })
-            }, 3000)
+            }, 300)
         },
         methods: {
         }
