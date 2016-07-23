@@ -4,7 +4,7 @@
          @webkitTransitionEnd="animateend"
          @oTransitionEnd="animateend"
          @otransitionend="animateend">
-        <ul class="ui-banner-list" :class="{ 'animate': animate }" :style="getStyle()">
+        <ul class="ui-banner-list" :class="{ 'animate': animate }" :style="getStyle()" v-displace="displaceX">
             <li class="item" v-for="item in list" track-by="$index">
                 <a v-if="item.init" :href="item.link">
                     <img :src="item.imgUrl">
@@ -19,7 +19,11 @@
 
 <script type="text/ecmascript-6">
     import Vue from 'vue';
+    import displace from './displace';
     export default {
+        directives : {
+            displace : displace
+        },
         props: {
             animate:{     //控制样式，是否使用过渡效果
                 type: [Boolean, String],
@@ -56,7 +60,7 @@
             },
             //x偏移
             displaceX: function () {
-                return -(this.baseWidth * this.num);
+                return this.moving ? this.movingX : -(this.baseWidth * this.num);
             }
         },
         watch: {
@@ -98,8 +102,6 @@
         },
         ready () {
             console.log("ready")
-            window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-            this.ulDom = this.$el.querySelector(".ui-banner-list");
             //创建自动滚动
             this.timerId = this.createTimer();
         },
@@ -110,21 +112,13 @@
         },
         methods: {
             getStyle(){
-                var x = this.displaceX
                 return {
-                    "opacity" : 1,
                     "width" : this.listWidth + "px",
-                    "-ms-transform" : "translate3d("+ x + "px, 0, 0)",
-                    "-moz-transform" : "translate3d("+ x + "px, 0, 0)",
-                    "-o-transform" : "translate3d("+ x + "px, 0, 0)",
-                    "-webkit-transform" : "translate3d("+ x + "px, 0, 0)",
-                    "transform" : "translate3d("+ x + "px, 0, 0)",
                 }
             },
             createTimer(){
                 return setTimeout(()=> {
                     if(this.list && this.list.length > 0){
-                        this.isTransitioning = true;
                         //如果当前处于最后一个，需要自动滚动到第一个，过渡效果需要特殊处理
                         if (this.num == (this.list.length - 1)) {
                             //禁止过渡效果，把位置移动到0，然后再打开过渡效果，设置位置从0=》1
@@ -162,19 +156,17 @@
             //     }, 300);
             // },
             touchstart(e){
-                clearTimeout(this.timerId);
-                this.animate = false;
+                console.log("touchstart")        
             },
             touchmove(e){
                 //如果没有touch
                 if (!e.touches.length) return;
-                //如果正在滚动，return
-                if (this.isTransitioning) return;
 
                 var touch = e.touches[0];
                 if (this.touchStartX == 0) {
                     this.touchStartX = touch.pageX;
                     this.touchStartY = touch.pageY;
+                    clearTimeout(this.timerId);  
                     return;
                 } else {
                     this.x = touch.pageX - this.touchStartX;
@@ -184,28 +176,23 @@
                 //这里是为了手指一定是横向滚动的,原理是计算X位置的偏移要比Y的偏移大
                 if (Math.abs(this.x) > Math.abs(this.y)) {
                     if(!(this.num == 1 && this.x > 0) && !(this.num + 1 > this.list.length - 1 && this.x < 0)){
-                        var movingX = -(this.baseWidth * this.num) + this.x;
-                        window.requestAnimationFrame(()=>{
-                            this.ulDom.style.transform = "translate3d("+ movingX + "px, 0, 0)";
-                            this.ulDom.style["-ms-transform"] = "translate3d("+ movingX + "px, 0, 0)"
-                            this.ulDom.style["-moz-transform"] = "translate3d("+ movingX + "px, 0, 0)"
-                            this.ulDom.style["-o-transform"] = "translate3d("+ movingX + "px, 0, 0)"
-                            this.ulDom.style["-webkit-transform"] = "translate3d("+ movingX + "px, 0, 0)"
-                        })
-                        
+                        this.animate = false;
+                        this.moving = true;
+                        this.movingX = -(this.baseWidth * this.num) + this.x;
                     }
                 }
             },
             touchend(e){
+                console.log("touchend")
                 this.animate = true;
+                this.moving = false;
                 //这里是为了手指一定是横向滚动的,原理是计算X位置的偏移要比Y的偏移大
-                if (Math.abs(this.x) > Math.abs(this.y) && Math.abs(this.x) > this.baseWidth/2.4) {
+                if (Math.abs(this.x) > this.baseWidth/3) {
                     //向右滑动
                     if (this.x > 0) {
                         if (this.num - 1 == 0) { //正处于第一个，所以不能向右滑动了
                             this.timerId = this.createTimer();
                         } else {
-                            this.isTransitioning = true;
                             this.num -= 1;
                         }
                     }
@@ -214,7 +201,6 @@
                         if (this.num + 1 > this.list.length - 1) {
                             this.timerId = this.createTimer();
                         } else {
-                            this.isTransitioning = true;
                             this.num += 1;
                             if (!this.list[this.num].show) {
                                 this.list.$set(this.num, Object.assign(this.list[this.num], {
@@ -224,21 +210,15 @@
                         }
                     }
                 }else{
-                    window.requestAnimationFrame(()=>{
-                        this.ulDom.style.transform = "translate3d("+ this.displaceX + "px, 0, 0)";
-                        this.ulDom.style["-ms-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
-                        this.ulDom.style["-moz-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
-                        this.ulDom.style["-o-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
-                        this.ulDom.style["-webkit-transform"] = "translate3d("+ this.displaceX + "px, 0, 0)"
-                    })
                     this.timerId = this.createTimer();
                 }
-                this.moving = false;
                 this.touchStartX = 0;
                 this.touchStartY = 0;
+                this.x = 0;
+                this.y = 0;
             },
             animateend(e){
-                this.isTransitioning = false;
+                //动画完了干啥呢
             }
         }
     }

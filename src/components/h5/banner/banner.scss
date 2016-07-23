@@ -4,15 +4,13 @@
 }
 
 .ui-banner {
+    opacity : 1;
     position: relative;
     width: 100%;
     overflow: hidden;
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
-    -ms-touch-action: pan-y;
+    -webkit-touch-action: pan-y;
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
 }
@@ -20,9 +18,6 @@
 .ui-banner-list {
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
     position: relative;
     display: flex;
