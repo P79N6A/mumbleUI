@@ -3,8 +3,17 @@
 @import "mixin.scss";
 @import "common.scss";
 
-h2{
-    color: red;
+.home-panel{
+	@extend .view;
+	padding: 30px;
+	h1{
+		font-size: 24px;
+	}
+	ul{
+		padding-left: 10px;
+		li{
+			line-height: 20px;
+		}
+	}
 }
-
 

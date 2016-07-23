@@ -12,9 +12,9 @@ export function configRouter(router){
             title: 'PC-table组件',     //标题
             component: require('./views/pc/modal')
         },
-        '/h5/banner':{
+        '/mobile/banner':{
             title: 'h5-banner组件',     //标题
-            component: require('./views/h5/banner')
+            component: require('./views/mobile/banner')
         },
 
 

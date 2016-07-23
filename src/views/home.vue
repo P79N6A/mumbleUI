@@ -1,5 +1,15 @@
 <template>
-    关于mumble
+    <div class="home-panel">
+        <h1>pc组件</h1>
+        <ul>
+            <li> <a v-link="{ path:'/pc/table'}">table</a> </li>
+            <li> <a v-link="{ path:'/pc/modal'}">modal</a> </li>
+        </ul>
+        <h1>mobile组件</h1>
+        <ul>
+            <li> <a v-link="{ path:'/mobile/banner'}">banner</a> </li>
+        </ul>
+    </div>
 </template>
 <script type="text/ecmascript-6">
     export default {
