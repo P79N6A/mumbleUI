@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(rowIndex, trData) in data | orderBy sortKey order" class="row_{{rowIndex+1}}" 
+            <tr v-for="(rowIndex, trData) in showData | orderBy sortKey order" track-by="$index" class="row_{{rowIndex+1}}"
                 @click="bodyTrClick(trData, $event)">
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
@@ -43,7 +43,6 @@
             }
         },
         init: function () {
-            console.log(this._frag)
         },
         methods: {
             getThClass: function (col, index) {
