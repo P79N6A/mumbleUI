@@ -17,7 +17,8 @@
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
                     :style="getStyle(col, colIndex)"
-                    :class="getTbClass(col, colIndex, trData[col.dataKey])">
+                    :class="getTbClass(col, colIndex, trData[col.dataKey])"
+                    v-add-component="trData.components[col.name]">
                     {{render(col, trData[col.dataKey])}}
                     <template v-if="trData[col.dataKey] == null && col.action">
                         <span v-for="actionItem in col.action" @click.stop="fireAction(actionItem, trData, $event)">
