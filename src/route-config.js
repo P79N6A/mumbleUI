@@ -12,6 +12,10 @@ export function configRouter(router){
             title: 'PC-table组件',     //标题
             component: require('./views/pc/modal')
         },
+        '/pc/quill':{
+            title: 'PC-富文本',     //标题
+            component: require('./views/pc/quill')
+        },
         '/mobile/banner':{
             title: 'h5-banner组件',     //标题
             component: require('./views/mobile/banner')

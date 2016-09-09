@@ -4,6 +4,7 @@
         <ul>
             <li> <a v-link="{ path:'/pc/table'}">table</a> </li>
             <li> <a v-link="{ path:'/pc/modal'}">modal</a> </li>
+            <li> <a v-link="{ path:'/pc/quill'}">富文本</a> </li>
         </ul>
         <h1>mobile组件</h1>
         <ul>
