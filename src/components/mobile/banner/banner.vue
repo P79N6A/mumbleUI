@@ -5,14 +5,14 @@
          @oTransitionEnd="animateend"
          @otransitionend="animateend">
         <ul class="ui-banner-list" :class="{ 'animate': animate }" :style="getStyle()" v-displace="displaceX">
-            <li class="item" v-for="item in list" track-by="$index">
+            <li class="item" v-for="item in useList" track-by="$index">
                 <a v-if="item.init" :href="item.link">
                     <img :src="item.imgUrl">
                 </a>
             </li>
         </ul>
-        <ul class="ui-banner-dot" v-if="list.length > 1">
-            <li class="item" v-for="a in list.length-1" :class="{ 'cur': (num==$index+1) }"></li>
+        <ul class="ui-banner-dot" v-if="useList.length > 2">
+            <li class="item" v-for="a in useList.length-1" :class="{ 'cur': (num==$index+1) }"></li>
         </ul>
     </div>
 </template>
@@ -36,13 +36,13 @@
             list : {    //数据
                 type: Array,
                 required : true
-            }  
+            }
         },
-        data () {
-            console.log("data");
+        data: function () {
             //基础宽度即屏幕宽度
             var baseWidth = document.body.offsetWidth;
             return {
+                timerId: null,
                 dataReady: false,        //数据是否加载完毕
                 baseWidth: baseWidth,    //基准宽度
                 num: 1,                  //当前在第几个
@@ -56,109 +56,86 @@
         computed: {
             //列表的宽度
             listWidth: function () {
-                return this.list.length * this.baseWidth
+                return this.useList.length * this.baseWidth
             },
             //x偏移
             displaceX: function () {
                 return this.moving ? this.movingX : -(this.baseWidth * this.num);
-            }
-        },
-        watch: {
-            //数据很有可能是异步拿到的，所以需要监听list.length, 然后做初始化处理
-            "list.length" : function(){
-                if(this.dataReady){
-                    return;
-                }
-                if(this.list && this.list.length > 0){
-                    this.dataReady = true;
-                    //把最后一条数据复制到插入到最前面，然后默认从新的list的第二条显示
-                    this.list.unshift(this.list[this.list.length - 1]);
-                    //处理空的href
-                    //第一条和第二条数据默认显示,根据init标志异步加载图片
-                    this.list.forEach((obj, index)=> {
-                        if (obj.link == "") {
-                            obj.link = "javascript:void 0"
-                        }
+            },
+            useList: function(){
+                var len = this.list.length;
+                var arr = this.list.slice(0);
+                arr.unshift(arr[len - 1]);
+                arr.forEach((obj, index)=> {
+                    if (obj.link == "") {
+                        obj.link = "javascript:void 0"
+                    }
+                    if(obj.init === undefined){
                         if(index == 0 || index == 1){
-                            obj.init = true;
+                            Vue.set(obj, "init", true)
                         }else{
-                            obj.init = false;
+                            Vue.set(obj, "init", false)
                         }
-                        this.list.$set(index, Object.assign(obj, {
-                            init : true
-                        }));            
-                    });
-                }
+                    }
+                });
+                this.$nextTick(function () {
+                    if(this.timerId){
+                        clearTimeout(this.timerId);
+                        this.timerId = null;
+                    }
+                    if(len > 1){
+                        this.timerId = this.createTimer();
+                    }
+                })
+                return arr
             }
         },
-        created(){
-            console.log("created");
+        ready: function() {
+            console.log("ready");
         },
-        beforeCompile(){
-            console.log("beforeCompile");
-        },
-        compiled(){
-            console.log("compiled");
-        },
-        ready () {
-            console.log("ready")
-            //创建自动滚动
-            this.timerId = this.createTimer();
-        },
-        destroyed(){
+        destroyed: function(){
             if(this.timerId){
                 clearTimeout(this.timerId);
+                this.timerId = null;
             }
         },
         methods: {
-            getStyle(){
+            getStyle:function(){
                 return {
                     "width" : this.listWidth + "px",
                 }
             },
-            createTimer(){
+            createTimer: function(){
                 return setTimeout(()=> {
-                    if(this.list && this.list.length > 0){
+                    if(this.useList && this.useList.length > 0){
                         //如果当前处于最后一个，需要自动滚动到第一个，过渡效果需要特殊处理
-                        if (this.num == (this.list.length - 1)) {
+                        if (this.num == (this.useList.length - 1)) {
                             //禁止过渡效果，把位置移动到0，然后再打开过渡效果，设置位置从0=》1
                             this.animate = false;
                             this.num = 0;
-                            var _this = this;
-                            Vue.nextTick(function () {
+                            this.$nextTick(function () {
                                 setTimeout(()=> {
-                                    _this.animate = true;
-                                    _this.num = 1;
-                                    _this.createTimer()
+                                    this.animate = true;
+                                    this.num = 1;
+                                    this.timerId = this.createTimer()
                                 }, 100)
                             })
                         } else {
                             this.num += 1;
-                            if (!this.list[this.num].init) {
-                                //改变列表中的值，又想刷新dom就要用$set
-                                this.list.$set(this.num, Object.assign(this.list[this.num], {
-                                    init : true
-                                }));
+                            if (!this.useList[this.num].init) {
+                                this.useList[this.num].init = true
                             }
-                            this.createTimer()
+                            this.timerId = this.createTimer()
                         }
                     }else{
-                        this.createTimer()
+                        this.timerId = this.createTimer()
                     }
                 }, this.time);
             },
-            // clearTouch(){
-            //     this.touchStartX = 0;
-            //     this.touchStartY = 0;
-            //     this.ending = true;
-            //     setTimeout(()=> {
-            //         this.ending = false;
-            //     }, 300);
-            // },
-            touchstart(e){
-                console.log("touchstart")        
+            touchstart: function(e){
+                console.log("touchstart")
             },
-            touchmove(e){
+            touchmove: function(e){
                 //如果没有touch
                 if (!e.touches.length) return;
 
@@ -166,7 +143,8 @@
                 if (this.touchStartX == 0) {
                     this.touchStartX = touch.pageX;
                     this.touchStartY = touch.pageY;
-                    clearTimeout(this.timerId);  
+                    clearTimeout(this.timerId);
+                    this.timerId = null;
                     return;
                 } else {
                     this.x = touch.pageX - this.touchStartX;
@@ -175,14 +153,14 @@
 
                 //这里是为了手指一定是横向滚动的,原理是计算X位置的偏移要比Y的偏移大
                 if (Math.abs(this.x) > Math.abs(this.y)) {
-                    if(!(this.num == 1 && this.x > 0) && !(this.num + 1 > this.list.length - 1 && this.x < 0)){
+                    if(!(this.num == 1 && this.x > 0) && !(this.num + 1 > this.useList.length - 1 && this.x < 0)){
                         this.animate = false;
                         this.moving = true;
                         this.movingX = -(this.baseWidth * this.num) + this.x;
                     }
                 }
             },
-            touchend(e){
+            touchend: function(e){
                 console.log("touchend")
                 this.animate = true;
                 this.moving = false;
@@ -190,34 +168,27 @@
                 if (Math.abs(this.x) > this.baseWidth/3) {
                     //向右滑动
                     if (this.x > 0) {
-                        if (this.num - 1 == 0) { //正处于第一个，所以不能向右滑动了
-                            this.timerId = this.createTimer();
-                        } else {
+                        if (this.num > 0) { //正处于第一个，所以不能向右滑动了
                             this.num -= 1;
                         }
                     }
                     //向左滑动
                     else if (this.x < 0) {
-                        if (this.num + 1 > this.list.length - 1) {
-                            this.timerId = this.createTimer();
-                        } else {
+                        if (this.num + 1 < this.useList.length) {
                             this.num += 1;
-                            if (!this.list[this.num].show) {
-                                this.list.$set(this.num, Object.assign(this.list[this.num], {
-                                    init : true
-                                }));
+                            if (!this.useList[this.num].init) {
+                                this.useList[this.num].init = true
                             }
                         }
                     }
-                }else{
-                    this.timerId = this.createTimer();
                 }
+                this.timerId = this.createTimer();
                 this.touchStartX = 0;
                 this.touchStartY = 0;
                 this.x = 0;
                 this.y = 0;
             },
-            animateend(e){
+            animateend: function(e){
                 //动画完了干啥呢
             }
         }

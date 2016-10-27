@@ -1,6 +1,6 @@
 <template>
    <banner :list="list" :time="time"></banner>
-</template>     
+</template>
 <script type="text/ecmascript-6">
     import banner from "../../components/mobile/banner/banner";
     export default {
@@ -9,8 +9,11 @@
         },
         data: function () {
             return {
-                time : 5000,
-                list : []
+                time : 3000,
+                list : [{
+                    imgUrl : "http://static.fangdd.com/activityh5/img/web32002.jpg",
+                    link : ""
+                }]
             }
         },
         ready: function () {
@@ -23,7 +26,7 @@
                     imgUrl : "http://static.fangdd.com/activityh5/img/xfbanner2016013101.png",
                         link : ""
                 })
-            }, 300)
+            }, 1000)
         },
         methods: {
         }
