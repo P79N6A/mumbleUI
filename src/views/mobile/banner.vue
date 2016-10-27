@@ -2,7 +2,7 @@
    <banner :list="list" :time="time"></banner>
 </template>
 <script type="text/ecmascript-6">
-    import banner from "../../components/mobile/banner/banner";
+    import banner from "../../components/common/banner/banner";
     export default {
         components: {
            banner: banner

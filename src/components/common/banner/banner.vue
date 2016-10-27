@@ -12,7 +12,7 @@
             </li>
         </ul>
         <ul class="ui-banner-dot" v-if="useList.length > 2">
-            <li class="item" v-for="a in useList.length-1" :class="{ 'cur': (num==$index+1) }"></li>
+            <li class="item" v-for="a in useList.length-1" @click="go(a)" :class="{ 'cur': (num==$index+1) }"></li>
         </ul>
     </div>
 </template>
@@ -190,6 +190,15 @@
             },
             animateend: function(e){
                 //动画完了干啥呢
+            },
+            go: function (num) {
+                clearTimeout(this.timerId);
+                this.timerId = null;
+                this.num  = num + 1;
+                if (!this.useList[this.num].init) {
+                    this.useList[this.num].init = true
+                }
+                this.timerId = this.createTimer();
             }
         }
     }
