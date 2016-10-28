@@ -16,7 +16,6 @@
         </ul>
     </div>
 </template>
-
 <script type="text/ecmascript-6">
     import Vue from 'vue';
     import displace from './displace';

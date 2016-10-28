@@ -9,17 +9,22 @@ export function configRouter(router){
             component: require('./views/pc/table')
         },
         '/pc/modal':{
-            title: 'PC-table组件',     //标题
+            title: 'PC-modal组件',     //标题
             component: require('./views/pc/modal')
         },
         '/pc/quill':{
             title: 'PC-富文本',     //标题
             component: require('./views/pc/quill')
         },
-        '/mobile/banner':{
-            title: 'h5-banner组件',     //标题
-            component: require('./views/mobile/banner')
+        '/pc/toast':{
+            title: 'toast组件',     //标题
+            component: require('./views/pc/toast')
         },
+        '/common/banner':{
+            title: 'banner组件',     //标题
+            component: require('./views/common/banner')
+        },
+
 
 
         //// not found handler
