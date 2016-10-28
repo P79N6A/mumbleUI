@@ -31,7 +31,7 @@ export function getClass(el) {
  * @return {String}
  * @returns {boolean}
  */
-export function hasClass (el, name) {
+export function hasClass(el, name) {
     if (!el) return;
     var className = getClass(el);
     var classes = className.split(" ");
@@ -47,7 +47,7 @@ export function hasClass (el, name) {
  * @param {Element} el
  * @param {String} cls
  */
-export function setClass (el, cls) {
+export function setClass(el, cls) {
     /* istanbul ignore if */
     if (isIE9 && !/svg$/.test(el.namespaceURI)) {
         el.className = cls
@@ -63,7 +63,7 @@ export function setClass (el, cls) {
  * @param {String} cls
  */
 
-export function addClass (el, cls) {
+export function addClass(el, cls) {
     if (el.classList) {
         el.classList.add(cls)
     } else {
@@ -81,7 +81,7 @@ export function addClass (el, cls) {
  * @param {String} cls
  */
 
-export function removeClass (el, cls) {
+export function removeClass(el, cls) {
     if (el.classList) {
         el.classList.remove(cls)
     } else {
@@ -104,8 +104,21 @@ export function removeClass (el, cls) {
  * @param {Element} b
  * @returns {boolean}
  */
-export function contains( a, b ) {
+export function contains(a, b) {
     var adown = a.nodeType === 9 ? a.documentElement : a,
         bup = b && b.parentNode;
-    return a === bup || !!( bup && bup.nodeType === 1 && adown.contains( bup ) );
+    return a === bup || !!( bup && bup.nodeType === 1 && adown.contains(bup) );
+}
+
+export function merge() {
+    var base = arguments[0];
+    if(!base) return;
+    [].forEach.call(arguments, function (item, index) {
+        if (index > 0) {
+            for (var attrname in item) {
+                base[attrname] = item[attrname];
+            }
+        }
+    });
+    return base;
 }
