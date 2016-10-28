@@ -20,9 +20,9 @@
 
 <script>
     import Vue from "vue"
-    import Table from './../../components/pc/data-table/BaseTable'
-    import Column from './../../components/pc/data-table/Column'
-    import SortTable from './../../components/pc/data-table/SortTable'
+    import Table from '../../components/pc/dataTable/BaseTable'
+    import Column from '../../components/pc/dataTable/Column'
+    import SortTable from '../../components/pc/dataTable/SortTable'
     export default {
         components: {
             mytable: Table,

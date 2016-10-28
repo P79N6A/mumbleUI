@@ -122,3 +122,15 @@ export function merge() {
     });
     return base;
 }
+
+export function isNumber(value) {return typeof value === 'number';}
+
+export function isDate(value) {
+    return toString.call(value) === '[object Date]';
+}
+
+export function isFunction(value) {return typeof value === 'function';}
+
+export function isObject(value) {
+    return value !== null && typeof value === 'object';
+}
