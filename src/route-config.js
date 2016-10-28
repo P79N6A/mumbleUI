@@ -20,10 +20,19 @@ export function configRouter(router){
             title: 'toast组件',     //标题
             component: require('./views/pc/toast')
         },
+        '/pc/message':{
+            title: 'message组件',     //标题
+            component: require('./views/pc/message')
+        },
+        '/pc/tree':{
+            title: 'tree组件',     //标题
+            component: require('./views/pc/tree')
+        },
         '/common/banner':{
             title: 'banner组件',     //标题
             component: require('./views/common/banner')
         },
+
 
 
 
