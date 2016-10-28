@@ -48,7 +48,8 @@
         background: url("./open.png") no-repeat;
         background-size: 14px 14px;
     }
-    .name:hover{
+    .name:hover,
+    .name.selected{
         background-color: #aaddff;
         font-weight: bold;
         padding: 1px 5px;
