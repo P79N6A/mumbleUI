@@ -1,5 +1,5 @@
 <template>
-    <div class="flatpickr-calendar arrowTop open" :class="{inline: inline, hasTime: enableTime}">
+    <div class="flatpickr-calendar arrowTop open" :class="{inline: inline, hasTime: enableTime}" :style="styleObject">
         <div class="flatpickr-month">
         <span class="flatpickr-prev-month" @click="lastMonth">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -95,6 +95,7 @@
 
     export default {
         props: {
+            styleObject: Object,
             inline:  {                      //是否是占用空间的显示方式
                 type: Boolean,
                 default: true
@@ -140,6 +141,7 @@
             value: [Array, Number]
         },
         data: function () {
+            console.log(this.styleObject)
             var today = parseDay(new Date());
             return {
                 weeks: weeks,

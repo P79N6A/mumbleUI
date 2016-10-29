@@ -17,17 +17,27 @@
         </h2>
         <date-picker model="range" @update="change3"></date-picker>
     </div>
+    <div style="height:900px; width: 700px">
+        <input type="text" v-date="config" />
+    </div>
 </template>
 <script>
-    import datePicker from "../../components/pc/datePicker/datePicker";
+    import datePicker from "../../components/pc/datePicker/datePicker.vue";
+    import date from "../../components/pc/datePicker/datePicker.js";
     export default{
         data(){
             return{
                 today: new Date().getTime(),
                 value1: null,
                 value2: null,
-                value3: null
+                value3: null,
+                config: {
+                    a: true
+                }
             }
+        },
+        directives: {
+            date: date
         },
         components:{
             datePicker
