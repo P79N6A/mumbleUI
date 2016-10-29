@@ -1,5 +1,5 @@
 <template>
-    <div class="flatpickr-calendar arrowTop open" :class="{inline: inline, hasTime: this.enableTime}">
+    <div class="flatpickr-calendar arrowTop open" :class="{inline: inline, hasTime: enableTime}">
         <div class="flatpickr-month">
         <span class="flatpickr-prev-month" @click="lastMonth">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -10,7 +10,7 @@
         </span>
         <span class="flatpickr-current-month">
             <span class="cur-month" v-text="months[current.month]"></span>
-            <input class="cur-year" type="number" title="Scroll to increment" v-model="current.year">
+            <input class="cur-year" type="number" title="Scroll to increment" v-model="current.year" @input="changeYear | debounce 1000">
         </span>
         <span class="flatpickr-next-month" @click="nextMonth">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -41,14 +41,14 @@
             </span>
             </div>
         </div>
-        <div class="flatpickr-time" tabindex="-1" v-if="this.enableTime" :class="{'has-seconds': enableSeconds}">
-            <input class="flatpickr-hour" tabindex="0" type="number" :step="hourIncrement" min="0" max="24"
+        <div class="flatpickr-time" tabindex="-1" v-if="enableTime" :class="{'has-seconds': enableSeconds}">
+            <input class="flatpickr-hour" tabindex="0" type="number" :step="hourIncrement" min="0" max="24" @input="changeTime | debounce 300"
                    title="滚动选择" v-model="current.hour"/>
             <span class="flatpickr-time-separator">:</span>
-            <input class="flatpickr-minute" tabindex="0" type="number" :step="minuteIncrement" min="0" max="60"
+            <input class="flatpickr-minute" tabindex="0" type="number" :step="minuteIncrement" min="0" max="60" @input="changeTime | debounce 300"
                    title="滚动选择" v-model="current.minute"/>
             <span class="flatpickr-time-separator" v-if="enableSeconds">:</span>
-            <input class="flatpickr-second" type="number" :step="secondIncrement" min="0" max="60" title="滑动选择"
+            <input class="flatpickr-second" type="number" :step="secondIncrement" min="0" max="60" title="滑动选择" @input="changeTime | debounce 300"
                    v-if="enableSeconds" v-model="current.second"/>
         </div>
     </div>
@@ -125,9 +125,19 @@
             },
             maxDate: Date,              //最大可选择日期
             minDate: Date,              //最小可选择日期
-            disable: Array,             //禁用的时间
-            enable: Array,              //允许的时间
-            value: [Array, Numer]
+            disable: {                  //禁用的时间
+                type: Array,
+                default: function () {
+                    return []
+                }
+            } ,
+            enable: {                   //允许的时间
+                type: Array,
+                default: function () {
+                    return []
+                }
+            } ,
+            value: [Array, Number]
         },
         data: function () {
             var today = parseDay(new Date());
@@ -144,14 +154,11 @@
                 },
                 selectedDays: [],
                 days: [],
+                preChooseDate: null,
             }
         },
-        watch: {
-            "current.hour": this.changeTime,
-            "current.minute": this.changeTime,
-            "current.second": this.changeTime
-        },
         created: function () {
+            console.log("created")
             //解析当前时间
             //初始化input的value值
             if (this.value) {
@@ -201,6 +208,7 @@
                     this.secondElem.addEventListener("wheel", this.wheelSeconds, false)
                 }
             }
+            this.getDays();
         },
         destroy: function () {
             if (this.enableTime) {
@@ -214,12 +222,12 @@
         methods: {
             setInputValue: function () {
                 if (this.value) {
+                    var str = "";
                     if (this.model == "single") {
-                        this.$dispatch("datePicker.time", dateToString(parseDay(this.value), this.enableTime, this.enableSeconds))
+                        str += dateToString(parseDay(this.value), this.enableTime, this.enableSeconds);
                     }
                     if (this.model == "multiple") {
-                        var str = "";
-                        if (Aarry.isArray(this.value)) {
+                        if (Array.isArray(this.value)) {
                             var len = this.value.length;
                             for (var i = 0; i < len; i++) {
                                 if (i == len - 1) {
@@ -229,120 +237,19 @@
                                 }
                             }
                         }
-                        this.$dispatch("datePicker.time", str)
                     }
                     if (this.model == "range") {
                         var _arr = this.value.slice(0).sort(function (a, b) {
                             return a > b
                         });
-                        var str = dateToString(parseDay(_arr[0]), this.enableTime, this.enableSeconds) + " 至 " +
+                        str += dateToString(parseDay(_arr[0]), this.enableTime, this.enableSeconds) + " 至 " +
                             dateToString(parseDay(_arr[_arr.length - 1]), this.enableTime, this.enableSeconds)
-                        this.$dispatch("datePicker.time", str)
                     }
-                }
-            },
-            isSelected: function (date) {
-                if (this.model == "single" || this.model == "multiple" || this.model == "range") {
-                    var len = this.selectedDays.length;
-                    var index = -1;
-                    for (var i = 0; i < len; i++) {
-                        var item = this.selectedDays[i];
-                        if (item.year == date.year && item.month == date.month && item.date == date.date) {
-                            index = i;
-                        }
-                    }
-                    return index + 1
-                }
-            },
-            isInRange: function (date) {
-                if (this.model == "range") {
-                    if (this.selectedDays.length == 1 && this.preChooseDate) {
-                        var arr = [this.selectedDays[0], this.preChooseDate].sort(function (a, b) {
-                            return a.me.getTime() > b.me.getTime()
-                        });
-                        if (date.me.getTime() > arr[0].me.getTime() && date.me.getTime() < arr[1].me.getTime()) {
-                            return true
-                        }
-                    }
-                    var _arr = this.selectedDays.slice(0).sort(function (a, b) {
-                        return a.me.getTime() > b.me.getTime()
+                    this.$dispatch("update", {
+                        value : this.value,
+                        text : str
                     });
-                    if (_arr.length > 0 && date.me.getTime() > _arr[0].me.getTime() && date.me.getTime() < _arr[_arr.length - 1].me.getTime()) {
-                        return true
-                    }
                 }
-            },
-            preChoose: function (date, $event) {
-                if (this.model == "range") {
-                    this.preChooseDate = date
-                }
-                return false
-            },
-            choose: function (date, $event) {
-                if (date.disabled) {
-                    return false
-                }
-                if (date.month != this.current.month || date.year != this.current.year) {
-                    this.current.month = date.month;
-                    this.current.year = date.year;
-                    this.getDays();
-                    //因为采用的是track by index，切换月份时点击的那个target其实没变，只是值变了
-                    $event.target.blur();
-                }
-                if (this.model == "multiple") {
-                    var index = this.isSelected(date);
-                    if (index) {
-                        this.selectedDays.splice(index - 1, 1);
-                        this.value.splice(index - 1, 1)
-                    } else {
-                        this.selectedDays.push(date);
-                        var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        if (!this.value) {
-                            this.value = [];
-                        }
-                        this.value.push(thatDate.getTime())
-                    }
-                }
-                else if (this.model == "single") {
-                    this.selectedDays = [];
-                    this.selectedDays.push(date);
-                    var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                    this.value = thatDate.getTime();
-                }
-                else if (this.model == "range") {
-                    if (!this.value) {
-                        this.value = [];
-                    }
-                    if (this.selectedDays.length < 2) {
-                        this.selectedDays.push(date);
-                    } else {
-                        this.selectedDays = [];
-                        this.value = [];
-                        this.selectedDays.push(date);
-                    }
-                    var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                    this.value.push(thatDate.getTime())
-                }
-                this.setInputValue();
-                return false
-            },
-            lastMonth: function () {
-                if (this.current.month > 0) {
-                    this.current.month -= 1;
-                } else {
-                    this.current.year -= 1;
-                    this.current.month = 11;
-                }
-                this.getDays();
-            },
-            nextMonth: function () {
-                if (this.current.month < 11) {
-                    this.current.month += 1;
-                } else {
-                    this.current.year += 1;
-                    this.current.month = 0;
-                }
-                this.getDays();
             },
             getDays: function () {
                 var firstDay = parseDay(new Date(this.current.year, this.current.month, 1));
@@ -418,6 +325,78 @@
                     return true
                 }
             },
+            preChoose: function (date, $event) {
+                if (this.model == "range") {
+                    this.preChooseDate = date
+                }
+                return false
+            },
+            choose: function (date, $event) {
+                if (date.disabled) {
+                    return false
+                }
+                if (date.month != this.current.month || date.year != this.current.year) {
+                    this.current.month = date.month;
+                    this.current.year = date.year;
+                    this.getDays();
+                    //因为采用的是track by index，切换月份时点击的那个target其实没变，只是值变了
+                    $event.target.blur();
+                }
+                if (this.model == "multiple") {
+                    var index = this.isSelected(date);
+                    if (index) {
+                        this.selectedDays.splice(index - 1, 1);
+                        this.value.splice(index - 1, 1)
+                    } else {
+                        this.selectedDays.push(date);
+                        var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
+                        if (!this.value) {
+                            this.value = [];
+                        }
+                        this.value.push(thatDate.getTime())
+                    }
+                }
+                else if (this.model == "single") {
+                    this.selectedDays = [];
+                    this.selectedDays.push(date);
+                    var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
+                    this.value = thatDate.getTime();
+                }
+                else if (this.model == "range") {
+                    if (!this.value) {
+                        this.value = [];
+                    }
+                    if (this.selectedDays.length < 2) {
+                        this.selectedDays.push(date);
+                    } else {
+                        this.selectedDays = [];
+                        this.value = [];
+                        this.selectedDays.push(date);
+                    }
+                    var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
+                    this.value.push(thatDate.getTime())
+                }
+                this.setInputValue();
+                return false
+            },
+            lastMonth: function () {
+                if (this.current.month > 0) {
+                    this.current.month -= 1;
+                } else {
+                    this.current.year -= 1;
+                    this.current.month = 11;
+                }
+                this.getDays();
+            },
+            nextMonth: function () {
+                if (this.current.month < 11) {
+                    this.current.month += 1;
+                } else {
+                    this.current.year += 1;
+                    this.current.month = 0;
+                }
+                this.getDays();
+            },
             wheelHour: function (e) {
                 var min = parseInt(e.target.min, 10),
                     max = parseInt(e.target.max, 10),
@@ -471,7 +450,41 @@
                     }
                 }
                 this.setInputValue();
-            }
+            },
+            changeYear: function () {
+                this.getDays();
+            },
+            isSelected: function (date) {
+                if (this.model == "single" || this.model == "multiple" || this.model == "range") {
+                    var len = this.selectedDays.length;
+                    var index = -1;
+                    for (var i = 0; i < len; i++) {
+                        var item = this.selectedDays[i];
+                        if (item.year == date.year && item.month == date.month && item.date == date.date) {
+                            index = i;
+                        }
+                    }
+                    return index + 1
+                }
+            },
+            isInRange: function (date) {
+                if (this.model == "range") {
+                    if (this.selectedDays.length == 1 && this.preChooseDate) {
+                        var arr = [this.selectedDays[0], this.preChooseDate].sort(function (a, b) {
+                            return a.me.getTime() > b.me.getTime()
+                        });
+                        if (date.me.getTime() > arr[0].me.getTime() && date.me.getTime() < arr[1].me.getTime()) {
+                            return true
+                        }
+                    }
+                    var _arr = this.selectedDays.slice(0).sort(function (a, b) {
+                        return a.me.getTime() > b.me.getTime()
+                    });
+                    if (_arr.length > 0 && date.me.getTime() > _arr[0].me.getTime() && date.me.getTime() < _arr[_arr.length - 1].me.getTime()) {
+                        return true
+                    }
+                }
+            },
         }
     }
 </script>

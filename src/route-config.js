@@ -12,10 +12,6 @@ export function configRouter(router){
             title: 'PC-modal组件',     //标题
             component: require('./views/pc/modal')
         },
-        '/pc/quill':{
-            title: 'PC-富文本',     //标题
-            component: require('./views/pc/quill')
-        },
         '/pc/toast':{
             title: 'toast组件',     //标题
             component: require('./views/pc/toast')
@@ -27,6 +23,10 @@ export function configRouter(router){
         '/pc/tree':{
             title: 'tree组件',     //标题
             component: require('./views/pc/tree')
+        },
+        '/pc/datePicker':{
+            title: 'datePicker组件',     //标题
+            component: require('./views/pc/datePicker')
         },
         '/common/banner':{
             title: 'banner组件',     //标题
