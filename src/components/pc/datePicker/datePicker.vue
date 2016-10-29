@@ -141,7 +141,6 @@
             value: [Array, Number]
         },
         data: function () {
-            console.log(this.styleObject)
             var today = parseDay(new Date());
             return {
                 weeks: weeks,
@@ -160,7 +159,6 @@
             }
         },
         created: function () {
-            console.log("created")
             //解析当前时间
             //初始化input的value值
             if (this.value) {

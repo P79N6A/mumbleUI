@@ -17,11 +17,12 @@
         </h2>
         <date-picker model="range" @update="change3"></date-picker>
     </div>
-    <div style="height:900px; width: 700px">
+    <div style="height:900px; width: 700px; position: absolute; left:300px">
+        {{ config | json }}
         <input type="text" v-date="config" />
     </div>
 </template>
-<script>
+    <script>
     import datePicker from "../../components/pc/datePicker/datePicker.vue";
     import date from "../../components/pc/datePicker/datePicker.js";
     export default{
@@ -32,7 +33,7 @@
                 value2: null,
                 value3: null,
                 config: {
-                    a: true
+//                    value: new Date().getTime()
                 }
             }
         },
@@ -44,15 +45,12 @@
         },
         methods: {
             change1(data){
-                console.log(data)
                 this.value1 = data
             },
             change2(data){
-                console.log(data)
                 this.value2 = data
             },
             change3(data){
-                console.log(data)
                 this.value3 = data
             }
         }
