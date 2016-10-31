@@ -123,6 +123,21 @@ export function merge() {
     return base;
 }
 
+export function extend() {
+    var base = arguments[0];
+    if(!base) return;
+    [].forEach.call(arguments, function (item, index) {
+        if (index > 0) {
+            for (var attrname in item) {
+                if(base[attrname] !== undefined){
+                    base[attrname] = item[attrname];
+                }
+            }
+        }
+    });
+    return base;
+}
+
 export function isNumber(value) {return typeof value === 'number';}
 
 export function isDate(value) {

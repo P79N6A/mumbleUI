@@ -8,11 +8,12 @@
                 <path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path>
             </svg>
         </span>
-        <span class="flatpickr-current-month">
+            <span class="flatpickr-current-month">
             <span class="cur-month" v-text="months[current.month]"></span>
-            <input class="cur-year" type="number" title="Scroll to increment" v-model="current.year" @input="changeYear | debounce 1000">
+            <input class="cur-year" type="number" title="Scroll to increment" v-model="current.year"
+                   @input="changeYear | debounce 300">
         </span>
-        <span class="flatpickr-next-month" @click="nextMonth">
+            <span class="flatpickr-next-month" @click="nextMonth">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                  viewBox="0 0 17 17">
                 <g></g>
@@ -42,13 +43,16 @@
             </div>
         </div>
         <div class="flatpickr-time" tabindex="-1" v-if="enableTime" :class="{'has-seconds': enableSeconds}">
-            <input class="flatpickr-hour" tabindex="0" type="number" :step="hourIncrement" min="0" max="24" @input="changeTime | debounce 300"
+            <input class="flatpickr-hour" tabindex="0" type="number" :step="hourIncrement" min="0" max="24"
+                   @input="changeTime | debounce 300"
                    title="滚动选择" v-model="current.hour"/>
             <span class="flatpickr-time-separator">:</span>
-            <input class="flatpickr-minute" tabindex="0" type="number" :step="minuteIncrement" min="0" max="60" @input="changeTime | debounce 300"
+            <input class="flatpickr-minute" tabindex="0" type="number" :step="minuteIncrement" min="0" max="60"
+                   @input="changeTime | debounce 300"
                    title="滚动选择" v-model="current.minute"/>
             <span class="flatpickr-time-separator" v-if="enableSeconds">:</span>
-            <input class="flatpickr-second" type="number" :step="secondIncrement" min="0" max="60" title="滑动选择" @input="changeTime | debounce 300"
+            <input class="flatpickr-second" type="number" :step="secondIncrement" min="0" max="60" title="滑动选择"
+                   @input="changeTime | debounce 300"
                    v-if="enableSeconds" v-model="current.second"/>
         </div>
     </div>
@@ -96,7 +100,7 @@
     export default {
         props: {
             styleObject: Object,
-            inline:  {                      //是否是占用空间的显示方式
+            inline: {                      //是否是占用空间的显示方式
                 type: Boolean,
                 default: true
             },
@@ -131,14 +135,15 @@
                 default: function () {
                     return []
                 }
-            } ,
+            },
             enable: {                   //允许的时间
                 type: Array,
                 default: function () {
                     return []
                 }
-            } ,
-            value: [Array, Number]
+            },
+            value: [Array, Number],
+            result: [Array, Number]
         },
         data: function () {
             var today = parseDay(new Date());
@@ -158,13 +163,12 @@
                 preChooseDate: null,
             }
         },
-        created: function () {
-            //解析当前时间
-            //初始化input的value值
+        ready: function () {
             if (this.value) {
+                this.result = this.value;
                 if (this.model == "single") {
-                    if (util.isNumber(this.value)) {
-                        var _current = parseDay(this.value);
+                    if (util.isNumber(this.result)) {
+                        var _current = parseDay(this.result);
                         this.current.year = _current.year;
                         this.current.month = _current.month;
                         this.current.hour = _current.hour;
@@ -174,8 +178,8 @@
                     }
                 }
                 else if (this.model == "multiple" || this.model == "range") {
-                    if (Array.isArray(this.value)) {
-                        var _arr = this.value.slice(0).sort(function (a, b) {
+                    if (Array.isArray(this.result)) {
+                        var _arr = this.result.slice(0).sort(function (a, b) {
                             return a > b
                         });
                         var len = _arr.length;
@@ -196,8 +200,6 @@
                 }
                 this.setInputValue();
             }
-        },
-        ready: function () {
             if (this.enableTime) {
                 this.hourElem = this.$el.querySelector(".flatpickr-hour");
                 this.hourElem.addEventListener("wheel", this.wheelHour, false);
@@ -221,33 +223,33 @@
         },
         methods: {
             setInputValue: function () {
-                if (this.value) {
+                if (this.result) {
                     var str = "";
                     if (this.model == "single") {
-                        str += dateToString(parseDay(this.value), this.enableTime, this.enableSeconds);
+                        str += dateToString(parseDay(this.result), this.enableTime, this.enableSeconds);
                     }
                     if (this.model == "multiple") {
-                        if (Array.isArray(this.value)) {
-                            var len = this.value.length;
+                        if (Array.isArray(this.result)) {
+                            var len = this.result.length;
                             for (var i = 0; i < len; i++) {
                                 if (i == len - 1) {
-                                    str += dateToString(parseDay(this.value[i]), this.enableTime, this.enableSeconds)
+                                    str += dateToString(parseDay(this.result[i]), this.enableTime, this.enableSeconds)
                                 } else {
-                                    str += dateToString(parseDay(this.value[i]), this.enableTime, this.enableSeconds) + ";"
+                                    str += dateToString(parseDay(this.result[i]), this.enableTime, this.enableSeconds) + ";"
                                 }
                             }
                         }
                     }
                     if (this.model == "range") {
-                        var _arr = this.value.slice(0).sort(function (a, b) {
+                        var _arr = this.result.slice(0).sort(function (a, b) {
                             return a > b
                         });
                         str += dateToString(parseDay(_arr[0]), this.enableTime, this.enableSeconds) + " 至 " +
                             dateToString(parseDay(_arr[_arr.length - 1]), this.enableTime, this.enableSeconds)
                     }
                     this.$dispatch("update", {
-                        value : this.value,
-                        text : str
+                        value: this.result,
+                        text: str
                     });
                 }
             },
@@ -346,35 +348,35 @@
                     var index = this.isSelected(date);
                     if (index) {
                         this.selectedDays.splice(index - 1, 1);
-                        this.value.splice(index - 1, 1)
+                        this.result.splice(index - 1, 1)
                     } else {
                         this.selectedDays.push(date);
                         var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        if (!this.value) {
-                            this.value = [];
+                        if (!this.result) {
+                            this.result = [];
                         }
-                        this.value.push(thatDate.getTime())
+                        this.result.push(thatDate.getTime())
                     }
                 }
                 else if (this.model == "single") {
                     this.selectedDays = [];
                     this.selectedDays.push(date);
                     var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                    this.value = thatDate.getTime();
+                    this.result = thatDate.getTime();
                 }
                 else if (this.model == "range") {
-                    if (!this.value) {
-                        this.value = [];
+                    if (!this.result) {
+                        this.result = [];
                     }
                     if (this.selectedDays.length < 2) {
                         this.selectedDays.push(date);
                     } else {
                         this.selectedDays = [];
-                        this.value = [];
+                        this.result = [];
                         this.selectedDays.push(date);
                     }
                     var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                    this.value.push(thatDate.getTime())
+                    this.result.push(thatDate.getTime())
                 }
                 this.setInputValue();
                 return false
@@ -408,6 +410,12 @@
                 if (this.current.hour < min) {
                     this.current.hour = min
                 }
+                this.changeTime();
+                if (e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    e.returnValue = false;//IE
+                }
             },
             wheelMinute: function (e) {
                 var min = parseInt(e.target.min, 10),
@@ -420,8 +428,14 @@
                 if (this.current.minute < min) {
                     this.current.minute = min
                 }
+                this.changeTime();
+                if (e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    e.returnValue = false;//IE
+                }
             },
-            wheelSeconds: function () {
+            wheelSeconds: function (e) {
                 var min = parseInt(e.target.min, 10),
                     max = parseInt(e.target.max, 10),
                     step = parseInt(e.target.step, 10);
@@ -432,21 +446,27 @@
                 if (this.current.second < min) {
                     this.current.second = min
                 }
+                this.changeTime();
+                if (e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    e.returnValue = false;//IE
+                }
             },
             changeTime: function () {
                 if (this.model == "single") {
                     var date = this.selectedDays[0];
-                    if(date){
+                    if (date) {
                         var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        this.value = thatDate.getTime();
+                        this.result = thatDate.getTime();
                     }
                 }
                 if (this.model == "multiple" || this.model == "range") {
                     var lastIndex = this.selectedDays.length - 1;
                     var date = this.selectedDays[lastIndex];
-                    if(date){
+                    if (date) {
                         var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        this.value[lastIndex] = thatDate.getTime();
+                        this.result[lastIndex] = thatDate.getTime();
                     }
                 }
                 this.setInputValue();

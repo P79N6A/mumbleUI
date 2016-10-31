@@ -18,29 +18,30 @@
         <date-picker model="range" @update="change3"></date-picker>
     </div>
     <div style="height:900px; width: 700px; position: absolute; left:300px">
-        {{ config | json }}
-        <input type="text" v-date="config" />
+        {{ value | json }}
+        <input type="text" v-date="value" :date-picker-option="config"/>
     </div>
 </template>
-    <script>
+<script type="text/ecmascript-6">
     import datePicker from "../../components/pc/datePicker/datePicker.vue";
     import date from "../../components/pc/datePicker/datePicker.js";
     export default{
-        data(){
-            return{
+        data: function () {
+            return {
                 today: new Date().getTime(),
                 value1: null,
                 value2: null,
                 value3: null,
+                value: new Date().getTime(),
                 config: {
-//                    value: new Date().getTime()
+                    enableTime: true
                 }
             }
         },
         directives: {
-            date: date
+            date
         },
-        components:{
+        components: {
             datePicker
         },
         methods: {
