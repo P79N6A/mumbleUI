@@ -135,6 +135,10 @@
                 console.log("touchstart")
             },
             touchmove: function(e){
+                if(this.useList.length < 3){
+                    return
+                }
+
                 //如果没有touch
                 if (!e.touches.length) return;
 
@@ -160,6 +164,9 @@
                 }
             },
             touchend: function(e){
+                if(this.useList.length < 3){
+                    return
+                }
                 console.log("touchend")
                 this.animate = true;
                 this.moving = false;
