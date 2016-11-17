@@ -32,6 +32,14 @@ export function configRouter(router){
             title: 'loading组件',     //标题
             component: require('./views/pc/loading')
         },
+        '/pc/switch':{
+            title: 'switch组件',     //标题
+            component: require('./views/pc/switch')
+        },
+        '/pc/upload':{
+            title: 'switch组件',     //标题
+            component: require('./views/pc/upload')
+        },
         '/common/banner':{
             title: 'banner组件',     //标题
             component: require('./views/common/banner')

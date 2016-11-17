@@ -1,5 +1,5 @@
 <template>
-    <div class="loading" v-show="hide">
+    <div class="loading" v-show="show">
         <div class="loading-clip" :style="clipStyle"></div>
     </div>
 </template>

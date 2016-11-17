@@ -56,6 +56,13 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+app.all("/upload", function (req, res) {
+    res.send(JSON.stringify({
+        code : "0",
+        status: "SUCCESS"
+    }))
+});
+
 module.exports = app.listen(port, function (err) {
   if (err) {
     console.log(err)

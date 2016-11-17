@@ -1,17 +1,16 @@
 <template>
-    <loading :show="show" ></loading>
-    <button @click="show=!show">toggle</button>
+    <switch-ele :on.sync="on" ></switch-ele>  {{on}}
 </template>
 <script type="text/ecmascript-6">
-    import loading from "../../components/pc/loading/loading.vue";
+    import switchEle from "../../components/pc/switch/switch.vue";
     export default{
         data: function () {
             return {
-                show: true
+                on: true
             }
         },
         components: {
-            loading
+            switchEle
         },
         methods: {
         }
