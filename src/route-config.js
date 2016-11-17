@@ -28,6 +28,10 @@ export function configRouter(router){
             title: 'datePicker组件',     //标题
             component: require('./views/pc/datePicker')
         },
+        '/pc/loading':{
+            title: 'loading组件',     //标题
+            component: require('./views/pc/loading')
+        },
         '/common/banner':{
             title: 'banner组件',     //标题
             component: require('./views/common/banner')

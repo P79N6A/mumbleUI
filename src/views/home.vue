@@ -9,6 +9,7 @@
             <li> <a v-link="{ path:'/pc/modal'}">modal</a> </li>
             <li> <a v-link="{ path:'/pc/tree'}">tree</a> </li>
             <li> <a v-link="{ path:'/pc/datePicker'}">datePicker</a> </li>
+            <li> <a v-link="{ path:'/pc/loading'}">loading</a> </li>
         </ul>
         <h1>mobile组件</h1>
         <ul>
