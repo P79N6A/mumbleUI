@@ -33,7 +33,7 @@
     </div>
 </template>
 <script>
-    import table from './BaseTable'
+    import table from './baseTable'
     export default {
         extends: table,
 //        mixins: [table],
