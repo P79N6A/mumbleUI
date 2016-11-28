@@ -40,6 +40,10 @@ export function configRouter(router){
             title: 'switch组件',     //标题
             component: require('./views/pc/upload')
         },
+        '/pc/zoom':{
+            title: 'zoom组件',     //标题
+            component: require('./views/pc/zoom')
+        },
         '/common/banner':{
             title: 'banner组件',     //标题
             component: require('./views/common/banner')
