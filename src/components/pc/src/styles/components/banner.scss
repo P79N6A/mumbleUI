@@ -1,0 +1,77 @@
+@import "../common/index.scss";
+
+.animate {
+    transition: transform 300ms ease-in-out;
+    -webkit-transition: -webkit-transform 300ms ease-in-out;
+    -moz-transition: -webkit-transform 300ms ease-in-out;
+    -o-transition: -webkit-transform 300ms ease-in-out;
+}
+
+.ui-banner {
+    opacity : 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: pan-y;
+    -webkit-touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ui-banner-list {
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    .item {
+        height: 100%;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+    }
+}
+
+.ui-banner-dot {
+    position: absolute;
+    bottom: 1.6em;
+    width: 100%;
+    text-align: center;
+    .item {
+        margin: .4em .8em;
+        display: inline-block;
+        width: 1.4em;
+        height: 1.4em;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -o-border-radius: 100%;
+        border-radius: 100%;
+        background-color: rgba(255, 255, 255, .5);
+        &.cur {
+            background-color: rgba(255, 255, 255, 1);
+        }
+    }
+}

@@ -44,9 +44,9 @@ export function configRouter(router){
             title: 'zoom组件',     //标题
             component: require('./views/pc/zoom')
         },
-        '/common/banner':{
+        '/pc/banner':{
             title: 'banner组件',     //标题
-            component: require('./views/common/banner')
+            component: require('./views/pc/banner')
         },
 
 

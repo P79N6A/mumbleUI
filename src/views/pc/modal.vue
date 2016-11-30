@@ -11,9 +11,9 @@
             我是内容，我是内容
         </div>
     </modal>
-</template>     
+</template>
 <script type="text/ecmascript-6">
-    import modal from "../../components/pc/modal/modal";
+    import modal from "../../components/pc/src/components/modal/modal";
     export default {
         components: {
            modal: modal

@@ -4,7 +4,7 @@
     <button @click="click3">点我弹出成功的toast</button>
 </template>
 <script type="text/ecmascript-6">
-    import toast from "../../components/pc/toast/toast.js";
+    import toast from "../../components/pc/src/components/toast/toast.js";
     export default {
         ready: function () {
         },

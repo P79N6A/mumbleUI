@@ -147,24 +147,4 @@
         }
     }
 </script>
-<style lang="scss">
-    table {
-        width: 100%;
-        max-width: 100%;
-        border: 1px solid #d7d7d7;
-        border-spacing: 0;
-        border-collapse: collapse;
-    }
-
-    tr {
-        border-bottom: 1px solid #e4e4e4;
-    }
-
-    td, th {
-        padding: 10px 20px;
-    }
-
-    th {
-        background-color: #e8e8e8;
-    }
-</style>
+<!--<style src="../../styles/components/baseTable.scss" lang="scss"></style>-->

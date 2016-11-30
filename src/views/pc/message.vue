@@ -33,7 +33,7 @@
     </p>
 </template>
 <script type="text/ecmascript-6">
-    import message from "../../components/pc/message/message.js";
+    import message from "../../components/pc/src/components/message/message.js";
     export default {
         ready: function () {
         },

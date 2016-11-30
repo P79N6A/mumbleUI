@@ -23,8 +23,8 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import datePicker from "../../components/pc/datePicker/datePicker.vue";
-    import date from "../../components/pc/datePicker/datePicker.js";
+    import datePicker from "../../components/pc/src/components/datePicker/datePicker.vue";
+    import date from "../../components/pc/src/components/datePicker/datePicker.js";
     export default{
         data: function () {
             return {

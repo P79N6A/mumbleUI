@@ -1,0 +1,57 @@
+// Color
+$primary-color          : #3399ff;
+$info-color             : #2db7f5;
+$success-color          : #00cc66;
+$warning-color          : #ff9900;
+$error-color            : #ff5500;
+$link-color             : #3399ff;
+$link-hover-color       : lighten($link-color, 20%);
+$link-active-color      : darken($link-color, 5%);
+$selected-color         : rgba($primary-color, .9);
+$tooltip-color          : #fff;
+$subsidiary-color       : #9ea7b4;
+
+// Base
+$body-background        : #fff;
+$font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+$code-family            : Consolas,Menlo,Courier,monospace;
+$title-color            : #464c5b;
+$text-color             : #657180;
+$font-size-base         : 14px;
+$font-size-small        : 12px;
+$line-height-base       : 1.5;
+$line-height-computed   : floor(($font-size-base * $line-height-base));
+$border-radius-base     : 6px;
+$border-radius-small    : 4px;
+$cursor-disabled        : not-allowed;
+
+// Border color
+$border-color-base      : #d7dde4;  // outside
+$border-color-split     : #e3e8ee;  // inside
+
+
+// Background color
+$background-color-base        : #f7f7f7;  // base
+$background-color-select-hover: #f3f3f3;
+$tooltip-bg                   : rgba(70, 76, 91, .9);
+$head-bg                      : #f9fafc;
+$table-thead-bg               : #f5f7f9;
+$table-td-stripe-bg           : #f5f7f9;
+$table-td-hover-bg            : #ebf7ff;
+$table-td-highlight-bg        : #ebf7ff;
+
+// Z-index
+$zindex-spin            : 8;
+$zindex-affix           : 10;
+$zindex-back-top        : 10;
+$zindex-select          : 900;
+$zindex-modal           : 1000;
+$zindex-message         : 1010;
+$zindex-notification    : 1010;
+$zindex-tooltip         : 1060;
+$zindex-loading-bar     : 2000;
+
+// Animation
+$animation-time         : .3s;
+$transition-time        : .2s;
+$ease-in-out            : ease-in-out;

@@ -26,10 +26,10 @@
 
 <script>
     import Vue from "vue"
-    import Table from '../../components/pc/dataTable/baseTable'
-    import Column from '../../components/pc/dataTable/column'
-    import SortTable from '../../components/pc/dataTable/sortTable'
-    import treeTable from '../../components/pc/dataTable/treeTable.vue'
+    import Table from '../../components/pc/src/components/dataTable/baseTable'
+    import Column from '../../components/pc/src/components/dataTable/column'
+    import SortTable from '../../components/pc/src/components/dataTable/sortTable'
+    import treeTable from '../../components/pc/src/components/dataTable/treeTable.vue'
     export default {
         components: {
             mytable: Table,

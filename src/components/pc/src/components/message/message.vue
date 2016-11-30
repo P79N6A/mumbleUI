@@ -12,8 +12,6 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import * as util from "../../util.js";
-    import Vue from "vue";
     export default {
         props: {
             title: {

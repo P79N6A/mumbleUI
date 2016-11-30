@@ -2,7 +2,7 @@
    <banner :list="list" :time="time"></banner>
 </template>
 <script type="text/ecmascript-6">
-    import banner from "../../components/common/banner/banner";
+    import banner from "../../components/pc/src/components/banner/banner.vue";
     export default {
         components: {
            banner: banner
