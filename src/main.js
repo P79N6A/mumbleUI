@@ -12,6 +12,7 @@ Vue.config.debug = true;
 //====================== 安装插件===================
 // install router
 Vue.use(vueRouter);
+// install 组件库
 Vue.use(UiWebank);
 
 //======================配置路由=====================

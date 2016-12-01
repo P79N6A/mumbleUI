@@ -1,9 +1,5 @@
 <template>
-    <div class="ui-banner" @touchmove.stop="touchmove" @touchend.stop="touchend" @touchstart.stop="touchstart"
-         @transitionend="animateend"
-         @webkitTransitionEnd="animateend"
-         @oTransitionEnd="animateend"
-         @otransitionend="animateend">
+    <div class="ui-banner" @touchmove.stop="touchmove" @touchend.stop="touchend" @touchstart.stop="touchstart">
         <ul class="ui-banner-list" :class="{ 'animate': animate }" :style="getStyle()" v-displace="displaceX">
             <li class="item" v-for="item in useList" track-by="$index">
                 <a v-if="item.init" :href="item.link">
@@ -193,9 +189,6 @@
                 this.touchStartY = 0;
                 this.x = 0;
                 this.y = 0;
-            },
-            animateend: function(e){
-                //动画完了干啥呢
             },
             go: function (num) {
                 clearTimeout(this.timerId);
