@@ -18,7 +18,7 @@
 </template>
 <script type="text/ecmascript-6">
     import Vue from 'vue';
-    import displace from './displace';
+    import displace from '../../directives/displace';
     export default {
         directives : {
             displace : displace
@@ -209,4 +209,3 @@
         }
     }
 </script>
-<!--<style src="../../styles/components/banner.scss" lang="scss"></style>-->

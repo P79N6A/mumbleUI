@@ -37,4 +37,3 @@
         }
     }
 </script>
-<style src="./loading.scss" lang="scss"></style>

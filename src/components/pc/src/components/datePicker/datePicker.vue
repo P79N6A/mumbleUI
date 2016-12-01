@@ -508,4 +508,3 @@
         }
     }
 </script>
-<style src="./datePicker.scss" lang="scss"></style>

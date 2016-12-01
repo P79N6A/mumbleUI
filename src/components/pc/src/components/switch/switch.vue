@@ -22,4 +22,3 @@
         }
     }
 </script>
-<style src="./switch.scss" lang="scss"></style>

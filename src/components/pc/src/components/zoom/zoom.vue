@@ -6,7 +6,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
     export default {
         props: {
             src: {
@@ -66,4 +66,3 @@
         }
     }
 </script>
-<style src="./zoom.scss" lang="scss"></style>

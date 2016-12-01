@@ -6,11 +6,7 @@
     <tree :list="list2"></tree>
 </template>
 <script type="text/ecmascript-6">
-    import tree from "../../components/pc/src/components/tree/tree";
     export default {
-        components: {
-            tree: tree
-        },
         data: function () {
           return {
               list1:  [{

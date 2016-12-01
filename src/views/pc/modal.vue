@@ -13,11 +13,7 @@
     </modal>
 </template>
 <script type="text/ecmascript-6">
-    import modal from "../../components/pc/src/components/modal/modal";
     export default {
-        components: {
-           modal: modal
-        },
         data: function () {
             return {
                 isShow: false

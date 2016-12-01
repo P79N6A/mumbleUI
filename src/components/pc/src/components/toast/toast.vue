@@ -12,4 +12,3 @@
         }
     }
 </script>
-<style src="./toast.scss" lang="scss" scoped></style>

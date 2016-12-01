@@ -2,7 +2,7 @@
     <input type="file" :accept="accept" :multiple="multiple" class="upload-file" @change="change"/>
 </template>
 <script type="text/ecmascript-6">
-    import toast from "../toast/toast.js";
+    import toast from "../toast";
     export default {
         props: {
             api: {
@@ -65,8 +65,3 @@
         }
     }
 </script>
-<style lang="scss">
-    .upload-file {
-        display: none;
-    }
-</style>

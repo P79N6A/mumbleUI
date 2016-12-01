@@ -32,4 +32,3 @@
         }
     }
 </script>
-<style src="./message.scss" lang="scss"></style>

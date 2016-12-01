@@ -1,42 +1,32 @@
 <template>
     <h2>普通组件：</h2>
-    <mytable :data="data" @th-col-click="thColClick" @body-tr-click="trClick">
-        <column slot data-key="a" name="col-a" align="center" :add-class="addClass" width="130px"></column>
-        <column slot data-key="b" name="col-b" add-class="red" width="130px"></column>
-        <column slot data-key="c" name="col-c" filter="[{ key : 1,value : '星期一'},{ key : 2,value : '星期二'}]"></column>
-        <column slot data-key="d" name="col-d" :filter="filterFuncOne"></column>
-        <column slot data-key="d" name="col-e" :filter="filterFuncTwo"></column>
-        <column slot name="操作" align="center" width="230px" action="{text:'删除',func:'callback'}"></column>
-    </mytable>
+    <data-table :data="data" @th-col-click="thColClick" @body-tr-click="trClick">
+        <table-column slot data-key="a" name="col-a" align="center" :add-class="addClass" width="130px"></table-column>
+        <table-column slot data-key="b" name="col-b" add-class="red" width="130px"></table-column>
+        <table-column slot data-key="c" name="col-c" filter="[{ key : 1,value : '星期一'},{ key : 2,value : '星期二'}]"></table-column>
+        <table-column slot data-key="d" name="col-d" :filter="filterFuncOne"></table-column>
+        <table-column slot data-key="d" name="col-e" :filter="filterFuncTwo"></table-column>
+        <table-column slot name="操作" align="center" width="230px" action="{text:'删除',func:'callback'}"></table-column>
+    </data-table>
 
     <h2>带排序功能的组件：</h2>
     <sort-table :data="data" @th-col-click="thColClick" @body-tr-click="trClick">
-        <column slot data-key="a" name="col-a" align="center" width="130px"></column>
-        <column slot data-key="b" name="col-b" width="130px" sort="true"></column>
-        <column slot data-key="c" name="col-c" filter="[{ key : 1,value : '星期一'},{ key : 2,value : '星期二'}]"></column>
-        <column slot name="操作" align="center" width="230px" action="{text:'删除',func:'callback'}"></column>
+        <table-column slot data-key="a" name="col-a" align="center" width="130px"></table-column>
+        <table-column slot data-key="b" name="col-b" width="130px" sort="true"></table-column>
+        <table-column slot data-key="c" name="col-c" filter="[{ key : 1,value : '星期一'},{ key : 2,value : '星期二'}]"></table-column>
+        <table-column slot name="操作" align="center" width="230px" action="{text:'删除',func:'callback'}"></table-column>
     </sort-table>
 
     <h2>treeTable：</h2>
     <tree-table :data="treeDate" @th-col-click="thColClick" @body-tr-click="trClick">
-        <column slot data-key="sid" name="col-a" :add-class="addClass" width="400px"></column>
-        <column slot data-key="scenario_name" name="col-b" add-class="red" width="130px"></column>
+        <table-column slot data-key="sid" name="col-a" :add-class="addClass" width="400px"></table-column>
+        <table-column slot data-key="scenario_name" name="col-b" add-class="red" width="130px"></table-column>
     </tree-table>
 </template>
 
 <script>
     import Vue from "vue"
-    import Table from '../../components/pc/src/components/dataTable/baseTable'
-    import Column from '../../components/pc/src/components/dataTable/column'
-    import SortTable from '../../components/pc/src/components/dataTable/sortTable'
-    import treeTable from '../../components/pc/src/components/dataTable/treeTable.vue'
     export default {
-        components: {
-            mytable: Table,
-            column: Column,
-            sortTable: SortTable,
-            treeTable
-        },
         data: function () {
             return {
                 data: [{

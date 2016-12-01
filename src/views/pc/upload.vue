@@ -9,11 +9,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import upload from "../../components/pc/src/components/upload/upload.js";
     export default{
-        directives: {
-            upload
-        },
         data: function () {
             return {
                 files: null,

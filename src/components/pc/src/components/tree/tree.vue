@@ -4,7 +4,7 @@
     </ul>
 </template>
 <script type="text/ecmascript-6">
-    import defaultNode from "./defaultNode.vue";
+    import defaultNode from "./treeNode.vue";
     import Vue from 'vue'
     function recursion(node) {
         if (node.children && node.children.length > 0) {
@@ -72,4 +72,3 @@
         },
     }
 </script>
-<style src="./tree.scss" lang="scss"></style>

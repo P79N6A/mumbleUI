@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import vueRouter from 'vue-router'
+import UiWebank from './components/pc/index.js'
 import App from './App'
 
 //=====================加载路由配置=================
@@ -11,6 +12,7 @@ Vue.config.debug = true;
 //====================== 安装插件===================
 // install router
 Vue.use(vueRouter);
+Vue.use(UiWebank);
 
 //======================配置路由=====================
 const router = new vueRouter();

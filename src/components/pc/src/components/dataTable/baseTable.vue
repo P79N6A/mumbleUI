@@ -35,7 +35,7 @@
 <script>
     import Vue from 'vue'
     import _ from 'lodash/core';
-    import addComponent from './addComponent.js';
+    import addComponent from '../../directives/addComponent.js';
     export default {
         props: {
             data: Array
@@ -147,4 +147,3 @@
         }
     }
 </script>
-<!--<style src="../../styles/components/baseTable.scss" lang="scss"></style>-->

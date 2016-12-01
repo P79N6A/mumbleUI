@@ -108,4 +108,3 @@
         }
     }
 </script>
-<style src="./modal.scss" lang="scss"></style>

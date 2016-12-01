@@ -19,12 +19,10 @@
     </div>
     <div style="height:900px; width: 700px; position: absolute; left:300px">
         {{ value | json }}
-        <input type="text" v-date="value" :date-picker-option="config"/>
+        <input type="text" v-date-picker="value" :date-picker-option="config"/>
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import datePicker from "../../components/pc/src/components/datePicker/datePicker.vue";
-    import date from "../../components/pc/src/components/datePicker/datePicker.js";
     export default{
         data: function () {
             return {
@@ -37,12 +35,6 @@
                     enableTime: true
                 }
             }
-        },
-        directives: {
-            date
-        },
-        components: {
-            datePicker
         },
         methods: {
             change1(data){

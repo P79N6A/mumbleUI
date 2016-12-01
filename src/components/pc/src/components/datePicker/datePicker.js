@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/8/28.
  */
 import Vue from "vue";
-import datePicker from "./datePicker.vue";
+import datePicker from "./index";
 import * as util from "../../util.js";
 
 function create(parent, datePickerOption){

@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2016/8/28.
- */
 export  default {
     bind: function () {
         // 准备工作

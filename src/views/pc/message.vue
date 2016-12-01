@@ -33,33 +33,32 @@
     </p>
 </template>
 <script type="text/ecmascript-6">
-    import message from "../../components/pc/src/components/message/message.js";
     export default {
         ready: function () {
         },
         methods: {
             click1: function () {
-                message("我是提示").then(function (index) {
+                this.$Message("我是提示").then(function (index) {
                     console.log(index)
                 })
             },
             click2: function () {
-                message.alert("我是提示").then(function (index) {
+                this.$Message.alert("我是提示").then(function (index) {
                     console.log(index)
                 })
             },
             click3: function () {
-                message.confirm("我是提示").then(function (index) {
+                this.$Message.confirm("我是提示").then(function (index) {
                     console.log(index)
                 })
             },
             click4: function () {
-                message("标题", "我是提示").then(function (index) {
+                this.$Message("标题", "我是提示").then(function (index) {
                     console.log(index)
                 })
             },
             click5: function () {
-                message({
+                this.$Message({
                     title: '标题',              //可以传入文本和domString
                     template: '我是模版',        //可以传入文本和domString
                     buttons: [{                 //最多有两个, 第一条配置第一个button
