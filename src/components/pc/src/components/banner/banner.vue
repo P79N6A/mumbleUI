@@ -1,14 +1,14 @@
 <template>
     <div class="ui-banner" @touchmove.stop="touchmove" @touchend.stop="touchend" @touchstart.stop="touchstart">
-        <ul class="ui-banner-list" :class="{ 'animate': animate }" :style="getStyle()" v-displace="displaceX">
-            <li class="item" v-for="item in useList" track-by="$index">
+        <ul class="ui-banner-list" :class="{ 'ui-banner-animate': animate }" :style="getStyle()" v-displace="displaceX">
+            <li class="ui-banner-list-item" v-for="item in useList" track-by="$index">
                 <a v-if="item.init" :href="item.link">
                     <img :src="item.imgUrl">
                 </a>
             </li>
         </ul>
         <ul class="ui-banner-dot" v-if="useList.length > 2">
-            <li class="item" v-for="a in useList.length-1" @click="go(a)" :class="{ 'cur': (num==$index+1) }"></li>
+            <li class="ui-banner-dot-item" v-for="a in useList.length-1" @click="go(a)" :class="{ 'current': (num==$index+1) }"></li>
         </ul>
     </div>
 </template>

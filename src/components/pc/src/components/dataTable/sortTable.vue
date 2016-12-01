@@ -1,17 +1,25 @@
 <template>
-    <div>
+    <div class="ui-table">
         <table>
-            <thead>
+            <thead class="ui-table-thead">
             <tr>
                 <th v-for="col in rule"
                     :style="getStyle(col, $index)"
                     :class="getThClass(col, $index)"
                     @click="thColClick(col, $index, $event)">
                     {{col.name}}
+                    <div class="ui-table-column-sorter">
+                        <span class="ui-table-column-sorter-up off" title="↑">
+                            <i class="anticon anticon-caret-up "></i>
+                        </span>
+                        <span class="ui-table-column-sorter-down off" title="↓">
+                            <i class="anticon anticon-caret-down "></i>
+                        </span>
+                    </div>
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData | orderBy sortKey order" track-by="$index" class="row_{{rowIndex+1}}"
                 @click="bodyTrClick(trData, $event)">
                 <td v-for="(colIndex, col) in rule"

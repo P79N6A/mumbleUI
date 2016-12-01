@@ -1,7 +1,3 @@
-.animate {
-    @include transition(transform $transition-time $ease-in-out)
-}
-
 .ui-banner {
     position: relative;
     width: 100%;
@@ -14,13 +10,17 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.ui-banner-animate {
+    @include transition(transform $transition-time $ease-in-out)
+}
+
 .ui-banner-list {
     position: relative;
     -webkit-backface-visibility: hidden;
     @include transform(translateZ(0));
     @include display-flex;
     @include flex-direction(row);
-    .item {
+    .ui-banner-list-item {
         height: 100%;
         @include flex(1);
         img {
@@ -35,14 +35,14 @@
     bottom: 1.6em;
     width: 100%;
     text-align: center;
-    .item {
+    .ui-banner-dot-item {
         display: inline-block;
         width: 1.4em;
         height: 1.4em;
         margin: .4em .8em;
         @include radius(100%);
         background-color: rgba(255, 255, 255, .5);
-        &.cur {
+        &.current {
             background-color: rgba(255, 255, 255, 1);
         }
     }

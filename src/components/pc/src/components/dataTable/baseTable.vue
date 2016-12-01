@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="ui-table">
         <table>
-            <thead>
+            <thead class="ui-table-thead">
             <tr>
                 <th v-for="col in rule"
                     :style="getStyle(col, $index)"
@@ -11,7 +11,7 @@
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData" track-by="$index" class="row_{{rowIndex+1}}"
                 @click="bodyTrClick(trData, $event)">
                 <td v-for="(colIndex, col) in rule"

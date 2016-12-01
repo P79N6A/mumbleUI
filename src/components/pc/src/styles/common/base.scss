@@ -69,3 +69,20 @@ pre,
 samp {
     font-family: $code-family;
 }
+
+.anticon {
+    display: inline-block;
+    font-style: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.anticon:before {
+    display: block;
+    font-family: "anticon" !important;
+}

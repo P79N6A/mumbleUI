@@ -1,22 +1,66 @@
-th.sort {
+.ui-table{
+    .ui-table-column-sorter {
+        margin-left: 4px;
+        display: inline-block;
+        width: 12px;
+        height: 14px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .ui-table-column-sorter-up{
+        line-height: 4px;
+        height: 5px;
+        display: block;
+        width: 12px;
+        cursor: pointer;
+        &:hover{
+            .action{
+                color: #666;
+            }
+        }
+        &.on{
+            .anticon-caret-up,
+            .anticon-caret-down{
+                color: #108ee9;
+            }
+        }
+    }
+    .ui-table-column-sorter-down {
+        @extend .ui-table-column-sorter-up;
+    }
+
+    .anticon-caret-up{
+        display: inline-block;
+        font-size: 12px;
+        font-size: 7px \9;
+        @include transform(scale(0.58333333) rotate(0deg));
+        /* IE6-IE8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+        zoom: 1;
+        line-height: 6px;
+        height: 6px;
+        color: #aaa;
+        &:before{
+            content: "\E606";
+            -moz-transform-origin: 53% 50%;
+            /* fix firefox position */
+        }
+    }
+
+    .anticon-caret-down{
+        @extend .anticon-caret-up;
+        &:before{
+            content: "\E607";
+        }
+    }
 }
 
-th.sort.down:before {
-    display: inline-block;
-    content: "";
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 10px solid black;
+:root .ui-table-column-sorter .anticon-caret-up,
+:root .ui-table-column-sorter .anticon-caret-down {
+    -webkit-filter: none;
+    filter: none;
 }
-
-th.sort.up:before {
-    display: inline-block;
-    content: "";
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 10px solid black;
+:root .ui-table-column-sorter .anticon-caret-up,
+:root .ui-table-column-sorter .anticon-caret-down {
+    font-size: 12px;
 }
