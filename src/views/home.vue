@@ -1,23 +1,20 @@
 <template>
     <div class="home-panel">
-        <h1>pc组件</h1>
+        <h2>Pc组件</h2>
         <ul>
-            <li> <a v-link="{ path:'/pc/banner'}">banner</a> </li>
-            <li> <a v-link="{ path:'/pc/table'}">table</a> </li>
-            <li> <a v-link="{ path:'/pc/toast'}">toast</a> </li>
-            <li> <a v-link="{ path:'/pc/message'}">message</a> </li>
-            <li> <a v-link="{ path:'/pc/modal'}">modal</a> </li>
-            <li> <a v-link="{ path:'/pc/tree'}">tree</a> </li>
-            <li> <a v-link="{ path:'/pc/datePicker'}">datePicker</a> </li>
-            <li> <a v-link="{ path:'/pc/loading'}">loading</a> </li>
-            <li> <a v-link="{ path:'/pc/switch'}">switch</a> </li>
-            <li> <a v-link="{ path:'/pc/upload'}">upload</a> </li>
-            <li> <a v-link="{ path:'/pc/zoom'}">zoom</a> </li>
+            <li> <a v-link="{ path:'/pc/banner'}">Banner</a> </li>
+            <li> <a v-link="{ path:'/pc/table'}">Table</a> </li>
+            <li> <a v-link="{ path:'/pc/toast'}">Toast</a> </li>
+            <li> <a v-link="{ path:'/pc/message'}">Message</a> </li>
+            <li> <a v-link="{ path:'/pc/modal'}">Modal</a> </li>
+            <li> <a v-link="{ path:'/pc/tree'}">Tree</a> </li>
+            <li> <a v-link="{ path:'/pc/datePicker'}">DatePicker</a> </li>
+            <li> <a v-link="{ path:'/pc/loading'}">Loading</a> </li>
+            <li> <a v-link="{ path:'/pc/switch'}">Switch</a> </li>
+            <li> <a v-link="{ path:'/pc/upload'}">Upload</a> </li>
+            <li> <a v-link="{ path:'/pc/zoom'}">Zoom</a> </li>
         </ul>
-        <h1>mobile组件</h1>
-        <ul>
-            <li> <a v-link="{ path:'/mobile/banner'}">banner</a> </li>
-        </ul>
+        <h2>Mobile组件</h2>
     </div>
 </template>
 <script type="text/ecmascript-6">

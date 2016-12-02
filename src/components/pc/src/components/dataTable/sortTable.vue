@@ -10,11 +10,11 @@
                     <span>
                         {{col.name}}
                         <div class="ui-table-column-sorter" v-if="col.sort">
-                            <span class="ui-table-column-sorter-up" :class="{ on : order=='up' &&  col.dataKey == sortKey, off: order!='up'}"
+                            <span class="ui-table-column-sorter-up" :class="{ on : order===1 &&  col.dataKey == sortKey, off: order!==1}"
                                   title="↑" @click="up(col)">
                                 <i class="ui-icon ui-icon-caret-up "></i>
                             </span>
-                            <span class="ui-table-column-sorter-down" :class="{ on : order=='down' &&　col.dataKey == sortKey, off: order!='down'}"
+                            <span class="ui-table-column-sorter-down" :class="{ on : order===-1 &&　col.dataKey == sortKey, off: order!==-1}"
                                   title="↓" @click="down(col)">
                                 <i class="ui-icon ui-icon-caret-down "></i>
                             </span>
@@ -66,11 +66,11 @@
             },
             up: function (col) {
                 this.sortKey = col.dataKey;
-                this.order = "up";
+                this.order = 1;
             },
             down: function (col) {
                 this.sortKey = col.dataKey;
-                this.order = "down";
+                this.order = -1;
             }
         }
     }

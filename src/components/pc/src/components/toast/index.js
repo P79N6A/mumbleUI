@@ -31,7 +31,7 @@ var create = function (option) {
         components: {
             'toast': toastComponent
         },
-        template: '<toast :message="message" :icon-class="iconClass"></toast>',
+        template: '<toast :message="message" :type="type"></toast>',
         ready: function () {
             setTimeout(()=> {
                 this.$destroy(true);
@@ -45,20 +45,28 @@ var create = function (option) {
 var toast = function(option) {
     var _option = init(option);
     if(!_option) return;
+    _option.type = "info";
     return create(_option)
 };
 
 toast.error = function (option) {
     var _option = init(option);
     if(!_option) return;
-    _option.iconClass = "icon-toast-error";
+    _option.type = "error";
+    return create(_option)
+};
+
+toast.warn = function (option) {
+    var _option = init(option);
+    if(!_option) return;
+    _option.type = "warn";
     return create(_option)
 };
 
 toast.success = function (option) {
     var _option = init(option);
     if(!_option) return;
-    _option.iconClass = "icon-toast-success";
+    _option.type = "success";
     return create(_option)
 };
 

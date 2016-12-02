@@ -13,10 +13,12 @@ $subsidiary-color       : #9ea7b4;
 
 // Base
 $body-background        : #fff;
+$component-background   : #fff;
 $font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 $code-family            : Consolas,Menlo,Courier,monospace;
 $title-color            : #464c5b;
 $text-color             : #657180;
+$font-size-lg           : 16px;
 $font-size-base         : 14px;
 $font-size-small        : 12px;
 $line-height-base       : 1.5;
@@ -66,3 +68,12 @@ $ease-in-out-circ    : cubic-bezier(0.78, 0.14, 0.15, 0.86);
 $ease-out-quint      : cubic-bezier(0.23, 1, 0.32, 1);
 $ease-in-quint       : cubic-bezier(0.755, 0.05, 0.855, 0.06);
 $ease-in-out-quint   : cubic-bezier(0.86, 0, 0.07, 1);
+
+// Shadow
+$shadow-color           : rgba(0, 0, 0, .2);
+$shadow-1-up            : 0 -1px 6px $shadow-color;
+$shadow-1-down          : 0 1px 6px $shadow-color;
+$shadow-1-left          : -1px 0 6px $shadow-color;
+$shadow-1-right         : 1px 0 6px $shadow-color;
+$shadow-2               : 0 2px 8px $shadow-color;
+$box-shadow-base        : $shadow-1-down;
