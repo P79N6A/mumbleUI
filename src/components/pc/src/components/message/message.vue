@@ -1,12 +1,17 @@
 <template>
-    <div class="popup-container">
-        <div class="popup">
-            <h3 v-if="title" class="popup-title" v-html="title"></h3>
-            <div class="popup-body" v-html="template">
+    <div class="ui-message">
+        <div class="ui-message-swap">
+            <div class="ui-message-body">
+                <div class="ui-message-title" v-if="title">
+                    <i class="ui-icon ui-icon-question-circle"></i>
+                    <span class="ui-message-title-text" v-html="title"></span>
+                </div>
+                <div class="ui-message-content" v-html="template">
+                </div>
             </div>
-            <div class="popup-buttons">
-                <div v-if="button.show" v-for="button in buttons" class="cell {{button.class}}"
-                      @click="click($index, $event)" v-text="button.text"></div>
+            <div class="ui-message-buttons">
+                <button v-if="button.show" v-for="button in buttons" class="ui-button {{button.class}}"
+                     @click="click($index, $event)" v-text="button.text"></button>
             </div>
         </div>
     </div>
@@ -25,8 +30,13 @@
                 type: Array
             }
         },
+        data: function () {
+            return {
+                show: true
+            }
+        },
         methods: {
-            click: function (index, event) {
+            click: function (index) {
                 this.$dispatch("message.close", index);
             }
         }

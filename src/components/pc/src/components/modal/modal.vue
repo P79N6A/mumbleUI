@@ -1,12 +1,12 @@
 <template>
-    <div class="modal" v-show="isShow" @scroll="scroll">
-        <div class="modal-dialog">
-            <div class="modal-title">
-                <span>{{title}}</span>
-                <em>{{subTitle}}</em>
-                <i class="close" @click="close"></i>
+    <div class="ui-modal" v-show="isShow" @scroll="scroll">
+        <div class="ui-modal-dialog">
+            <div class="ui-modal-title">
+                <span class="ui-modal-title-main">{{title}}</span>
+                <span class="ui-modal-title-sub">{{subTitle}}</span>
+                <i class="ui-icon ui-icon-close" @click="close"></i>
             </div>
-            <div class="modal-body">
+            <div class="ui-modal-body">
                 <slot></slot>
             </div>
         </div>
@@ -40,9 +40,9 @@
                     setTimeout(() => {
                         body.addEventListener("click", this.clickFn, false)
                     }, 0)
-                    util.addClass(body, "modal-open");
+                    util.addClass(body, "ui-modal-open");
                 } else {
-                    util.removeClass(body, "modal-open");
+                    util.removeClass(body, "ui-modal-open");
                     body.removeEventListener("click", this.clickFn)
                 }
             }
@@ -60,7 +60,7 @@
                 //当modal中的内容超出整个屏幕时，modal-dialog用absolute定位不能撑开滚动，导致看不全，需要特殊处理
                 this.$nextTick(function () {
                     var bodyHeight = window.innerHeight;
-                    var dialogElem = this.$el.querySelector(".modal-dialog");
+                    var dialogElem = this.$el.querySelector(".ui-modal-dialog");
                     var dialogElemStyle = window.getComputedStyle(dialogElem, null);
                     var height = /^([0-9]*)/.exec(dialogElemStyle.height)[0];
                     var width = /^([0-9]*)/.exec(dialogElemStyle.width)[0];
@@ -77,7 +77,7 @@
                         dialogElem.style["-moz-transform"] = "translate(0, 0)";
                     }
                 })
-            })
+            });
             //监听esc
             document.addEventListener("keydown", this.esc, false);
 

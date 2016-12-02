@@ -1,58 +1,87 @@
-/*弹框*/
-.popup-container {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(125, 125, 125, 0.3);
-    overflow: hidden;
-    position: absolute;
-    left: 0;
+.ui-message{
+    position: fixed;
     top: 0;
-    z-index: 100;
-}
-.popup {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    width: 280px;
-    background: #efefef;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #000;
-    .popup-title {
-        text-align: center;
-        padding: 10px 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-overflow-scrolling: touch;
+    background-color: $mask-color;
+    overflow: hidden;
+    outline: 0;
+    z-index: $zindex-modal;
+
+    &-swap {
+        width: 400px;
+        padding: 30px 40px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        @include transform(translate(-50%, -60%));
+        background-color: #ffffff;
+        background-clip: padding-box;
+        @include radius($border-radius-small);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
     }
-    .popup-body {
-        text-align: center;
-        line-height: 20px;
-        padding: 20px;
+
+    &-title-text{
+        line-height: 24px;
+        color: #666;
+        font-weight: bold;
+        font-size: 14px;
     }
-    .popup-text {
-        background: #efefef;
-        width: 90%;
-        padding-left: 20px;
-        border: none;
-        height: 200px;
-        resize: none;
+
+    &-title + &-content{
+        margin-left: 42px;
     }
-    .popup-buttons {
-        border-top: 1px solid #dddddd;
-        height: 40px;
-        line-height: 40px;
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-        .cell{
-            cursor: pointer;
-            border-left: 1px solid #dddddd;
-            text-align: center;
-            display: table-cell;
-            color: #0079ff;;
+
+    &-content{
+        margin-top: 8px;
+        margin-left: 0px;
+    }
+
+    &-buttons{
+        margin-top: 30px;
+        float: right;
+        button:first-child{
+            color: #fff;
+            background-color: $primary-color;
+            border-color: $primary-color;
+        }
+        button + button {
+            margin-left: 10px;
+            margin-bottom: 0;
         }
     }
+
+    .ui-icon-question-circle{
+        color: $warning-color;
+        font-size: 24px;
+        margin-right: 16px;
+        vertical-align: middle;
+    }
 }
+
+.ui-button{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 500;
+    text-align: center;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    white-space: nowrap;
+    line-height: 1.5;
+    padding: 4px 15px;
+    font-size: 14px;
+    @include radius(4px);
+    @include user-select(none);
+    @include transition( all 0.3s $ease-in-out);
+    position: relative;
+    color: #666;
+    background-color: transparent;
+}
+
+
