@@ -1,12 +1,13 @@
 <template>
-    <p>
-        <button @click="click1">message("我是提示")</button>
-    </p>
-    <p>
-        <button @click="click4">message("标题", "我是提示")</button>
-    </p>
-    <p>
-        <button @click="click5">可配置的message：</button>
+    <div class="message-panel">
+        <p>
+            <button @click="click1">message("我是提示")</button>
+        </p>
+        <p>
+            <button @click="click4">message("标题", "我是提示")</button>
+        </p>
+        <p>
+            <button @click="click5">可配置的message：</button>
         <pre>
             <code class="javascript">
                 message({
@@ -24,13 +25,14 @@
                 });
             </code>
         </pre>
-    </p>
-    <p>
-        <button @click="click2">message.alert("我是提示");</button>
-    </p>
-    <p>
-        <button @click="click3">message.confirm("我是提示");</button>
-    </p>
+        </p>
+        <p>
+            <button @click="click2">message.alert("我是提示");</button>
+        </p>
+        <p>
+            <button @click="click3">message.confirm("我是提示");</button>
+        </p>
+    </div>
 </template>
 <script type="text/ecmascript-6">
     export default {
