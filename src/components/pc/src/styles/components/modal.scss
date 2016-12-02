@@ -23,6 +23,7 @@
 
 .ui-modal-dialog {
     position: absolute;
+    padding: 10px 30px;
     left: 50%;
     top: 50%;
     @include transform(translate(-50%, -50%));
@@ -37,7 +38,6 @@
     width: 100%;
     border-bottom: 1px solid $border-color-split;
     position: relative;
-    padding: 0 16px;
     &-main {
         display: inline-block;
         padding: 14px 0;
@@ -71,5 +71,5 @@
 
 .ui-modal-body {
     position: relative;
-    padding: 16px;
+    padding: 16px 0;
 }
