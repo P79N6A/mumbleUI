@@ -1,39 +1,63 @@
 .ui-table{
+    .tree-null{
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 0 none;
+        cursor: pointer;
+        outline: none;
+        position: relative;
+    }
+    .tree-close{
+        @extend .ui-icon;
+        @extend .ui-icon-caret-right;
+        @extend .tree-null;
+        &:before{
+            font-size: 12px;
+            font-size: 7px \9;
+            @include transform(scale(0.8) rotate(0deg));
+            -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+            zoom: 1;
+            display: inline-block;
+            font-family: 'iconfont';
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            right: 4px;
+            color: #666;
+            -webkit-transition: -webkit-transform .3s ease;
+            transition: -webkit-transform .3s ease;
+            transition: transform .3s ease;
+            transition: transform .3s ease, -webkit-transform .3s ease;
+        }
+    }
+    .tree-open{
+        @extend .tree-close;
+        @extend .ui-icon;
+        @extend .ui-icon-caret-down;
+    }
+
     table {
-        .close {
-            display: inline-block;
-            height: 0;
-            width: 0;
-            border-left: 6px solid #666666;
-            border-top: 6px dashed transparent;
-            border-bottom: 6px dashed transparent;
-            margin-right: 5px;
-        }
-
-        .open {
-            display: inline-block;
-            height: 0;
-            width: 0;
-            border-top: 6px dashed #666666;
-            border-right: 6px solid transparent;
-            border-left: 6px dashed transparent;
-            margin-right: 2px;
-        }
-
         .tree-level-1 {
-            padding-left: 30px !important;
+            padding-left: 16px !important;
         }
 
         .tree-level-2 {
-            padding-left: 60px !important;
+            padding-left: 32px !important;
         }
 
         .tree-level-3 {
-            padding-left: 90px !important;
+            padding-left: 48px !important;
         }
 
         .tree-level-4 {
-            padding-left: 120px !important;
+            padding-left: 64px !important;
         }
     }
 

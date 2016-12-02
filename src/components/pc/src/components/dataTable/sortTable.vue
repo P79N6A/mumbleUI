@@ -7,21 +7,25 @@
                     :style="getStyle(col, $index)"
                     :class="getThClass(col, $index)"
                     @click="thColClick(col, $index, $event)">
-                    {{col.name}}
-                    <div class="ui-table-column-sorter">
-                        <span class="ui-table-column-sorter-up off" title="↑">
-                            <i class="anticon anticon-caret-up "></i>
-                        </span>
-                        <span class="ui-table-column-sorter-down off" title="↓">
-                            <i class="anticon anticon-caret-down "></i>
-                        </span>
-                    </div>
+                    <span>
+                        {{col.name}}
+                        <div class="ui-table-column-sorter" v-if="col.sort">
+                            <span class="ui-table-column-sorter-up" :class="{ on : order=='up' &&  col.dataKey == sortKey, off: order!='up'}"
+                                  title="↑" @click="up(col)">
+                                <i class="ui-icon ui-icon-caret-up "></i>
+                            </span>
+                            <span class="ui-table-column-sorter-down" :class="{ on : order=='down' &&　col.dataKey == sortKey, off: order!='down'}"
+                                  title="↓" @click="down(col)">
+                                <i class="ui-icon ui-icon-caret-down "></i>
+                            </span>
+                        </div>
+                    </span>
                 </th>
             </tr>
             </thead>
             <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData | orderBy sortKey order" track-by="$index" class="row_{{rowIndex+1}}"
-                @click="bodyTrClick(trData, $event)">
+                @click="bodyTrClick(trData, rowIndex, $event)">
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
                     :style="getStyle(col, colIndex)"
@@ -44,10 +48,9 @@
     import table from './baseTable'
     export default {
         extends: table,
-//        mixins: [table],
         data: function () {
             return {
-                order: 1,
+                order: "",
                 sortKey: ""
             }
         },
@@ -56,23 +59,18 @@
         methods: {
             getThClass: function (col, index) {
                 var obj = {
-                    sort: col.dataKey == this.sortKey,
-                    up: this.order == 1,
-                    down: this.order == -1,
+                    "ui-table-column-sort" : col.dataKey == this.sortKey,
                     ["col_"+(index+1)] : true
                 };
                 return obj
             },
-            thColClick: function (col, index, event) {
-                if (col.sort === true || col.sort === "true") {
-                    if (this.sortKey == col.dataKey) {
-                        this.order = this.order * -1;
-                    } else {
-                        this.sortKey = col.dataKey;
-                        this.order = 1;
-                    }
-                }
-                this.$dispatch("th-col-click", col, index);
+            up: function (col) {
+                this.sortKey = col.dataKey;
+                this.order = "up";
+            },
+            down: function (col) {
+                this.sortKey = col.dataKey;
+                this.order = "down";
             }
         }
     }

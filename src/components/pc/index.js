@@ -1,3 +1,5 @@
+require("./src/styles/index.scss") ;
+
 import Banner from './src/components/banner';
 import DataTable from './src/components/dataTable';
 import DatePicker from './src/components/datePicker';

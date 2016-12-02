@@ -7,14 +7,14 @@
                     :style="getStyle(col, $index)"
                     :class="getThClass(col, $index)"
                     @click="thColClick(col, $index, $event)">
-                    {{col.name}}
+                    <span>{{col.name}}</span>
                 </th>
             </tr>
             </thead>
             <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData" track-by="$index" class="row_{{rowIndex+1}}"
                 v-show="getShow(trData)"
-                @click="bodyTrClick(trData, $event)">
+                @click="bodyTrClick(trData, rowIndex, $event)">
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
                     :style="getStyle(col, colIndex)"
@@ -22,7 +22,8 @@
                     v-add-component="trData.components[col.dataKey]">
                     <i v-if="trData.children && trData.children.length>0 && colIndex==0"
                        @click="toggleShow(trData, $event)"
-                       :class="{'close':!trData.expanded,'open': trData.expanded}"></i>
+                       :class="{'tree-close':!trData.expanded,'tree-open': trData.expanded}"></i>
+                    <i v-else class="tree-null"></i>
                     {{render(col, trData[col.dataKey], trData)}}
                     <template v-if="trData[col.dataKey] == null && col.action">
                         <span v-for="actionItem in col.action" @click.stop="fireAction(actionItem, trData, $event)">

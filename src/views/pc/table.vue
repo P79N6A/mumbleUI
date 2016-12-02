@@ -11,7 +11,7 @@
 
     <h2>带排序功能的组件：</h2>
     <sort-table :data="data" @th-col-click="thColClick" @body-tr-click="trClick">
-        <table-column slot data-key="a" name="col-a" align="center" width="130px"></table-column>
+        <table-column slot data-key="a" name="col-a" align="center" width="130px" sort="true"></table-column>
         <table-column slot data-key="b" name="col-b" width="130px" sort="true"></table-column>
         <table-column slot data-key="c" name="col-c" filter="[{ key : 1,value : '星期一'},{ key : 2,value : '星期二'}]"></table-column>
         <table-column slot name="操作" align="center" width="230px" action="{text:'删除',func:'callback'}"></table-column>

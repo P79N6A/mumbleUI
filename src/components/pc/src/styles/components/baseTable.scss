@@ -1,5 +1,5 @@
 $table-head-background-color: $background-color-base;
-.ui-table{
+.ui-table {
     font-size: $font-size-base;
     color: $text-color;
     overflow: hidden;
@@ -42,6 +42,10 @@ $table-head-background-color: $background-color-base;
     &-tbody > tr > td {
         padding: 16px 8px;
         word-break: break-all;
+    }
+
+    &-tbody > tr.ui-table-row-selected {
+        background: #fafafa;
     }
 
 }

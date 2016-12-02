@@ -7,13 +7,13 @@
                     :style="getStyle(col, $index)"
                     :class="getThClass(col, $index)"
                     @click="thColClick(col, $index, $event)">
-                    {{col.name}}
+                    <span>{{col.name}}</span>
                 </th>
             </tr>
             </thead>
             <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData" track-by="$index" class="row_{{rowIndex+1}}"
-                @click="bodyTrClick(trData, $event)">
+                @click="bodyTrClick(trData, rowIndex, $event)">
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
                     :style="getStyle(col, colIndex)"
@@ -42,7 +42,8 @@
         },
         data: function () {
             return {
-                rule: []
+                rule: [],
+                trSelectedIndex: null
             }
         },
         directives: {
@@ -129,10 +130,11 @@
             },
             //点击th列
             thColClick: function (col, index, event) {
+                console.log(arguments)
                 this.$dispatch("th-col-click", col, index);
             },
             //点击内容行
-            bodyTrClick: function (rowData, event) {
+            bodyTrClick: function (rowData, index, event) {
                 this.$dispatch("body-tr-click", rowData)
             },
             //触发action动作
