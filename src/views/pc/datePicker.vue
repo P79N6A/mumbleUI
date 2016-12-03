@@ -1,26 +1,42 @@
 <template>
-    <div>
+    <div class="datePicker-panel">
         <h2>
-            单选： {{value1 | json}}
+            单选模式
         </h2>
+        <div class="result">
+            {{ value1 | json }}
+        </div>
         <date-picker :value="today" @update="change1"></date-picker>
-    </div>
-    <div>
+
         <h2>
-            多选： {{value2 | json}}
+            多选模式
         </h2>
+        <div class="result">
+            {{value2 | json}}
+        </div>
         <date-picker :value="[today]" model="multiple" @update="change2"></date-picker>
-    </div>
-    <div>
+
         <h2>
-            区间： {{value3 | json}}
+            区间模式
         </h2>
+        <div class="result">
+            {{value3 | json}}
+        </div>
         <date-picker model="range" @update="change3"></date-picker>
+
+
+        <div style="height:900px; width: 700px; position: absolute; left:500px; top: 0px;">
+            <h2>
+                指令模式
+            </h2>
+            <div class="result">
+                {{value | json}}
+            </div>
+            <input type="text" v-date-picker="value" :date-picker-option="config"/>
+
+        </div>
     </div>
-    <div style="height:900px; width: 700px; position: absolute; left:300px">
-        {{ value | json }}
-        <input type="text" v-date-picker="value" :date-picker-option="config"/>
-    </div>
+
 </template>
 <script type="text/ecmascript-6">
     export default{

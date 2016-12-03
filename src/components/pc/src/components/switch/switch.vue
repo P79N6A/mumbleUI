@@ -1,6 +1,11 @@
 <template>
-    <div class="switch" @click="toggle" :class="{'switch-on': on , 'switch-off': !on }">
-        <div class="switch-circle"></div>
+    <div class="ui-switch" @click="toggle" :class="getClass()">
+        <div class="ui-switch-circle">
+        </div>
+        <span class="ui-switch-text">
+            <slot name="open" v-if="on"></slot>
+            <slot name="close" v-else></slot>
+        </span>
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -8,7 +13,7 @@
         props: {
             on: {
                 type: Boolean,
-                default: true
+                default: false
             }
         },
         data: function () {
@@ -16,6 +21,13 @@
             }
         },
         methods:{
+            getClass: function () {
+                var classes = {
+                    'ui-switch-on' : this.on,
+                    'ui-switch-off': !this.on
+                };
+                return classes
+            },
             toggle: function () {
                 this.on = !this.on;
             }

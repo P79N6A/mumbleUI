@@ -1,6 +1,6 @@
 <template>
-    <div class="loading" v-show="show">
-        <div class="loading-clip" :style="clipStyle"></div>
+    <div class="ui-loading" v-show="show">
+        <div class="ui-loading-clip" :style="clipStyle"></div>
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -8,7 +8,7 @@
         props: {
             color: {
                 type: String,
-                default: '#5dc596'
+                default: ''
             },
             size: {
                 type: String,
@@ -25,14 +25,17 @@
         },
         computed: {
             clipStyle: function () {
-                return {
+                var style = {
                     height: this.size,
                     width: this.size,
                     borderWidth: this.borderWidth,
                     borderStyle: 'solid',
-                    borderColor: this.color + ' ' + this.color + ' transparent',
                     background: 'transparent'
+                };
+                if(this.color){
+                    style.borderColor = this.color + ' ' + this.color + ' transparent';
                 }
+                return style
             }
         }
     }

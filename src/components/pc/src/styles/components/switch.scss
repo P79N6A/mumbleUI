@@ -1,39 +1,42 @@
-.switch{
+.ui-switch{
     display: inline-block;
-    width: 36px;
-    height: 18px;
-    border-radius: 9px;
+    vertical-align: middle;
+    width: 44px;
+    height: 21px;
+    line-height: 21px;
     position: relative;
+    @include radius(11px);
+    @include transition(all 0.3s);
     cursor: pointer;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -ms-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
-    .switch-circle{
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
+    .ui-switch-circle{
         position: absolute;
-        border: 2px solid #fff;
-        -webkit-transition: all 0.4s;
-        -moz-transition: all 0.4s;
-        -ms-transition: all 0.4s;
-        -o-transition: all 0.4s;
-        transition: all 0.4s;
+        width: 18px;
+        height: 18px;
+        background-color: #fff;
+        @include radius(50%);
+        @include transition(all 0.3s);
     }
-    &.switch-on{
-        background: #3cc63f;
-        .switch-circle{
-            top: 2px;
-            left: 4px;
+    .ui-switch-text{
+        color: #ffffff;
+    }
+    &.ui-switch-on{
+        background: $primary-color;
+        .ui-switch-circle{
+            top: 1px;
+            left: 25px;
+        }
+        .ui-switch-text{
+            margin-left: 8px;
         }
     }
-    &.switch-off{
-        background: #f3583f;
-        .switch-circle{
-            top: 2px;
-            left: 18px;
+    &.ui-switch-off{
+        background: #ccc;
+        .ui-switch-circle{
+            top: 1px;
+            left: 1px;
+        }
+        .ui-switch-text{
+            margin-left: 22px;
         }
     }
 }

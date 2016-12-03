@@ -68,3 +68,25 @@
         margin-top: 50px;
     }
 }
+
+.datePicker-panel{
+    margin: 30px 100px;
+    width: 1200px;
+    h2{
+        font-size: 16px;
+        margin-top: 50px;
+    }
+    .result{
+        font-size: 14px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+}
+
+.loading-panel{
+    @extend .toast-panel;
+}
+
+.switch-panel{
+    @extend .toast-panel;
+}
