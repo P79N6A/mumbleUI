@@ -1,9 +1,10 @@
 <template>
-    <h2>多选</h2>
-    <tree :list="list1" :multiple="true"></tree>
-
-    <h2>单选</h2>
-    <tree :list="list2"></tree>
+    <div class="tree-panel">
+        <h2>多选</h2>
+        <tree :list="list1" :multiple="true"></tree>
+        <h2>单选</h2>
+        <tree :list="list2"></tree>
+    </div>
 </template>
 <script type="text/ecmascript-6">
     export default {

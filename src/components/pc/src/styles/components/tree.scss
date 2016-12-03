@@ -1,3 +1,49 @@
+.ui-tree{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+    overflow: hidden;
+    &.ui-child-tree{
+        padding: 0 0 0 16px;
+    }
+    &.ui-tree-just-data &-node{
+        display: inline-block;
+        width: 200px;
+    }
+    &-node {
+        position: relative;
+        margin: 8px 0 0 0;
+        padding: 0;
+        outline: 0;
+        list-style: none;
+        white-space: nowrap;
+        width: 100%;
+        i, span, input{
+            cursor: pointer;
+            vertical-align: middle;
+        }
+    }
+    &-node-text{
+        display: inline-block;
+        margin: 0;
+        padding: 1px 5px;
+        cursor: pointer;
+        text-decoration: none;
+        @include radius(2px);
+        @include transition(all 0.3s $ease-out);
+        &:hover, &.selected{
+           background-color: #cfe8fb;
+        }
+    }
+    .ui-icon{
+        position: relative;
+        top: -1px;
+    }
+}
+
+
 .tree {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;

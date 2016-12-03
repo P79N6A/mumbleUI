@@ -1,11 +1,11 @@
 <template>
-    <li class="item">
-        <i v-if="node.children && node.children.length>0" class="icon" :class="arrowClass(node)" @click="clickIcon(node)"></i>
-        <i v-else class="icon"></i>
-        <span @click="clickItem(node)" class="name" :class="{selected: node.selected}">
+    <li class="ui-tree-node">
+        <i v-if="node.children && node.children.length>0" class="ui-icon" :class="arrowClass(node)" @click="clickIcon(node)"></i>
+        <i v-else class="ui-icon-tree-null"></i>
+        <span @click="clickItem(node)" class="ui-tree-node-text" :class="{selected: node.selected}">
             {{ node.name }}
         </span>
-        <ul v-if="node.children && node.children.length > 0" v-show="node.expanded" class="tree child" :class="{'all-data': node.allChildIsData}">
+        <ul v-if="node.children && node.children.length > 0" v-show="node.expanded" class="ui-tree ui-child-tree" :class="{'ui-tree-just-data': node.allChildIsData}">
             <item v-for="sonNode in node.children" :parent-node.sync="node" :node.sync="sonNode" :multiple="multiple"></item>
         </ul>
     </li>
@@ -33,9 +33,9 @@
             arrowClass: function (node) {
                 var className = "";
                 if (node.expanded) {
-                    className = "icon-minus";
+                    className = "ui-icon-tree-open";
                 } else {
-                    className = "icon-plus";
+                    className = "ui-icon-tree-close";
                 }
                 return className
             },

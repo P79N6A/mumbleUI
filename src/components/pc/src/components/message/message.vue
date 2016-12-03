@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="ui-message-buttons">
-                <button v-if="button.show" v-for="button in buttons" class="ui-button {{button.class}}"
+                <button v-show="button.show" v-for="button in buttons" class="ui-button {{button.class}}"
                      @click="click($index, $event)" v-text="button.text"></button>
             </div>
         </div>

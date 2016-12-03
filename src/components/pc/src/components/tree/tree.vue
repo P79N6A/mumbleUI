@@ -1,5 +1,5 @@
 <template>
-    <ul class="tree">
+    <ul class="ui-tree">
         <default-node v-for="node in list" :node.sync="node" :multiple="multiple"></default-node>
     </ul>
 </template>

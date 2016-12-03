@@ -28,7 +28,7 @@
                 this.$broadcast("modal.show", id);
            },
            modalClose(id){
-                alert("关闭id为"+id+"的modal")
+                this.$Toast("关闭id为"+id+"的modal")
            },
            modalScroll(event){
                 console.log(event)

@@ -22,7 +22,7 @@
                     v-add-component="trData.components[col.dataKey]">
                     <i v-if="trData.children && trData.children.length>0 && colIndex==0"
                        @click="toggleShow(trData, $event)"
-                       :class="{'tree-close':!trData.expanded,'tree-open': trData.expanded}"></i>
+                       :class="{'ui-icon-tree-close':!trData.expanded,'ui-icon-tree-open': trData.expanded}"></i>
                     <i v-else class="tree-null"></i>
                     {{render(col, trData[col.dataKey], trData)}}
                     <template v-if="trData[col.dataKey] == null && col.action">

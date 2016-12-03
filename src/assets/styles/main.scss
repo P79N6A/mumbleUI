@@ -60,3 +60,11 @@
 .message-panel{
     @extend .toast-panel;
 }
+
+.tree-panel{
+    @extend .toast-panel;
+    h2{
+        font-size: 16px;
+        margin-top: 50px;
+    }
+}
