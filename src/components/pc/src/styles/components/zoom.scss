@@ -16,10 +16,15 @@
         .ui-zoom-close{
             cursor: pointer;
             position: absolute;
+            width: 30px;
+            height: 30px;
             right: -15px;
             top: -15px;
+            background-color: #ffffff;
+            @include radius(100%);
         }
         .ui-icon-close-circle{
+            margin: 0;
             color: black;
             font-size: 30px;
         }
