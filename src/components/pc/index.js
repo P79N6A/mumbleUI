@@ -1,3 +1,8 @@
+/*!
+ * Ui.webank v1.0.0
+ * (c) 2016 harrywan
+ * Released under the MIT License.
+ */
 require("./src/styles/index.scss") ;
 
 import Banner from './src/components/banner';

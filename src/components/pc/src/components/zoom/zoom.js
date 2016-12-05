@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2016/8/28.
- */
 import Vue from "vue";
 import zoom from "./zoom.vue";
 import * as util from "../../util.js";

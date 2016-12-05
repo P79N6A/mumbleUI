@@ -1,7 +1,9 @@
 <template>
-    <div class="zoom" v-show="init">
-        <div class="zoom-image">
-            <i class="zoom-close" @click="close">+</i>
+    <div class="ui-zoom" v-show="init">
+        <div class="ui-zoom-image">
+            <div class="ui-zoom-close" @click="close" title="关闭">
+                <i class="ui-icon ui-icon-close-circle"></i>
+            </div>
             <img :src="src" @load="load"/>
         </div>
     </div>
@@ -36,7 +38,7 @@
             load: function (e) {
                 var style = {};
                 var imgEle = e.target;
-                var swapEle = this.$el.querySelector(".zoom-image");
+                var swapEle = this.$el.querySelector(".ui-zoom-image");
                 style.imgWidth = imgEle.width;
                 style.imgHeight = imgEle.height;
                 style.bodyWidth = window.innerWidth;
