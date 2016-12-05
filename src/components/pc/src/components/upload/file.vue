@@ -1,5 +1,5 @@
 <template>
-    <input type="file" :accept="accept" :multiple="multiple" class="upload-file" @change="change"/>
+    <input type="file" :accept="accept" :multiple="multiple" class="ui-upload-file" @change="change"/>
 </template>
 <script type="text/ecmascript-6">
     import toast from "../toast";

@@ -90,3 +90,10 @@
 .switch-panel{
     @extend .toast-panel;
 }
+
+.upload-panel{
+    @extend .toast-panel;
+    h3,ul{
+        margin: 10px 15px;
+    }
+}

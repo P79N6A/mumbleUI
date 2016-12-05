@@ -1,8 +1,7 @@
 <template>
-    <button v-upload :upload-option="option">点击上传</button>
-
-    <div>
-        <span>上传的文件：</span>
+    <div class="upload-panel">
+        <button v-upload :upload-option="option">点击上传</button>
+        <h3>上传的文件：</h3>
         <ul>
             <li v-for="file in files">{{file.name}}</li>
         </ul>
