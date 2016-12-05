@@ -48,6 +48,10 @@ export function configRouter(router){
             title: 'banner组件',     //标题
             component: require('./views/pc/banner')
         },
+        '/pc/step':{
+            title: 'step组件',     //标题
+            component: require('./views/pc/step')
+        },
 
 
 

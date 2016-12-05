@@ -16,6 +16,7 @@ import Toast from './src/components/toast';
 import Tree from './src/components/tree';
 import Upload from './src/components/upload';
 import Zoom from './src/components/zoom';
+import {Steps, Step} from './src/components/step';
 
 const UiWebank = {
     Banner,
@@ -28,7 +29,9 @@ const UiWebank = {
     Modal,
     Switch,
     Tree,
-    Zoom
+    Zoom,
+    Steps,
+    Step
 };
 
 const install = function (Vue) {
