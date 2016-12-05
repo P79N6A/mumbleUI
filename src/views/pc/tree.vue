@@ -4,6 +4,8 @@
         <tree :list="list1" :multiple="true"></tree>
         <h2>单选</h2>
         <tree :list="list2"></tree>
+        <h2>非inline显示</h2>
+        <tree :list="list2" :inline="false"></tree>
     </div>
 </template>
 <script type="text/ecmascript-6">

@@ -1,5 +1,5 @@
 <template>
-    <ul class="ui-tree">
+    <ul class="ui-tree" :class="{ 'ui-tree-inline': inline}">
         <default-node v-for="node in list" :node.sync="node" :multiple="multiple"></default-node>
     </ul>
 </template>
@@ -26,6 +26,10 @@
             defaultNode: defaultNode
         },
         props: {
+            inline: {
+                type: Boolean,
+                default: true
+            },
             multiple: {
                 type: Boolean,
                 default: false
