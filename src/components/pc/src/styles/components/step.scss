@@ -1,9 +1,14 @@
+.ui-steps{
+    font-size: 0;
+    line-height: 1.5;
+}
 .ui-step{
     position: relative;
     display: inline-block;
     vertical-align: top;
     margin: 0;
     padding: 0;
+    font-size: $font-size-small;
     .ui-step-tail{
         position: absolute;
         left: 0;
@@ -39,7 +44,7 @@
     .ui-step-head-swap{
         width: 24px;
         height: 24px;
-        line-height: 24px;
+        line-height: 23px;
         text-align: center;
         margin-right: 6px;
         @include radius(24px);
@@ -66,11 +71,36 @@
     }
 
     .ui-icon-check{
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bolder;
         color: $primary-color;
     }
 }
+.ui-step.ui-step-ready{
+    .ui-step-head-swap{
+        border-color: #ccc;
+        color: #999;
+    }
+    .ui-step-main{
+        color: #999;
+    }
+}
+.ui-step.ui-step-doing{
+    .ui-step-head-swap{
+        border-color: $primary-color;
+        background-color: $primary-color;
+        color: #fff;
+    }
+    .ui-step-main{
+        color: #666;
+    }
+}
+.ui-step.ui-step-done{
+    .ui-step-main{
+        color: #999;
+    }
+}
+
 .ui-step.choose{
     .ui-step-tail{
         i:after{
