@@ -8,7 +8,6 @@
     vertical-align: top;
     margin: 0;
     padding: 0;
-    font-size: $font-size-small;
     .ui-step-tail{
         position: absolute;
         left: 0;
@@ -40,7 +39,7 @@
         display: inline-block;
         vertical-align: top;
         background-color: #fff;
-        @include transition(background-color 0.3s $ease-in-circ);
+        font-size: $font-size-small;
     }
     .ui-step-head-swap{
         width: 24px;
@@ -48,8 +47,9 @@
         line-height: 23px;
         text-align: center;
         margin-right: 6px;
-        @include radius(24px);
+        @include radius(100%);
         border: 1px solid $primary-color;
+        @include transition(background-color 0.2s $ease-in-out);
     }
     .ui-step-main{
         position: relative;
@@ -61,7 +61,7 @@
         display: inline-block;
         height: 24px;
         line-height: 24px;
-        margin-right: 6px;
+        padding-right: 6px;
         font-size: $font-size-base;
         font-weight: 700;
         background-color: #fff;
@@ -72,7 +72,7 @@
     }
 
     .ui-icon-check{
-        font-size: 13px;
+        font-size: 12px;
         font-weight: bolder;
         color: $primary-color;
     }
@@ -102,13 +102,45 @@
     }
 }
 
-.ui-step.choose{
+.ui-steps.ui-steps-small{
     .ui-step-tail{
-        i:after{
-            width: 100%;
-            opacity: 1;
-            background-color: $info-color;
-            @include transition(all .2s $ease-in-out);
-        }
+        top: 9px;
+        padding: 0 5px;
+    }
+    .ui-step-head-swap{
+        width: 18px;
+        height: 18px;
+        line-height: 17px;
+        margin-right: 5px;
+    }
+    .ui-step-title{
+        height: 18px;
+        line-height: 18px;
+        padding-right: 5px;
+        font-size: $font-size-small;
+    }
+    .ui-step-desc{
+        display: none;
+    }
+    .ui-icon-check{
+        display: inline-block;
+        font-size: 12px;
+        font-size: 7px \9;
+        @include transform(scale(0.7) rotate(0deg));
+        /* IE6-IE8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+        zoom: 1;
     }
 }
+
+
+//.ui-step.choose{
+//    .ui-step-tail{
+//        i:after{
+//            width: 100%;
+//            opacity: 1;
+//            background-color: $info-color;
+//            @include transition(all .2s $ease-in-out);
+//        }
+//    }
+//}

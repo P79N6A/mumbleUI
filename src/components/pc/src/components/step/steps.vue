@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-steps">
+    <div class="ui-steps" :class="{'ui-steps-small' : size=='small'  }">
         <slot></slot>
     </div>
 </template>
@@ -9,7 +9,10 @@
             current: {
                 type: Number,
                 required: true
-            }
+            },
+            size: {
+                type: String
+            },
         },
         data: function () {
             return {

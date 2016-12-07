@@ -7,6 +7,17 @@
             <step title="待进行" content="这里是该步骤的描述信息"></step>
         </steps>
 
+        <div style="margin-top: 30px">
+
+        </div>
+
+        <steps :current="current" size="small">
+            <step title="已完成" content="这里是该步骤的描述信息"></step>
+            <step title="进行中" content="这里是该步骤的描述信息"></step>
+            <step title="待进行" content="这里是该步骤的描述信息"></step>
+            <step title="待进行" content="这里是该步骤的描述信息"></step>
+        </steps>
+
         <button @click="next">下一步</button>
     </div>
 
