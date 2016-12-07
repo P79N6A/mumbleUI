@@ -17,9 +17,18 @@
             }
         },
         watch: {
-            "current": function (value) {
+            "current": function () {
+                this.upDateChildren();
+            }
+        },
+        ready: function () {
+            this.len = this.$children.length;
+            this.upDateChildren();
+        },
+        methods: {
+            upDateChildren: function () {
+                var _this = this;
                 if(this.$children){
-                    var _this = _this;
                     this.$children.forEach(function (step, index) {
                         step.index = index + 1;
                         if(step.index > _this.current){
@@ -32,22 +41,6 @@
                     })
                 }
             }
-        },
-        ready: function () {
-            var _this = this;
-            var childrens = this.$children;
-            this.len = childrens.length;
-            childrens.forEach(function (step, index) {
-                step.index = index + 1;
-                if(step.index > _this.current){
-                    step.status = "ready"
-                }else if(step.index == _this.current){
-                    step.status = "doing"
-                }else{
-                    step.status = "done"
-                }
-            })
-        },
-        methods: {}
+        }
     }
 </script>

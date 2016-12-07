@@ -40,6 +40,7 @@
         display: inline-block;
         vertical-align: top;
         background-color: #fff;
+        @include transition(background-color 0.3s $ease-in-circ);
     }
     .ui-step-head-swap{
         width: 24px;
