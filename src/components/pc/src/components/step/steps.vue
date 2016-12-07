@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-steps" :class="{'ui-steps-small' : size=='small'  }">
+    <div class="ui-steps" :class="{'ui-steps-small' : size=='small' , 'ui-steps-vertical': direction=='vertical'  }">
         <slot></slot>
     </div>
 </template>
@@ -13,10 +13,14 @@
             size: {
                 type: String
             },
+            direction: {
+                type: String
+            },
         },
         data: function () {
             return {
-                len: 0
+                len: 0,
+                sonWidth: ""
             }
         },
         watch: {
@@ -26,6 +30,11 @@
         },
         ready: function () {
             this.len = this.$children.length;
+            this.sonWidth = 100/this.len + "%";
+            if(this.direction == "vertical"){
+                this.sonWidth = "100%";
+            }
+            console.log(this.sonWidth);
             this.upDateChildren();
         },
         methods: {

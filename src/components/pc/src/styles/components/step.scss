@@ -67,6 +67,7 @@
         background-color: #fff;
     }
     .ui-step-desc{
+        padding: 0 0 10px 0;
         margin-left: 32px;
         font-size: $font-size-small;
     }
@@ -133,6 +134,39 @@
     }
 }
 
+.ui-steps.ui-steps-vertical{
+    .ui-step{
+        display: block;
+        .ui-step-tail{
+            left: 12px;
+            top: 0;
+            width: 0;
+            height: 100%;
+            padding: 0;
+            i{
+                display: inline-block;
+                width: 1px;
+                height: 100%;
+                background: $border-color-split;
+                border-radius: 1px;
+                position: relative;
+                &:after{
+                    position: absolute;
+                    content: '';
+                    width: 1px;
+                    height: 0;
+                    background: $border-color-split;
+                    opacity: 0;
+                    top: 0;
+                    left: 0;
+                }
+            }
+        }
+        .ui-step-desc{
+            padding: 5px 0 20px 0;
+        }
+    }
+}
 
 //.ui-step.choose{
 //    .ui-step-tail{

@@ -46,7 +46,7 @@
             },
             getStyles: function () {
                 return {
-                    width : 100/this.$parent.len + "%"
+                    width : this.$parent.sonWidth
                 }
             }
         }
