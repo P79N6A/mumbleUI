@@ -72,3 +72,15 @@
         transform: rotate(360deg) scale(1);
     }
 }
+
+.fade-transition{
+    -webkit-transition: opacity .2s;
+    -moz-transition: opacity .2s;
+    -o-transition: opacity .2s;
+    transition: opacity .2s;
+    opacity: 1;
+}
+
+.fade-enter, .fade-leave {
+    opacity: 0;
+}

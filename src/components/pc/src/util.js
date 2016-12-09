@@ -150,7 +150,18 @@ export function isObject(value) {
     return value !== null && typeof value === 'object';
 }
 
-export function getPositionWhenAfterBorther(brotherEle, direction, displacementX, displacementY) {
+
+/**
+ * 通过direction和align计算元素的位置
+ *
+ * @param brotherEle
+ * @param direction
+ * @param align
+ * @param displacementX
+ * @param displacementY
+ * @returns {{left: number, top: number, position: null}}
+ */
+export function getPositionWhenAfterBorther(brotherEle, direction, align, displacementX, displacementY) {
     let offset = {
         left: 0,
         top: 0,
@@ -159,6 +170,7 @@ export function getPositionWhenAfterBorther(brotherEle, direction, displacementX
     displacementX = displacementX || 0;
     displacementY = displacementY || 0;
     direction = direction || "bottom";
+    align = align || "left";
 
     var style =  window.getComputedStyle(brotherEle, null);
     var rect = brotherEle.getBoundingClientRect();
@@ -184,17 +196,43 @@ export function getPositionWhenAfterBorther(brotherEle, direction, displacementX
     switch (direction) {
         case 'top':
             offset.top = offset.top;
+            if(align == "left"){
+                offset.left = offset.left;
+            }else if(align == "center"){
+                offset.left = offset.left + width/2;
+            }else if(align == "right"){
+                offset.left = offset.left + width;
+            }
             break;
         case 'bottom':
             offset.top = offset.top + height;
+            if(align == "left"){
+                offset.left = offset.left;
+            }else if(align == "center"){
+                offset.left = offset.left + width/2;
+            }else if(align == "right"){
+                offset.left = offset.left + width;
+            }
             break;
         case 'left':
-            offset.top = offset.top + height/2;
             offset.left = offset.left;
+            if(align == "top"){
+                offset.top = offset.top;
+            }else if(align == "center"){
+                offset.top = offset.top + height/2;
+            }else if(align == "bottom"){
+                offset.top = offset.top + height;
+            }
             break;
         case 'right':
-            offset.top = offset.top + height/2;
             offset.left = offset.left + width;
+            if(align == "top"){
+                offset.top = offset.top;
+            }else if(align == "center"){
+                offset.top = offset.top + height/2;
+            }else if(align == "bottom"){
+                offset.top = offset.top + height;
+            }
             break;
     }
 

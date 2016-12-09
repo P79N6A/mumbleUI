@@ -32,10 +32,10 @@ $tooltip-distance: 3px;
     }
 }
 
-.ui-tooltip.ui-tooltip-top{
+.ui-tooltip.ui-tooltip-direction-top{
     margin-top: -$tooltip-distance;
     padding: $tooltip-arrow-width 0;
-    @include transform(translate(0, -100%));
+    @include transform(translateY(-100%));
     .ui-tooltip-inner{
         box-shadow: $shadow-1-up;
     }
@@ -46,9 +46,26 @@ $tooltip-distance: 3px;
         border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
         border-top-color: $tooltip-bg;
     }
+    &.ui-tooltip-align-left{
+        .ui-tooltip-arrow{
+            left: 0;
+            margin-left: $tooltip-arrow-width*3;
+        }
+    }
+    &.ui-tooltip-align-center{
+        @include transform(translate(-50%, -100%));
+    }
+    &.ui-tooltip-align-right{
+        @include transform(translate(-100%, -100%));
+        .ui-tooltip-arrow{
+            left: auto;
+            right: 0;
+            margin-right: $tooltip-arrow-width*3;
+        }
+    }
 }
 
-.ui-tooltip.ui-tooltip-bottom{
+.ui-tooltip.ui-tooltip-direction-bottom{
     margin-bottom: -$tooltip-distance;
     padding: $tooltip-arrow-width 0;
     .ui-tooltip-inner{
@@ -61,12 +78,29 @@ $tooltip-distance: 3px;
         border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
         border-bottom-color: $tooltip-bg;
     }
+    &.ui-tooltip-align-left{
+        .ui-tooltip-arrow{
+            left: 0;
+            margin-left: $tooltip-arrow-width*3;
+        }
+    }
+    &.ui-tooltip-align-center{
+        @include transform(translateX(-50%));
+    }
+    &.ui-tooltip-align-right{
+        @include transform(translateX(-100%));
+        .ui-tooltip-arrow{
+            left: auto;
+            right: 0;
+            margin-right: $tooltip-arrow-width*3;
+        }
+    }
 }
 
-.ui-tooltip.ui-tooltip-left{
+.ui-tooltip.ui-tooltip-direction-left{
     margin-left: -$tooltip-distance;
     padding: 0 $tooltip-arrow-width;
-    @include transform(translate(-100%, -50%));
+    @include transform(translate(-100%, 0));
     .ui-tooltip-inner{
         box-shadow: $shadow-1-left;
     }
@@ -77,12 +111,28 @@ $tooltip-distance: 3px;
         border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width;
         border-left-color: $tooltip-bg;
     }
+    &.ui-tooltip-align-top{
+        .ui-tooltip-arrow{
+            top: 0;
+            margin-top: 8px;
+        }
+    }
+    &.ui-tooltip-align-center{
+        @include transform(translate(-100%, -50%));
+    }
+    &.ui-tooltip-align-bottom{
+        @include transform(translate(-100%, -100%));
+        .ui-tooltip-arrow{
+            top: auto;
+            bottom: 0;
+            margin-bottom: 8px;
+        }
+    }
 }
 
-.ui-tooltip.ui-tooltip-right{
+.ui-tooltip.ui-tooltip-direction-right{
     margin-right: -$tooltip-distance;
     padding: 0 $tooltip-arrow-width;
-    @include transform(translate(0, -50%));
     .ui-tooltip-inner{
         box-shadow: $shadow-1-right;
     }
@@ -92,5 +142,22 @@ $tooltip-distance: 3px;
         margin-top: -$tooltip-arrow-width;
         border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0;
         border-right-color: $tooltip-bg;
+    }
+    &.ui-tooltip-align-top{
+        .ui-tooltip-arrow{
+            top: 0;
+            margin-top: 8px;
+        }
+    }
+    &.ui-tooltip-align-center{
+        @include transform(translateY(-50%));
+    }
+    &.ui-tooltip-align-bottom{
+        @include transform(translateY(-100%));
+        .ui-tooltip-arrow{
+            top: auto;
+            bottom: 0;
+            margin-bottom: 8px;
+        }
     }
 }

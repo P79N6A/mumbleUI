@@ -104,4 +104,30 @@
 
 .tooltip-panel{
     @extend .toast-panel;
+    .swap{
+        width: 500px;
+        text-align: center;
+    }
+
+    .top,
+    .center,
+    .bottom{
+        width: 100%
+    }
+
+    .center{
+        padding: 0px 50px;
+        height: 150px;
+    }
+
+    .center-left{
+        float: left;
+        width: 100px;
+    }
+
+    .center-right{
+        float: right;
+        width: 100px;
+    }
+
 }

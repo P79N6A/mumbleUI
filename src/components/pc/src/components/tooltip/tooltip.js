@@ -9,7 +9,7 @@ var triggerMap = {
     outsideClick: ["click", "outsideClick"]
 };
 
-function triggerBind(e) {
+function triggerBind() {
     if(!this.tooltipComponent) return;
     this.tooltipComponent.show = !this.tooltipComponent.show;
 }
@@ -39,15 +39,19 @@ function create(parent, option){
             var defaultOption = {
                 show: false,
                 direction: "bottom",
+                align: "center",
+                styleObject: {},
                 text: "",
-                styleObject: {}
+                html: "",
+                component: null
             };
             return util.extend(defaultOption, option || {})
         },
         components: {
             Tooltip: Tooltip
         },
-        template: '<tooltip v-show="show" :direction="direction" :text="text" :style-object="styleObject"></tooltip>',
+        template: '<tooltip v-show="show" :direction="direction" :align="align" :text="text" :html="html" ' +
+        ':component="component" :style-object="styleObject" transition="fade"></tooltip>',
         ready: function () {
         },
         methods:{
@@ -66,14 +70,20 @@ export  default {
         // 例如，添加事件处理器或只需要运行一次的高耗任务
         var $dom = this.el;
         this.params.tooltipOption = this.params.tooltipOption || {};
-        this.params.tooltipOption.direction = this.params.tooltipOption.direction || "bottom";
-        this.params.tooltipOption.trigger = this.params.tooltipOption.trigger || "mouseenter";
-        if(this.expression){
-            this.params.tooltipOption.text = "" + this.expression;
+        //默认是bottom
+        if(!this.params.tooltipOption.direction){
+            this.params.tooltipOption.direction = "bottom";
         }
-        //如果input不是相对定位
+        if(!this.params.tooltipOption.align){
+            this.params.tooltipOption.align = "center";
+        }
+        this.params.tooltipOption.trigger = this.params.tooltipOption.trigger || "mouseenter";
+        //option的text配置优先级比expression高
+        if(this.expression){
+            this.params.tooltipOption.text =  this.params.tooltipOption.text  || ("" + this.expression);
+        }
         this.vm.$nextTick(()=> {
-            this.params.tooltipOption.styleObject = util.getPositionWhenAfterBorther($dom, this.params.tooltipOption.direction, 0, 0);
+            this.params.tooltipOption.styleObject = util.getPositionWhenAfterBorther($dom, this.params.tooltipOption.direction, this.params.tooltipOption.align);
             this.tooltipComponent = create(this, this.params.tooltipOption);
         });
 
@@ -107,8 +117,5 @@ export  default {
             this.el.removeEventListener(show, showTooltipBind.bind(this));
             this.el.removeEventListener(hide, hideTooltipBind.bind(this));
         }
-        //
-        // this.el.removeEventListener(triggerMap[this.params.tooltipOption.trigger][0], trigger.bind(this));
-        // this.el.removeEventListener(triggerMap[this.params.tooltipOption.trigger][1], trigger.bind(this));
     }
 }

@@ -65,7 +65,7 @@ export  default {
             if(this.vm[this.expression]){
                 this.params.datePickerOption.value = this.vm[this.expression];
             }
-            this.params.datePickerOption.styleObject = util.getPositionWhenAfterBorther($dom, "bottom", 0, 10);
+            this.params.datePickerOption.styleObject = util.getPositionWhenAfterBorther($dom, "bottom", "left", 0, 10);
             this.datePickerComponent = create(this, this.params.datePickerOption);
         });
         document.addEventListener("click", trigger.bind(this), false)
