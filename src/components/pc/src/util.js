@@ -149,3 +149,57 @@ export function isFunction(value) {return typeof value === 'function';}
 export function isObject(value) {
     return value !== null && typeof value === 'object';
 }
+
+export function getPositionWhenAfterBorther(brotherEle, direction, displacementX, displacementY) {
+    let offset = {
+        left: 0,
+        top: 0,
+        position: null,
+    };
+    displacementX = displacementX || 0;
+    displacementY = displacementY || 0;
+    direction = direction || "bottom";
+
+    var style =  window.getComputedStyle(brotherEle, null);
+    var rect = brotherEle.getBoundingClientRect();
+    var height = rect.height || (rect.bottom - rect.top);
+    var width = rect.width || (rect.right - rect.left);
+    if(style.position == "fixed" || style.position == "absolute"){
+        offset.position = style.position;
+        offset.left = Number(/^([0-9]*)/.exec(style.left)[0]) + displacementX;
+        offset.top =  Number(/^([0-9]*)/.exec(style.top)[0]) + displacementY;
+    }else{
+        offset.position = "absolute";
+        //如果target元素不在任何相对定位下，则直接计算离屏幕的高度
+        if(!brotherEle.offsetParent){
+            offset.left = rect.left + document.documentElement.scrollLeft + displacementX;
+            offset.top =  rect.top + document.documentElement.scrollTop + displacementY;
+        }else{
+            // offsetTop和offsetLeft表示该元素的左上角（边框外边缘）与已定位的父容器（offsetParent对象）左上角的距离
+            offset.left = brotherEle.offsetLeft + displacementX;
+            offset.top =  brotherEle.offsetTop  + displacementY;
+        }
+    }
+
+    switch (direction) {
+        case 'top':
+            offset.top = offset.top;
+            break;
+        case 'bottom':
+            offset.top = offset.top + height;
+            break;
+        case 'left':
+            offset.top = offset.top + height/2;
+            offset.left = offset.left;
+            break;
+        case 'right':
+            offset.top = offset.top + height/2;
+            offset.left = offset.left + width;
+            break;
+    }
+
+    offset.left += "px";
+    offset.top += "px";
+
+    return offset
+}

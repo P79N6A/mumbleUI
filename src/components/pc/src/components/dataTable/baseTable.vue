@@ -35,7 +35,7 @@
 <script>
     import Vue from 'vue'
     import _ from 'lodash/core';
-    import addComponent from '../../directives/addComponent.js';
+    import addComponent from '../../directives/initComponent.js';
     export default {
         props: {
             data: Array

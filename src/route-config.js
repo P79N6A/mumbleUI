@@ -52,6 +52,10 @@ export function configRouter(router){
             title: 'step组件',     //标题
             component: require('./views/pc/step')
         },
+        '/pc/tooltip':{
+            title: 'tooltip组件',     //标题
+            component: require('./views/pc/tooltip')
+        },
 
 
 

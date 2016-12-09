@@ -1,0 +1,96 @@
+$tooltip-max-width: 250px;
+$tooltip-arrow-width: 5px;
+$tooltip-distance: 3px;
+
+.ui-tooltip {
+    z-index: $zindex-tooltip;
+    display: block;
+    &-inner{
+        min-height: 34px;
+        padding: 8px 10px;
+        color: $tooltip-color;
+        background-color: $tooltip-bg;
+        border-radius: $border-radius-small;
+        box-shadow: $box-shadow-base;
+        letter-spacing: normal;
+        text-align: left;
+        text-decoration: none;
+        text-shadow: none;
+        text-transform: none;
+        white-space: normal;
+        word-break: normal;
+        word-spacing: normal;
+        word-wrap: normal;
+    }
+
+    &-arrow{
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+    }
+}
+
+.ui-tooltip.ui-tooltip-top{
+    margin-top: -$tooltip-distance;
+    padding: $tooltip-arrow-width 0;
+    @include transform(translate(0, -100%));
+    .ui-tooltip-inner{
+        box-shadow: $shadow-1-up;
+    }
+    .ui-tooltip-arrow{
+        bottom: 0;
+        left: 50%;
+        margin-left: -$tooltip-arrow-width;
+        border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+        border-top-color: $tooltip-bg;
+    }
+}
+
+.ui-tooltip.ui-tooltip-bottom{
+    margin-bottom: -$tooltip-distance;
+    padding: $tooltip-arrow-width 0;
+    .ui-tooltip-inner{
+        box-shadow: $shadow-1-down;
+    }
+    .ui-tooltip-arrow{
+        top: 0;
+        left: 50%;
+        margin-left: -$tooltip-arrow-width;
+        border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+        border-bottom-color: $tooltip-bg;
+    }
+}
+
+.ui-tooltip.ui-tooltip-left{
+    margin-left: -$tooltip-distance;
+    padding: 0 $tooltip-arrow-width;
+    @include transform(translate(-100%, -50%));
+    .ui-tooltip-inner{
+        box-shadow: $shadow-1-left;
+    }
+    .ui-tooltip-arrow{
+        top: 50%;
+        right: 0;
+        margin-top: -$tooltip-arrow-width;
+        border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width;
+        border-left-color: $tooltip-bg;
+    }
+}
+
+.ui-tooltip.ui-tooltip-right{
+    margin-right: -$tooltip-distance;
+    padding: 0 $tooltip-arrow-width;
+    @include transform(translate(0, -50%));
+    .ui-tooltip-inner{
+        box-shadow: $shadow-1-right;
+    }
+    .ui-tooltip-arrow{
+        top: 50%;
+        left: 0;
+        margin-top: -$tooltip-arrow-width;
+        border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0;
+        border-right-color: $tooltip-bg;
+    }
+}

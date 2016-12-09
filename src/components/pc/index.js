@@ -17,6 +17,7 @@ import Tree from './src/components/tree';
 import Upload from './src/components/upload';
 import Zoom from './src/components/zoom';
 import {Steps, Step} from './src/components/step';
+import Tooltip from './src/components/tooltip';
 
 const UiWebank = {
     Banner,
@@ -31,7 +32,8 @@ const UiWebank = {
     Tree,
     Zoom,
     Steps,
-    Step
+    Step,
+    Tooltip
 };
 
 const install = function (Vue) {
@@ -40,6 +42,7 @@ const install = function (Vue) {
     });
     Vue.directive("datePicker", DatePicker._directive);
     Vue.directive("zoom", Zoom._directive);
+    Vue.directive("tooltip", Tooltip._directive);
     Vue.directive("upload", Upload);
     Vue.prototype.$Message = Message;
     Vue.prototype.$Toast = Toast;
