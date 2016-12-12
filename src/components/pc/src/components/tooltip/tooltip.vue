@@ -1,17 +1,19 @@
 <template>
     <div class="ui-tooltip" :class="getClass()" :style="styleObject">
-        <div class="ui-tooltip-arrow">
-        </div>
-        <div class="ui-tooltip-inner">
-            <div v-if="isText" class="ui-tooltip-text">
-                <i class="ui-icon ui-icon-question-circle" v-if="confirm"></i>
-                {{text}}
+        <div class="ui-tooltip-swap">
+            <div class="ui-tooltip-arrow">
             </div>
-            <div v-if="isHtml">{{{html}}}</div>
-            <div v-if="isComponent" v-add-component="component"></div>
-            <div class="ui-tooltip-buttons" v-if="confirm">
-                <button class="ui-button">确定</button>
-                <button class="ui-button">取消</button>
+            <div class="ui-tooltip-inner">
+                <div v-if="isText" class="ui-tooltip-text">
+                    <i class="ui-icon ui-icon-question-circle" v-if="confirm"></i>
+                    {{text}}
+                </div>
+                <div v-if="isHtml">{{{html}}}</div>
+                <div v-if="isComponent" v-add-component="component"></div>
+                <div class="ui-tooltip-buttons" v-if="confirm">
+                    <button class="ui-button">确定</button>
+                    <button class="ui-button">取消</button>
+                </div>
             </div>
         </div>
     </div>

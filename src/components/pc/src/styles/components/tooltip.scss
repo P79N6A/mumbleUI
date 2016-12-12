@@ -5,6 +5,12 @@ $tooltip-distance: 3px;
 .ui-tooltip {
     z-index: $zindex-tooltip;
     display: block;
+    padding: 2px;
+
+    .ui-tooltip-swap{
+        position: relative;
+    }
+
     &-inner{
         min-height: 34px;
         padding: 8px 10px;
@@ -43,14 +49,15 @@ $tooltip-distance: 3px;
 }
 
 .ui-tooltip.ui-tooltip-direction-top{
-    margin-top: -$tooltip-distance;
-    padding: $tooltip-arrow-width 0;
+    .ui-tooltip-swap{
+        padding: $tooltip-arrow-width 0;
+    }
     @include transform(translateY(-100%));
     .ui-tooltip-inner{
         box-shadow: $shadow-1-up;
     }
     .ui-tooltip-arrow{
-        bottom: 0;
+        bottom: 1px;
         left: 50%;
         margin-left: -$tooltip-arrow-width;
         border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
@@ -88,13 +95,15 @@ $tooltip-distance: 3px;
 }
 
 .ui-tooltip.ui-tooltip-direction-bottom{
-    margin-bottom: -$tooltip-distance;
-    padding: $tooltip-arrow-width 0;
+    .ui-tooltip-swap{
+        padding: $tooltip-arrow-width 0;
+    }
+
     .ui-tooltip-inner{
         box-shadow: $shadow-1-down;
     }
     .ui-tooltip-arrow{
-        top: 0;
+        top: 1px;
         left: 50%;
         margin-left: -$tooltip-arrow-width;
         border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
@@ -133,15 +142,17 @@ $tooltip-distance: 3px;
 }
 
 .ui-tooltip.ui-tooltip-direction-left{
-    margin-left: -$tooltip-distance;
-    padding: 0 $tooltip-arrow-width;
+    .ui-tooltip-swap{
+        padding: 0 $tooltip-arrow-width;
+    }
+
     @include transform(translate(-100%, 0));
     .ui-tooltip-inner{
         box-shadow: $shadow-1-left;
     }
     .ui-tooltip-arrow{
         top: 50%;
-        right: 0;
+        right: 1px;
         margin-top: -$tooltip-arrow-width;
         border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width;
         border-left-color: $tooltip-bg;
@@ -180,14 +191,16 @@ $tooltip-distance: 3px;
 }
 
 .ui-tooltip.ui-tooltip-direction-right{
-    margin-right: -$tooltip-distance;
-    padding: 0 $tooltip-arrow-width;
+    .ui-tooltip-swap{
+        padding: 0 $tooltip-arrow-width;
+    }
+
     .ui-tooltip-inner{
         box-shadow: $shadow-1-right;
     }
     .ui-tooltip-arrow{
         top: 50%;
-        left: 0;
+        left: 1px;
         margin-top: -$tooltip-arrow-width;
         border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0;
         border-right-color: $tooltip-bg;
