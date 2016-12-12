@@ -56,6 +56,10 @@ export function configRouter(router){
             title: 'tooltip组件',     //标题
             component: require('./views/pc/tooltip')
         },
+        '/pc/tab':{
+            title: 'tooltip组件',     //标题
+            component: require('./views/pc/tab')
+        },
 
 
 

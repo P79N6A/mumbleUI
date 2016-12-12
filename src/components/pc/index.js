@@ -18,6 +18,7 @@ import Upload from './src/components/upload';
 import Zoom from './src/components/zoom';
 import {Steps, Step} from './src/components/step';
 import Tooltip from './src/components/tooltip';
+import {Tabs, Tab} from './src/components/tab';
 
 const UiWebank = {
     Banner,
@@ -33,7 +34,9 @@ const UiWebank = {
     Zoom,
     Steps,
     Step,
-    Tooltip
+    Tooltip,
+    Tabs,
+    Tab
 };
 
 const install = function (Vue) {
