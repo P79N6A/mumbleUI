@@ -28,11 +28,15 @@
         <h2>支持html字符串：</h2>
         <button v-tooltip :tooltip-option="option13">html字符串</button>
 
-
         <h2>支持自定义模版：</h2>
+        <button v-tooltip :tooltip-option="option14">component模版</button>
+
+        <h2>confirm：</h2>
+        <button v-tooltip :tooltip-option="option15">confirm模式</button>
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import Vue from "vue"
     export default{
         data: function () {
             return {
@@ -100,7 +104,23 @@
                     direction: 'bottom',
                     align: "left",
                     html: "<em>我是带em标签的字符串</em>",
-                }
+                },
+                option14: {
+                    direction: 'bottom',
+                    align: "left",
+                    component: new Vue({
+                        data : function () {
+                            return {
+                                a: 111,
+                            }
+                        },
+                        template: "我是组件{{a}}"
+                    })
+                },
+                option15: {
+                    text: "确认删除吗？",
+                    confirm: true
+                },
             }
         },
         methods: {

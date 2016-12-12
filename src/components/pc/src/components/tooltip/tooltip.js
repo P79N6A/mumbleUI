@@ -43,6 +43,7 @@ function create(parent, option){
                 styleObject: {},
                 text: "",
                 html: "",
+                confirm: false,
                 component: null
             };
             return util.extend(defaultOption, option || {})
@@ -51,7 +52,7 @@ function create(parent, option){
             Tooltip: Tooltip
         },
         template: '<tooltip v-show="show" :direction="direction" :align="align" :text="text" :html="html" ' +
-        ':component="component" :style-object="styleObject" transition="fade"></tooltip>',
+        ':component="component" :confirm="confirm" :style-object="styleObject" transition="fade"></tooltip>',
         ready: function () {
         },
         methods:{

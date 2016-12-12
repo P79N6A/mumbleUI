@@ -3,9 +3,16 @@
         <div class="ui-tooltip-arrow">
         </div>
         <div class="ui-tooltip-inner">
-            <span v-if="isText">{{text}}</span>
+            <div v-if="isText" class="ui-tooltip-text">
+                <i class="ui-icon ui-icon-question-circle" v-if="confirm"></i>
+                {{text}}
+            </div>
             <div v-if="isHtml">{{{html}}}</div>
             <div v-if="isComponent" v-add-component="component"></div>
+            <div class="ui-tooltip-buttons" v-if="confirm">
+                <button class="ui-button">确定</button>
+                <button class="ui-button">取消</button>
+            </div>
         </div>
     </div>
 </template>
@@ -22,7 +29,8 @@
             component: [Object, null],
             styleObject: Object,
             direction: String,
-            align: String
+            align: String,
+            confirm: [Boolean, String]
         },
         computed: {
             isComponent: function () {
@@ -43,6 +51,9 @@
                 var arr = ["ui-tooltip-direction-" + this.direction, "ui-tooltip-align-" + this.align];
                 if(this.isHtml || this.isComponent){
                     arr.push("ui-tooltip-rich")
+                }
+                if(this.confirm === "true" || this.confirm === "confirm" || this.confirm){
+                    arr.push("ui-tooltip-confirm")
                 }
                 return arr
             }

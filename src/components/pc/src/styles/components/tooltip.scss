@@ -73,7 +73,7 @@ $tooltip-distance: 3px;
             margin-right: $tooltip-arrow-width*3;
         }
     }
-    &.ui-tooltip-rich{
+    &.ui-tooltip-rich, &.ui-tooltip-confirm{
         .ui-tooltip-arrow{
             border-top-color: rgba(217,217,217,.5);
             &:after{
@@ -117,7 +117,7 @@ $tooltip-distance: 3px;
             margin-right: $tooltip-arrow-width*3;
         }
     }
-    &.ui-tooltip-rich{
+    &.ui-tooltip-rich, &.ui-tooltip-confirm{
         .ui-tooltip-arrow{
             border-bottom-color: rgba(217,217,217,.5);
             &:after{
@@ -163,7 +163,7 @@ $tooltip-distance: 3px;
             margin-bottom: 8px;
         }
     }
-    &.ui-tooltip-rich{
+    &.ui-tooltip-rich, &.ui-tooltip-confirm{
         .ui-tooltip-arrow{
             border-left-color: rgba(217,217,217,.5);
             &:after{
@@ -209,7 +209,7 @@ $tooltip-distance: 3px;
             margin-bottom: 8px;
         }
     }
-    &.ui-tooltip-rich{
+    &.ui-tooltip-rich, &.ui-tooltip-confirm{
         .ui-tooltip-arrow{
             border-right-color: rgba(217,217,217,.5);
             &:after{
@@ -226,10 +226,50 @@ $tooltip-distance: 3px;
     }
 }
 
-.ui-tooltip.ui-tooltip-rich{
+.ui-tooltip.ui-tooltip-rich,
+.ui-tooltip.ui-tooltip-confirm{
     .ui-tooltip-inner{
         color: $text-color;
         background-color: #fff;
         box-shadow: $box-shadow-base;
+    }
+
+
+
+}
+
+.ui-tooltip.ui-tooltip-confirm{
+    .ui-icon-question-circle{
+        color: $warning-color;
+        font-size: 12px;
+        margin-right: 8px;
+    }
+
+    .ui-tooltip-buttons{
+        text-align: right;
+        padding: 8px 6px;
+        button:first-child{
+            color: #fff;
+            background-color: $primary-color;
+            border-color: $primary-color;
+        }
+        button + button {
+            margin-left: 10px;
+            margin-bottom: 0;
+        }
+    }
+
+    .ui-button{
+        font-size: 12px;
+        margin: 0;
+        padding: 3px 5px;
+    }
+
+    .ui-tooltip-text{
+        padding: 8px 6px;
+    }
+
+    .ui-tooltip-inner{
+        min-width: 160px;
     }
 }
