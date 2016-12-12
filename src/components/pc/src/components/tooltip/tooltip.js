@@ -51,11 +51,28 @@ function create(parent, option){
         components: {
             Tooltip: Tooltip
         },
-        template: '<tooltip v-show="show" :direction="direction" :align="align" :text="text" :html="html" ' +
+        template: '<tooltip v-show="show" @mouseenter="mouseenter" @mouseleave="mouseleave"  @tooltip.ok="ok" @tooltip.cancel="cancel" ' +
+        ':direction="direction" :align="align" :text="text" :html="html" ' +
         ':component="component" :confirm="confirm" :style-object="styleObject" transition="fade"></tooltip>',
         ready: function () {
         },
         methods:{
+            mouseenter: function () {
+                if("mouseenter" == parent.params.tooltipOption.trigger){
+                    this.show = true;
+                }
+            },
+            mouseleave: function () {
+                if("mouseenter" == parent.params.tooltipOption.trigger){
+                    this.show = false;
+                }
+            },
+            ok: function () {
+                option.onOk && option.onOk.call(parent.vm);
+            },
+            cancel: function () {
+                option.onCancel && option.onCancel.call(parent.vm);
+            }
         }
     });
     tooltipComponent.$mount().$appendTo(parent.el.parentNode);

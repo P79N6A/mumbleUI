@@ -11,8 +11,8 @@
                 <div v-if="isHtml">{{{html}}}</div>
                 <div v-if="isComponent" v-add-component="component"></div>
                 <div class="ui-tooltip-buttons" v-if="confirm">
-                    <button class="ui-button">确定</button>
-                    <button class="ui-button">取消</button>
+                    <button class="ui-button" @click="ok">确定</button>
+                    <button class="ui-button" @click="cancel">取消</button>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             styleObject: Object,
             direction: String,
             align: String,
-            confirm: [Boolean, String]
+            confirm: [Boolean, String],
         },
         computed: {
             isComponent: function () {
@@ -58,6 +58,12 @@
                     arr.push("ui-tooltip-confirm")
                 }
                 return arr
+            },
+            ok: function () {
+                this.$dispatch("tooltip.ok");
+            },
+            cancel: function () {
+                this.$dispatch("tooltip.cancel");
             }
         }
     }
