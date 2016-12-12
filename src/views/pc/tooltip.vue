@@ -26,6 +26,9 @@
             </div>
         </div>
         <h2>支持html字符串：</h2>
+        <button v-tooltip :tooltip-option="option13">html字符串</button>
+
+
         <h2>支持自定义模版：</h2>
     </div>
 </template>
@@ -92,6 +95,11 @@
                     direction: 'bottom',
                     align: "right",
                     text: "下右",
+                },
+                option13: {
+                    direction: 'bottom',
+                    align: "left",
+                    html: "<em>我是带em标签的字符串</em>",
                 }
             }
         },

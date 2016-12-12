@@ -29,6 +29,16 @@ $tooltip-distance: 3px;
         height: 0;
         border-color: transparent;
         border-style: solid;
+        box-sizing: content-box;
+        &:after {
+            display: block;
+            position: absolute;
+            left: -$tooltip-arrow-width;
+            top: -6px;
+            content: "";
+            width: 0;
+            height: 0;
+        }
     }
 }
 
@@ -63,6 +73,18 @@ $tooltip-distance: 3px;
             margin-right: $tooltip-arrow-width*3;
         }
     }
+    &.ui-tooltip-rich{
+        .ui-tooltip-arrow{
+            border-top-color: rgba(217,217,217,.5);
+            &:after{
+                border-color: transparent;
+                border-style: solid;
+                border-width: $tooltip-arrow-width;
+                border-bottom-width: 0;
+                border-top-color: #fff;
+            }
+        }
+    }
 }
 
 .ui-tooltip.ui-tooltip-direction-bottom{
@@ -93,6 +115,19 @@ $tooltip-distance: 3px;
             left: auto;
             right: 0;
             margin-right: $tooltip-arrow-width*3;
+        }
+    }
+    &.ui-tooltip-rich{
+        .ui-tooltip-arrow{
+            border-bottom-color: rgba(217,217,217,.5);
+            &:after{
+                border-color: transparent;
+                border-style: solid;
+                border-width: $tooltip-arrow-width;
+                border-top-width: 0;
+                border-bottom-color: #fff;
+                top: 1px;
+            }
         }
     }
 }
@@ -128,6 +163,20 @@ $tooltip-distance: 3px;
             margin-bottom: 8px;
         }
     }
+    &.ui-tooltip-rich{
+        .ui-tooltip-arrow{
+            border-left-color: rgba(217,217,217,.5);
+            &:after{
+                border-color: transparent;
+                border-style: solid;
+                border-width: $tooltip-arrow-width;
+                border-right-width: 0;
+                border-left-color: #fff;
+                left: -6px;
+                top: -5px;
+            }
+        }
+    }
 }
 
 .ui-tooltip.ui-tooltip-direction-right{
@@ -159,5 +208,28 @@ $tooltip-distance: 3px;
             bottom: 0;
             margin-bottom: 8px;
         }
+    }
+    &.ui-tooltip-rich{
+        .ui-tooltip-arrow{
+            border-right-color: rgba(217,217,217,.5);
+            &:after{
+                border-color: transparent;
+                border-style: solid;
+                border-width: $tooltip-arrow-width;
+                border-left-width: 0;
+                border-right-color: #fff;
+                left: auto;
+                right: -6px;
+                top: -5px;
+            }
+        }
+    }
+}
+
+.ui-tooltip.ui-tooltip-rich{
+    .ui-tooltip-inner{
+        color: $text-color;
+        background-color: #fff;
+        box-shadow: $box-shadow-base;
     }
 }
