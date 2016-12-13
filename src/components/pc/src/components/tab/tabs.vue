@@ -1,9 +1,9 @@
 <template>
     <div class="ui-tabs">
         <div class="ui-tabs-header">
-            <div class="ui-tabs-header-item" v-for="item in keys" track-by="$index"  @click="choose($index)"
-                 :class="{ 'ui-tabs-header-current': current == $index + 1 }">
-                {{item}}
+            <div class="ui-tabs-header-item" v-for="item in children" track-by="$index"  @click="choose($index)"
+                 :class="{ 'ui-tabs-header-current': current == $index + 1 , 'ui-tabs-header-disabled':item.disabled  }">
+                {{item.label}}
             </div>
         </div>
         <div class="ui-tabs-body">
@@ -22,14 +22,9 @@
         data: function () {
             return {
                 len: 0,
-                keys: []
+                children: []
             }
         },
-//        watch: {
-//            "current": function () {
-//                this.upDateChildren();
-//            }
-//        },
         ready: function () {
             this.len = this.$children.length;
             this.upDateChildren();
@@ -39,7 +34,10 @@
                 var _this = this;
                 if(this.$children){
                     this.$children.forEach(function (tab, index) {
-                        _this.keys.push(tab.label);
+                        _this.children.push({
+                            label: tab.label,
+                            disabled: tab.disabled
+                        } );
                         if(index == _this.current -1){
                             tab.show = true
                         }
@@ -50,6 +48,7 @@
                 this.$children[this.current -1].show = false;
                 this.current = index + 1;
                 this.$children[index].show = true;
+                this.$dispatch("tabs.choose", index);
             }
         }
     }
