@@ -9,6 +9,8 @@ const isIos = UA && /(iphone|ipad|ipod|ios)/i.test(UA)
 const iosVersionMatch = isIos && UA.match(/os ([\d_]+)/)
 const iosVersion = iosVersionMatch && iosVersionMatch[1].split('_')
 
+const objectToString = Object.prototype.toString;
+
 /**
  * For IE9 compat: when both class and :class are present
  * getAttribute('class') returns wrong value...
@@ -147,9 +149,22 @@ export function isDate(value) {
 export function isFunction(value) {return typeof value === 'function';}
 
 export function isObject(value) {
-    return value !== null && typeof value === 'object';
+    var type = typeof value;
+    return !!value && (type == 'object' || type == 'function');
 }
 
+export function isArray(value) {
+    return Array.isArray(value)
+}
+
+export function isObjectLike(value) {
+    return !!value && typeof value == 'object';
+}
+
+export function isString(value) {
+    return typeof value == 'string' ||
+        (!isArray(value) && isObjectLike(value) && objectToString.call(value) == '[object String]');
+}
 
 /**
  * 通过direction和align计算元素的位置

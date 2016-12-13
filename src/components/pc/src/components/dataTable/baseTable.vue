@@ -34,7 +34,7 @@
 </template>
 <script>
     import Vue from 'vue'
-    import _ from 'lodash/core';
+    import * as util from "../../util.js";
     import addComponent from '../../directives/initComponent.js';
     export default {
         props: {
@@ -76,20 +76,20 @@
             render: function (col, tdData, trData) {
                 var rst = "";
                 //如果filter存在
-                if (_.isArray(col.filter)) {
+                if ( util.isArray(col.filter)) {
                     var theOne = col.filter.filter(function (o) {
                         return o.key == tdData;
                     });
                     if (theOne.length > 0) {
                         rst = theOne[0].value
                     }
-                } else if (_.isFunction(col.filter)) {
+                } else if (util.isFunction(col.filter)) {
                     rst = col.filter(tdData)
                 } else {
                     rst = tdData
                 }
                 //如果rst一个Vue的实例
-                if (_.isObject(rst) && rst.constructor == Vue) {
+                if (util.isObject(rst) && rst.constructor == Vue) {
                     if (trData.components) {
                         Vue.set(trData.components, col.name, rst);
                         rst = "";
@@ -110,11 +110,11 @@
                     ["col_" + (index + 1)]: true
                 };
                 if (col.addClass) {
-                    if (_.isString(col.addClass)) {
+                    if (util.isString(col.addClass)) {
                         obj[col.addClass] = true
-                    } else if (_.isFunction(col.addClass)) {
+                    } else if (util.isFunction(col.addClass)) {
                         var rst = col.addClass(tdData);
-                        if (_.isString(rst)) {
+                        if (util.isString(rst)) {
                             obj[rst] = true
                         }
                     }
@@ -130,7 +130,6 @@
             },
             //点击th列
             thColClick: function (col, index, event) {
-                console.log(arguments)
                 this.$dispatch("th-col-click", col, index);
             },
             //点击内容行
@@ -139,10 +138,10 @@
             },
             //触发action动作
             fireAction: function (action, rowData, event) {
-                if (_.isString(action.func)) {
+                if (util.isString(action.func)) {
                     this.$parent[action.func].call(this.$parent, rowData)
                 }
-                if (_.isFunction(action.func)) {
+                if (util.isFunction(action.func)) {
                     action.func(rowData)
                 }
             }

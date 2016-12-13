@@ -40,10 +40,10 @@
 <script>
     import Vue from 'vue'
     import table from './baseTable'
-    import _ from 'lodash/core';
+    import * as util from "../../util.js";
     //把树状的数据直接梳理成一维数据，给每条数据添加seq和parentSeq标记
     function objectToArray(data) {
-        if (_.isArray(data)) {
+        if (util.isArray(data)) {
             var arr = data;
             var length = arr.length;
             for (var i = 0; i < length; i++) {
@@ -90,11 +90,11 @@
                     ["col_" + (index + 1)]: true
                 };
                 if (col.addClass) {
-                    if (_.isString(col.addClass)) {
+                    if (util.isString(col.addClass)) {
                         obj[col.addClass] = true
-                    } else if (_.isFunction(col.addClass)) {
+                    } else if (util.isFunction(col.addClass)) {
                         var rst = col.addClass(tdData);
-                        if (_.isString(rst)) {
+                        if (util.isString(rst)) {
                             obj[rst] = true
                         }
                     }
