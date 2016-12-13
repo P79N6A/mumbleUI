@@ -1,5 +1,9 @@
 .ui-tabs{
-
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    zoom: 1;
+    color: $text-color;
     .ui-tabs-header{
         width: 100%;
         margin-bottom: 16px;
@@ -16,6 +20,9 @@
             &.ui-tabs-header-current{
                 color: $selected-color;
                 border-bottom: 2px solid $selected-color;
+                .ui-icon{
+                    color: $selected-color;
+                }
             }
             &.ui-tabs-header-disabled{
                 pointer-events: none;
@@ -26,6 +33,10 @@
 
         .ui-tabs-header-item + .ui-tabs-header-item{
             margin-left: 16px;
+        }
+
+        .ui-icon{
+            margin-right: 8px;
         }
     }
 

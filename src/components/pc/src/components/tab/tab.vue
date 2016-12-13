@@ -10,6 +10,10 @@
                 type: String,
                 required: true
             },
+            icon:{
+                type: String,
+                default: ""
+            },
             disabled: {
                 type: Boolean,
                 default: false

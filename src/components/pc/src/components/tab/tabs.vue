@@ -3,7 +3,7 @@
         <div class="ui-tabs-header">
             <div class="ui-tabs-header-item" v-for="item in children" track-by="$index"  @click="choose($index)"
                  :class="{ 'ui-tabs-header-current': current == $index + 1 , 'ui-tabs-header-disabled':item.disabled  }">
-                {{item.label}}
+                <i v-if="item.icon" class="ui-icon ui-icon-{{item.icon}}"></i>{{item.label}}
             </div>
         </div>
         <div class="ui-tabs-body">
@@ -36,7 +36,8 @@
                     this.$children.forEach(function (tab, index) {
                         _this.children.push({
                             label: tab.label,
-                            disabled: tab.disabled
+                            disabled: tab.disabled,
+                            icon: tab.icon
                         } );
                         if(index == _this.current -1){
                             tab.show = true
