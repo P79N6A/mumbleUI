@@ -84,3 +84,52 @@
 .fade-enter, .fade-leave {
     opacity: 0;
 }
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        opacity: 1;
+    }
+    99% {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        opacity: 0;
+    }
+    100%{
+        display: none;
+    }
+}
+
+.tabfade-transition{
+}
+
+.tabfade-leave {
+    animation-name: fadeOut;
+    animation-duration: .3s;
+    animation-fill-mode: both;
+}
+
+.tabfade-enter{
+    animation-name: fadeIn;
+    animation-duration: .6s;
+    animation-fill-mode: both;
+}
+
+

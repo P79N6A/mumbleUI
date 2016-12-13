@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-tab" v-show="show" transition="fade">
+    <div class="ui-tab" v-show="show" transition="tabfade">
         <slot></slot>
     </div>
 </template>

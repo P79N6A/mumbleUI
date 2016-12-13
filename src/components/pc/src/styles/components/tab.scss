@@ -1,7 +1,6 @@
 .ui-tabs{
     box-sizing: border-box;
     position: relative;
-    overflow: hidden;
     zoom: 1;
     color: $text-color;
     .ui-tabs-header{
@@ -49,7 +48,4 @@
 
 .ui-tab{
     width: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
 }
