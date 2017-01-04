@@ -19,6 +19,7 @@ import Zoom from './src/components/zoom';
 import {Steps, Step} from './src/components/step';
 import Tooltip from './src/components/tooltip';
 import {Tabs, Tab} from './src/components/tab';
+import Pagination from './src/components/pagination';
 
 const UiWebank = {
     Banner,
@@ -36,7 +37,8 @@ const UiWebank = {
     Step,
     Tooltip,
     Tabs,
-    Tab
+    Tab,
+    Pagination
 };
 
 const install = function (Vue) {

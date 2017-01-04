@@ -3,17 +3,20 @@
         <table>
             <thead class="ui-table-thead">
             <tr>
+                <th class="first-col"></th>
                 <th v-for="col in rule"
                     :style="getStyle(col, $index)"
                     :class="getThClass(col, $index)"
                     @click="thColClick(col, $index, $event)">
                     <span>{{col.name}}</span>
                 </th>
+                <th class="last-col"></th>
             </tr>
             </thead>
             <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData" track-by="$index" class="row_{{rowIndex+1}}"
                 @click="bodyTrClick(trData, rowIndex, $event)">
+                <td class="first-col"></td>
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
                     :style="getStyle(col, colIndex)"
@@ -26,6 +29,7 @@
                         </span>
                     </template>
                 </td>
+                <td class="last-col"></td>
             </tr>
             </tbody>
         </table>
@@ -63,12 +67,14 @@
         computed: {
             // 一个计算属性的 getter
             showData: function () {
-                var arr = this.data.slice(0);
-                //给data添加加放个性化子组件的容器
-                arr.forEach((item)=> {
-                    Vue.set(item, "components", {})
-                });
-                return arr
+                if(util.isArray(this.data)){
+                    var arr = this.data.slice(0);
+                    //给data添加加放个性化子组件的容器
+                    arr.forEach((item)=> {
+                        Vue.set(item, "components", {})
+                    });
+                    return arr
+                }
             }
         },
         methods: {

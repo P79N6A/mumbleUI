@@ -45,7 +45,7 @@
     </div>
 </template>
 <script>
-    import table from './baseTable'
+    import table from './baseTable.vue'
     export default {
         extends: table,
         data: function () {

@@ -164,53 +164,11 @@
             }
         },
         ready: function () {
-            if (this.value) {
-                this.result = this.value;
-                if (this.model == "single") {
-                    if (util.isNumber(this.result)) {
-                        var _current = parseDay(this.result);
-                        this.current.year = _current.year;
-                        this.current.month = _current.month;
-                        this.current.hour = _current.hour;
-                        this.current.minute = _current.minute;
-                        this.current.second = _current.second;
-                        this.selectedDays.push(_current)
-                    }
-                }
-                else if (this.model == "multiple" || this.model == "range") {
-                    if (Array.isArray(this.result)) {
-                        var _arr = this.result.slice(0).sort(function (a, b) {
-                            return a > b
-                        });
-                        var len = _arr.length;
-                        for (var i = 0; i < len; i++) {
-                            var date = parseDay(_arr[i]);
-                            if (i == 0) {
-                                this.current.year = date.year;
-                                this.current.month = date.month;
-                            }
-                            if (i == len - 1) {
-                                this.current.hour = date.hour;
-                                this.current.minute = date.minute;
-                                this.current.second = date.second;
-                            }
-                            this.selectedDays.push(date);
-                        }
-                    }
-                }
-                this.setInputValue();
-            }
-            if (this.enableTime) {
-                this.hourElem = this.$el.querySelector(".flatpickr-hour");
-                this.hourElem.addEventListener("wheel", this.wheelHour, false);
-                this.minuteElem = this.$el.querySelector(".flatpickr-minute");
-                this.minuteElem.addEventListener("wheel", this.wheelMinute, false);
-                if (this.enableSeconds) {
-                    this.secondElem = this.$el.querySelector(".flatpickr-second");
-                    this.secondElem.addEventListener("wheel", this.wheelSeconds, false)
-                }
-            }
-            this.getDays();
+            this.init();
+            this.$on("updateValue", function (newValue) {
+                this.value = newValue;
+                this.init();
+            })
         },
         destroy: function () {
             if (this.enableTime) {
@@ -222,6 +180,56 @@
             }
         },
         methods: {
+            init: function () {
+                if (this.value) {
+                    this.result = this.value;
+                    this.selectedDays = [];
+                    if (this.model == "single") {
+                        if (util.isNumber(this.result)) {
+                            var _current = parseDay(this.result);
+                            this.current.year = _current.year;
+                            this.current.month = _current.month;
+                            this.current.hour = _current.hour;
+                            this.current.minute = _current.minute;
+                            this.current.second = _current.second;
+                            this.selectedDays.push(_current)
+                        }
+                    }
+                    else if (this.model == "multiple" || this.model == "range") {
+                        if (Array.isArray(this.result)) {
+                            var _arr = this.result.slice(0).sort(function (a, b) {
+                                return a > b
+                            });
+                            var len = _arr.length;
+                            for (var i = 0; i < len; i++) {
+                                var date = parseDay(_arr[i]);
+                                if (i == 0) {
+                                    this.current.year = date.year;
+                                    this.current.month = date.month;
+                                }
+                                if (i == len - 1) {
+                                    this.current.hour = date.hour;
+                                    this.current.minute = date.minute;
+                                    this.current.second = date.second;
+                                }
+                                this.selectedDays.push(date);
+                            }
+                        }
+                    }
+                    this.setInputValue();
+                }
+                if (this.enableTime) {
+                    this.hourElem = this.$el.querySelector(".flatpickr-hour");
+                    this.hourElem.addEventListener("wheel", this.wheelHour, false);
+                    this.minuteElem = this.$el.querySelector(".flatpickr-minute");
+                    this.minuteElem.addEventListener("wheel", this.wheelMinute, false);
+                    if (this.enableSeconds) {
+                        this.secondElem = this.$el.querySelector(".flatpickr-second");
+                        this.secondElem.addEventListener("wheel", this.wheelSeconds, false)
+                    }
+                }
+                this.getDays();
+            },
             setInputValue: function () {
                 if (this.result) {
                     var str = "";

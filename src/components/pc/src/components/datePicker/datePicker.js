@@ -17,6 +17,7 @@ function create(parent, datePickerOption){
                 minDate: null,
                 disable: [],
                 enable: [],
+                model: "single",
                 styleObject: {
                 }
             };
@@ -25,7 +26,7 @@ function create(parent, datePickerOption){
         components: {
             datePicker: datePicker
         },
-        template: '<date-picker v-show="show" :value="value" :enable-time="enableTime" @click.stop="" \
+        template: '<date-picker v-show="show" :model="model" :value="value" :enable-time="enableTime" @click.stop="" \
                         :enable-seconds="enableSeconds"  \
                         :hour-increment="hourIncrement" \
                         :minute-increment="minuteIncrement" \
@@ -35,6 +36,9 @@ function create(parent, datePickerOption){
         ready: function () {
         },
         methods:{
+            updateValue: function (newValue) {
+                this.$broadcast("updateValue", newValue)
+            },
             update: function (data) {
                 parent.vm[parent.expression] = data.value;
                 parent.el.value = data.text;
@@ -73,6 +77,11 @@ export  default {
     update: function (newValue, oldValue) {
         // 值更新时的工作
         // 也会以初始值为参数调用一次
+        if(newValue){
+            if(this.datePickerComponent){
+                this.datePickerComponent.updateValue(newValue);
+            }
+        }
     },
     unbind: function () {
         // 清理工作

@@ -1,0 +1,117 @@
+.ui-page{
+  font-size: 0;
+  &-item {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 30px;
+    margin-right: 4px;
+    text-align: center;
+    list-style: none;
+    background-color: #fff;
+    user-select: none;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 12px;
+    border: 1px solid $border-color-base;
+    border-radius: $border-radius-base;
+    transition: all .3s $ease-in-out;
+    a {
+      margin: 0 6px;
+      text-decoration: none;
+      color: $text-color;
+      transition: none;
+    }
+    &:hover {
+      border-color: $primary-color;
+      a {
+        color: $primary-color;
+      }
+    }
+    &-active {
+      background-color: $primary-color;
+      border-color: $primary-color;
+      a, &:hover a {
+        color: #fff;
+      }
+    }
+  }
+  &-item-jump-prev, &-item-jump-next {
+    &:after {
+      content: "•••";
+      display: block;
+      letter-spacing: 1px;
+      color: $text-color;
+      text-align: center;
+    }
+    i{
+      display: none;
+    }
+    a {
+      color: #666;
+    }
+    &:hover {
+      &:after{
+        display: none;
+      }
+      i{
+        display: inline-block;
+      }
+    }
+  }
+  &-item-jump-prev,
+  &-item-jump-next{
+    margin-right: 4px;
+  }
+  &-prev{
+    margin-right: 8px;
+  }
+  &-next{
+    margin-left: 4px;
+  }
+  &-prev,
+  &-next,
+  &-item-jump-prev,
+  &-item-jump-next {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 30px;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    color: #666;
+    font-size: 12px;
+    font-family: Arial;
+    border: 1px solid $border-color-base;
+    border-radius: $border-radius-base;
+    transition: all .3s $ease-in-out;
+  }
+  &-prev,
+  &-next {
+    background-color: #fff;
+    a {
+      color: #666;
+    }
+    &:hover {
+      border-color: $primary-color;
+
+      a {
+        color: $primary-color;
+      }
+    }
+  }
+  &-disabled {
+    cursor: not-allowed;
+    a {
+      color: #ccc;
+    }
+    &:hover {
+      border-color: $border-color-base;
+      a {
+        color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

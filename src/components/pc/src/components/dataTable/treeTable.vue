@@ -39,7 +39,7 @@
 </template>
 <script>
     import Vue from 'vue'
-    import table from './baseTable'
+    import table from './baseTable.vue'
     import * as util from "../../util.js";
     //把树状的数据直接梳理成一维数据，给每条数据添加seq和parentSeq标记
     function objectToArray(data) {
