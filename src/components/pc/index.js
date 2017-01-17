@@ -20,6 +20,7 @@ import {Steps, Step} from './src/components/step';
 import Tooltip from './src/components/tooltip';
 import {Tabs, Tab} from './src/components/tab';
 import Pagination from './src/components/pagination';
+import * as Util from './src/util.js';
 
 const UiWebank = {
     Banner,
@@ -49,11 +50,11 @@ const install = function (Vue) {
     Vue.directive("zoom", Zoom._directive);
     Vue.directive("tooltip", Tooltip._directive);
     Vue.directive("upload", Upload);
-    Vue.prototype.$Message = Message;
-    Vue.prototype.$Toast = Toast;
+    Vue.prototype.$Message = window.Message = Message;
+    Vue.prototype.$Toast = window.Toast = Toast;
+    Vue.prototype.$Util = window.Util = Util;
 };
 
-// auto install
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }

@@ -6,14 +6,14 @@
         <li v-if="showFirst" title="第一页" class="ui-page-item" @click="go(1)">
             <a>1</a>
         </li>
-        <li v-if="showFirst" class="ui-page-item-jump-prev" title="向前5页"  @click="prev()">
+        <li v-if="showFirst" class="ui-page-item-jump-prev" title="向前{{len}}页"  @click="prev()">
             <a><i class="ui-icon ui-icon-double-left"></i></a>
         </li>
         <li v-for="code in codes" class="ui-page-item" :class="{'ui-page-item-active':currentPage==code}" @click="go(code)"
             title="第{{code}}页">
             <a>{{code}}</a>
         </li>
-        <li v-if="showLast" class="ui-page-item-jump-next" title="向后5页" @click="nnext()">
+        <li v-if="showLast" class="ui-page-item-jump-next" title="向后{{len}}页" @click="nnext()">
             <a><i class="ui-icon ui-icon-double-right"></i></a>
         </li>
         <li v-if="showLast" class="ui-page-item" title="最后一页:{{totalPage}}" @click="go(totalPage)">
@@ -22,6 +22,11 @@
         <li title="下一页" class="ui-page-next" @click="next">
             <a><i class="ui-icon ui-icon-right"></i></a>
         </li>
+        <li class="ui-page-select">
+            <select v-model="pageSize" @change="changePageSize">
+                <option v-for="i in pageSizes | orderBy true" :value="i">{{i}}</option>
+            </select>
+        </li>
     </ul>
 </template>
 <script type="text/ecmascript-6">
@@ -29,7 +34,7 @@
         props: {
             pageSize:{     //控制样式，是否使用过渡效果
                 type: Number,
-                default: 10
+                default: 8
             },
             currentPage: {      //自动轮播的时间间隔
                 type: Number,
@@ -43,20 +48,25 @@
             },
             locking: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         data(){
-            var pageCode = [];
-            for(var i=1; i<= this.totalPage; i++){
-                pageCode.push(i)
-            }
             return {
-                pageCode: pageCode,
-                len: 6,
+                pageSizes: [
+                        8,16,32,50
+                ],
+                len: 6
             }
         },
         computed: {
+            pageCode: function () {
+                var pageCode = [];
+                for(var i=1; i<= this.totalPage; i++){
+                    pageCode.push(i)
+                }
+                return pageCode
+            },
             codes: function () {
                 var result = [];
                 if(this.pageCode.length > 0){
@@ -66,7 +76,6 @@
                         }
                     });
                 }
-                console.log(result);
                 return result.slice(0, this.len)
             },
             showFirst: function () {
@@ -77,11 +86,13 @@
             }
         },
         ready() {
-
+            if(this.pageSizes.indexOf(this.pageSize) == -1){
+                this.pageSizes.push(this.pageSize)
+            }
         },
         methods: {
             dispatch(){
-                this.$dispatch("modal.close", {
+                this.$dispatch("pagination.change", {
                     currentPage: this.currentPage,
                     pageSize: this.pageSize,
                 });
@@ -100,7 +111,7 @@
             },
             prev(){
                 if(this.currentPage > 1 && !this.locking){
-                    this.currentPage -= 5;
+                    this.currentPage -= this.len;
                     if(this.currentPage <  1){
                         this.currentPage = 1
                     }
@@ -109,7 +120,7 @@
             },
             nnext(){
                 if(this.currentPage < this.totalPage && !this.locking){
-                    this.currentPage += 5;
+                    this.currentPage += this.len;
                     if(this.currentPage > this.totalPage){
                         this.currentPage = this.totalPage
                     }
@@ -121,6 +132,10 @@
                     this.currentPage = code;
                     this.dispatch();
                 }
+            },
+            changePageSize(){
+                this.currentPage == 1;
+                this.dispatch();
             }
         }
     }

@@ -34,14 +34,71 @@ function create(parent, datePickerOption){
                         :max-date="maxDate" :min-date="minDate" :disable="disable" :enable="enable" \
                         :inline="false" :style-object="styleObject" @update="update"></date-picker>',
         ready: function () {
+            this.setInputValue(this.value)
+        },
+        watch: {
+            "value": function () {
+                this.setInputValue(this.value)
+            }
         },
         methods:{
-            updateValue: function (newValue) {
-                this.$broadcast("updateValue", newValue)
+            dateToString: function (time, enableTime, enableSeconds) {
+                time = new Date(time);
+                let {
+                    year, month, date, day, hour, minute, second
+                } = {
+                    year: time.getFullYear(),
+                    month: time.getMonth(),
+                    date: time.getDate(),
+                    day: time.getDay() ? time.getDay() : 7,
+                    hour: time.getHours(),
+                    minute: time.getMinutes(),
+                    second: time.getSeconds()
+                };
+                var str = year + "-" + (month + 1) + "-" + date;
+                if (enableTime) {
+                    str += " " + hour + ":" + (minute < 10 ? ( "0" + minute ) : minute);
+                    if (enableSeconds) {
+                        str += ":" + (second < 10 ? ( "0" + second ) : second);
+                    }
+                }
+                return str
+            },
+            setInputValue: function (value) {
+                var str = "";
+                if (value) {
+                    if (this.model == "single") {
+                        str += this.dateToString(value, this.enableTime, this.enableSeconds);
+                    }
+                    else if (this.model == "multiple") {
+                        if (Array.isArray(value)) {
+                            var len = value.length;
+                            for (var i = 0; i < len; i++) {
+                                if (i == len - 1) {
+                                    str += this.dateToString(value[i], this.enableTime, this.enableSeconds)
+                                } else {
+                                    str += this.dateToString(value[i], this.enableTime, this.enableSeconds) + ";"
+                                }
+                            }
+                        }
+                    }
+                    else if (this.model == "range") {
+                        if (Array.isArray(value)) {
+                            var _arr = value.slice(0).sort(function (a, b) {
+                                return a > b
+                            });
+                            str += this.dateToString(_arr[0], this.enableTime, this.enableSeconds) + " 至 " +
+                                this.dateToString(_arr[_arr.length - 1], this.enableTime, this.enableSeconds)
+                        }
+
+                    }
+                }
+                if(str){
+                    parent.el.value = str
+                }
             },
             update: function (data) {
-                parent.vm[parent.expression] = data.value;
-                parent.el.value = data.text;
+                parent.vm[parent.expression] = data;
             }
         }
     });
@@ -56,6 +113,7 @@ function trigger(e) {
         this.datePickerComponent.show = false;
     }
 }
+
 
 export  default {
     params: ["datePickerOption"],
@@ -79,7 +137,8 @@ export  default {
         // 也会以初始值为参数调用一次
         if(newValue){
             if(this.datePickerComponent){
-                this.datePickerComponent.updateValue(newValue);
+                this.datePickerComponent.value = newValue;
+                // this.datePickerComponent.updateValue(newValue);
             }
         }
     },
