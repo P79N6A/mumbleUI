@@ -24,7 +24,7 @@
         </li>
         <li class="ui-page-select">
             <select v-model="pageSize" @change="changePageSize">
-                <option v-for="i in pageSizes | orderBy true" :value="i">{{i}}</option>
+                <option v-for="i in pageSizes | orderBy true" :value="i">{{i}}条/页</option>
             </select>
         </li>
     </ul>
@@ -134,7 +134,7 @@
                 }
             },
             changePageSize(){
-                this.currentPage == 1;
+                this.currentPage = 1;
                 this.dispatch();
             }
         }

@@ -32,7 +32,7 @@ function create(parent, datePickerOption){
                         :minute-increment="minuteIncrement" \
                         :second-increment="secondIncrement" \
                         :max-date="maxDate" :min-date="minDate" :disable="disable" :enable="enable" \
-                        :inline="false" :style-object="styleObject" @update="update"></date-picker>',
+                        :inline="false" :style-object="styleObject" @update="update" @over="over"></date-picker>',
         ready: function () {
             this.setInputValue(this.value)
         },
@@ -99,20 +99,16 @@ function create(parent, datePickerOption){
             },
             update: function (data) {
                 parent.vm[parent.expression] = data;
+            },
+            over: function () {
+                this.show = false;
             }
         }
     });
     datePickerComponent.$mount().$appendTo(parent.el.parentNode);
     return datePickerComponent;
 }
-function trigger(e) {
-    if(!this.datePickerComponent) return;
-    if(e.target == this.el){
-        this.datePickerComponent.show = true;
-    }else {
-        this.datePickerComponent.show = false;
-    }
-}
+
 
 
 export  default {
@@ -130,7 +126,21 @@ export  default {
             this.params.datePickerOption.styleObject = util.getPositionWhenAfterBorther($dom, "bottom", "left", 0, 10);
             this.datePickerComponent = create(this, this.params.datePickerOption);
         });
-        document.addEventListener("click", trigger.bind(this), false)
+        //显示隐藏
+        this.trigger = (e)=> {
+            if(!this.datePickerComponent) return;
+            if(e.target == this.el){
+                this.datePickerComponent.show = true;
+            }else {
+                this.datePickerComponent.show = false;
+            }
+        };
+        //刷新位置
+        this.reFreshPosition = (e)=> {
+            this.datePickerComponent.styleObject = util.getPositionWhenAfterBorther(this.el, "bottom", "left", 0, 10);
+        };
+        document.addEventListener("click", this.trigger, false);
+        window.addEventListener("resize", this.reFreshPosition, false);
     },
     update: function (newValue, oldValue) {
         // 值更新时的工作
@@ -138,13 +148,13 @@ export  default {
         if(newValue){
             if(this.datePickerComponent){
                 this.datePickerComponent.value = newValue;
-                // this.datePickerComponent.updateValue(newValue);
             }
         }
     },
     unbind: function () {
         // 清理工作
         // 例如，删除 bind() 添加的事件监听器
-        document.removeEventListener("click", trigger.bind(this))
+        document.removeEventListener("click", this.trigger);
+        window.removeEventListener("resize", this.reFreshPosition);
     }
 }

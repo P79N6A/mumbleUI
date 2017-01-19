@@ -9,7 +9,14 @@
             </svg>
         </span>
             <span class="flatpickr-current-month">
-            <span class="cur-month" v-text="months[current.month]"></span>
+            <span class="cur-month">
+                {{months[current.month]}}
+                <ul class="cur-month-months">
+                    <li v-for="month in months" :class="{selected: $index==current.month }" @click="chooseMonth($index)">
+                        {{month}}
+                    </li>
+                </ul>
+            </span>
             <input class="cur-year" type="number" title="Scroll to increment" v-model="current.year"
                    @input="changeYear | debounce 300">
         </span>
@@ -335,6 +342,7 @@
                     this.selectedDays.push(date);
                     var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
                     this.value = thatDate.getTime();
+                    this.$dispatch("over");
                 }
                 else if (this.model == "range") {
                     if (!this.value) {
@@ -360,6 +368,8 @@
                             this.value.$set(1, thatDate.getTime());
                         }
                         this.rangeOne = false;
+                        //选完两次就关闭日历
+                        this.$dispatch("over");
                     }
 
                 }
@@ -382,6 +392,10 @@
                     this.current.year += 1;
                     this.current.month = 0;
                 }
+                this.getDays();
+            },
+            chooseMonth(index){
+                this.current.month = index;
                 this.getDays();
             },
             wheelHour: function (e) {
