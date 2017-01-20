@@ -3,6 +3,7 @@
         <h2>Pc组件</h2>
         <ul>
             <li> <a v-link="{ path:'/pc/layout'}">Layout</a> </li>
+            <li> <a v-link="{ path:'/pc/icon'}">Icon</a> </li>
             <li> <a v-link="{ path:'/pc/banner'}">Banner</a> </li>
             <li> <a v-link="{ path:'/pc/table'}">Table</a> </li>
             <li> <a v-link="{ path:'/pc/toast'}">Toast</a> </li>

@@ -8,12 +8,16 @@ export function configRouter(router){
             title: '栅栏布局',     //标题
             component: require('./views/pc/layout')
         },
+        '/pc/icon':{
+            title: 'icon',     //标题
+            component: require('./views/pc/icon')
+        },
         '/pc/table':{
-            title: 'PC-table组件',     //标题
+            title: 'table组件',     //标题
             component: require('./views/pc/table')
         },
         '/pc/modal':{
-            title: 'PC-modal组件',     //标题
+            title: 'modal组件',     //标题
             component: require('./views/pc/modal')
         },
         '/pc/toast':{

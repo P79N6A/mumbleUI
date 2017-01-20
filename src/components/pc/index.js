@@ -21,6 +21,7 @@ import Tooltip from './src/components/tooltip';
 import {Tabs, Tab} from './src/components/tab';
 import Pagination from './src/components/pagination';
 import Layout from './src/components/layout';
+import Icon from './src/components/icon';
 import * as Util from './src/util.js';
 
 const UiWebank = {
@@ -42,7 +43,8 @@ const UiWebank = {
     Tab,
     Pagination,
     Row: Layout.Row,
-    Cell: Layout.Cell
+    Cell: Layout.Cell,
+    Icon
 };
 
 const install = function (Vue) {
