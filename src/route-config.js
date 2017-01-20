@@ -4,6 +4,10 @@ export function configRouter(router){
             title: 'mumble',     //标题
             component: require('./views/home')
         },
+        '/pc/layout':{
+            title: '栅栏布局',     //标题
+            component: require('./views/pc/layout')
+        },
         '/pc/table':{
             title: 'PC-table组件',     //标题
             component: require('./views/pc/table')

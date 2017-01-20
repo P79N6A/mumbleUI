@@ -20,6 +20,7 @@ import {Steps, Step} from './src/components/step';
 import Tooltip from './src/components/tooltip';
 import {Tabs, Tab} from './src/components/tab';
 import Pagination from './src/components/pagination';
+import Layout from './src/components/layout';
 import * as Util from './src/util.js';
 
 const UiWebank = {
@@ -39,7 +40,9 @@ const UiWebank = {
     Tooltip,
     Tabs,
     Tab,
-    Pagination
+    Pagination,
+    Row: Layout.Row,
+    Cell: Layout.Cell
 };
 
 const install = function (Vue) {
