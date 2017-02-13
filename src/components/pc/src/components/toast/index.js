@@ -10,7 +10,7 @@ var init = function (option) {
         var message = option;
         option = {
             message: message,
-            duration: 3000
+            duration: 2000
         }
     }else if(typeof option == "object"){
         if(!option.message) return;

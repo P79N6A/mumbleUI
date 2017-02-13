@@ -25,16 +25,19 @@
             },
             subTitle: {
                 type: String
+            },
+            isShow: {
+                type: Boolean
             }
         },
         data: function () {
             return {
-                isShow: false
+
             }
         },
         watch: {
             "isShow": function () {
-                var body = document.body;
+                var body = this.$el;
                 if (this.isShow) {
                     //必须这样，要不然，这个点击事件会触发
                     setTimeout(() => {
@@ -83,7 +86,6 @@
 
         },
         destroyed: function () {
-            body.removeEventListener("click", this.clickFn)
             document.removeEventListener("keydown", this.esc)
         },
         methods: {
@@ -99,7 +101,7 @@
                 }
             },
             close: function () {
-                this.isShow = false;
+                //this.isShow = false;
                 this.$dispatch("modal.close");
             },
             scroll: function (event) {

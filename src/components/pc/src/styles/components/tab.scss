@@ -39,6 +39,18 @@
         }
     }
 
+    .ui-tab-buttons{
+        float: right;
+        margin-right: 16px;
+        margin-top: 8px;
+        .ui-button{
+            font-size: 12px;
+        }
+        .ui-button + .ui-button{
+            margin-left: 8px;
+        }
+    }
+
     .ui-tabs-body{
         width: 100%;
         position: relative;

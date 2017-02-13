@@ -5,6 +5,9 @@
                  :class="{ 'ui-tabs-header-current': current == $index + 1 , 'ui-tabs-header-disabled':item.disabled  }">
                 <i v-if="item.icon" class="ui-icon ui-icon-{{item.icon}}"></i>{{item.label}}
             </div>
+            <div class="ui-tab-buttons">
+                <div class="ui-button" v-for="icon in icons" :title="icon.text" @click="action(icon)"><i class="ui-icon ui-icon-{{icon.icon}}"></i></div>
+            </div>
         </div>
         <div class="ui-tabs-body">
             <slot></slot>
@@ -14,6 +17,7 @@
 <script type="text/ecmascript-6">
     export default {
         props: {
+            icons: Array,
             current: {
                 type: Number,
                 default: 1
@@ -28,18 +32,21 @@
         ready: function () {
             this.len = this.$children.length;
             this.upDateChildren();
+            this.$on("tab.update", function () {
+                this.upDateChildren();
+            })
         },
         methods: {
             upDateChildren: function () {
-                var _this = this;
+                this.children = [];
                 if(this.$children){
-                    this.$children.forEach(function (tab, index) {
-                        _this.children.push({
+                    this.$children.forEach((tab, index)=> {
+                        this.children.push({
                             label: tab.label,
                             disabled: tab.disabled,
                             icon: tab.icon
                         } );
-                        if(index == _this.current -1){
+                        if(index == this.current -1){
                             tab.show = true
                         }
                     })
@@ -50,6 +57,9 @@
                 this.current = index + 1;
                 this.$children[index].show = true;
                 this.$dispatch("tabs.choose", index);
+            },
+            action(icon){
+                icon.func && icon.func();
             }
         }
     }

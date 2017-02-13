@@ -19,14 +19,21 @@
                 default: false
             }
         },
+        watch: {
+            "disabled": function () {
+                this.$dispatch("tab.update");
+            },
+            "label": function () {
+                this.$dispatch("tab.update");
+            },
+            "icon": function () {
+                this.$dispatch("tab.update");
+            }
+        },
         data: function () {
             return {
                 show: false
             }
         },
-        computed: {
-        },
-        methods:{
-        }
     }
 </script>

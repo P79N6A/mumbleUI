@@ -22,10 +22,9 @@
     display: block;
 }
 
-$baseWith: 100%;
 @for $i from 1 through 24 {
     .ui-cell-span-#{$i} {
-        width: $i/24*$baseWith;
+        width: ($i/24*100)+%;
         float: left;
         -webkit-box-flex: 0;
         -webkit-flex: 0 0 auto;
@@ -33,6 +32,6 @@ $baseWith: 100%;
         flex: 0 0 auto;
     }
     .ui-cell-offset-#{$i} {
-        margin-left: $i/24*$baseWith;
+        margin-left: ($i/24*100)+%;
     }
 }
