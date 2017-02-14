@@ -18,6 +18,7 @@
             <li> <a v-link="{ path:'/pc/step'}">Step</a> </li>
             <li> <a v-link="{ path:'/pc/tooltip'}">Tooltip</a> </li>
             <li> <a v-link="{ path:'/pc/tab'}">Tab</a> </li>
+            <li> <a v-link="{ path:'/pc/input'}">Input</a> </li>
         </ul>
         <h2>Mobile组件</h2>
     </div>

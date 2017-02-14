@@ -22,6 +22,7 @@ import {Tabs, Tab} from './src/components/tab';
 import Pagination from './src/components/pagination';
 import Layout from './src/components/layout';
 import Icon from './src/components/icon';
+import wbInput from './src/components/input';
 import * as Util from './src/util.js';
 
 const UiWebank = {
@@ -44,7 +45,8 @@ const UiWebank = {
     Pagination,
     Row: Layout.Row,
     Cell: Layout.Cell,
-    Icon
+    Icon,
+    wbInput
 };
 
 const install = function (Vue) {

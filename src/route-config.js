@@ -65,8 +65,12 @@ export function configRouter(router){
             component: require('./views/pc/tooltip')
         },
         '/pc/tab':{
-            title: 'tooltip组件',     //标题
+            title: 'tab组件',     //标题
             component: require('./views/pc/tab')
+        },
+        '/pc/input':{
+            title: 'input组件',     //标题
+            component: require('./views/pc/input')
         },
 
 
