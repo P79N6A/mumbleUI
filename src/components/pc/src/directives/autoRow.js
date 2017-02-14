@@ -1,5 +1,15 @@
 import * as util from "../util.js";
 export default {
+    params: ['model'],
+    paramWatchers: {
+        "model": function () {
+            this.el.style.overflow = "hidden";
+            this.vm.$nextTick(()=> {
+                this.handler();
+                this.el.style.overflow = "auto";
+            });
+        }
+    },
     bind: function() {
         var el = this.el;
         // 例如，添加事件处理器或只需要运行一次的高耗任务
