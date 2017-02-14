@@ -9,6 +9,12 @@
         <h2>input，type是password：</h2>
         <wb-input :value.sync="111" placeholder="我是数字" :disabled="disabled" :readonly="readonly" type="number"></wb-input>
 
+        <h2>input，复合型输入：</h2>
+        <wb-input :value.sync="text" placeholder="我是文本哦" :disabled="disabled" :readonly="readonly">
+            <span slot="prepend">http://</span>
+            <span slot="append">.com</span>
+        </wb-input>
+
         <h2>textarea：</h2>
         <wb-input :value.sync="text" placeholder="我是文本哦" :disabled="disabled" :readonly="readonly" type="textarea"></wb-input>
 

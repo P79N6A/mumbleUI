@@ -1,6 +1,8 @@
 <template>
     <div class="ui-input-swap" :class="getClass()">
-        <div class="ui-input-group-prepend" v-el:prepend v-if="prepend"><slot name="prepend"></slot></div>
+        <div class="ui-input-group-prepend" v-el:prepend>
+            <slot name="prepend"></slot>
+        </div>
         <template v-if="icon">
             <i class="ui-input-icon ui-icon ui-icon-{{icon}}"
                @click="handleIconClick"></i>
@@ -41,7 +43,9 @@
                       @input="handleInput">
             </textarea>
         </template>
-        <div class="ui-input-group-append" v-el:append v-if="append"><slot name="append"></slot></div>
+        <div class="ui-input-group-append" v-el:append>
+            <slot name="append"></slot>
+        </div>
     </div>
 </template>
 <script>
@@ -94,15 +98,6 @@
             }
         },
         ready: function () {
-            if (this.type !== 'textarea') {
-                this.prepend = this.$els.prepend.innerHTML !== '';
-                this.append = this.$els.append.innerHTML !== '';
-            } else {
-                this.prepend = false;
-                this.append = false;
-            }
-            this.slotReady = true;
-
             if(this.type == 'password'){
                 this.password = true;
             }else if(this.type == 'textarea'){
@@ -130,11 +125,7 @@
                 this.$emit('on-change', event);
             },
             getClass(){
-                var arr = [`ui-input-${this.type}`];
-                if(this.prepend ||　this.append){
-                    arr.push("ui-input-group")
-                }
-                return arr
+                return `ui-input-${this.type}`
             },
             changeInputType(){
                 this.showPassword = !this.showPassword;
