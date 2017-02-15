@@ -1,32 +1,31 @@
 <template>
-    <div class="ui-select">
-        <div class="ui-select-selection">
-            <span class="ui-select-placeholder"></span>
-            <span class="ui-select-selected-value"></span>
+    <div class="ui-select" :class="{'ivu-select-visible': show}" v-clickoutside="close">
+        <div class="ui-select-selection" @click="toggle">
+            <span class="ui-select-placeholder" v-show="value==''">{{placeholder}}</span>
+            <span class="ui-select-selected-value" v-show="value!=''">{{selectedOption && selectedOption.showLabel}}</span>
+            <i class="ui-icon ui-icon-caret-down"></i>
         </div>
-        <div class="ui-select-dropdown">
-            <ul class="ui-select-not-found">
-                <li>无匹配数据</li>
-            </ul>
+        <div class="ui-select-dropdown" v-show="show" transition="slide">
             <ul class="ui-select-dropdown-list">
-                <li class="ui-select-item">北京市</li>
-                <li class="ui-select-item">上海市</li>
-                <li class="ui-select-item">深圳市</li>
-                <li class="ui-select-item">杭州市</li>
-                <li class="ui-select-item">南京市</li>
-                <li class="ui-select-item">重庆市</li>
+                <slot></slot>
             </ul>
         </div>
     </div>
 </template>
 <script>
     import * as util from "../../util.js";
+    import clickoutside from "../../directives/clickoutside.js";
     export default {
         props: {
             value: {
-                default: ""
+                type: [String, Number],
+                default: "",
+                required: true
             },
-            placeholder: String,
+            placeholder: {
+                type: String,
+                default: "请选择"
+            },
             disabled: {
                 type: Boolean,
                 default: false
@@ -36,14 +35,54 @@
                 default: false
             },
         },
-        directives: {},
+        directives: {
+            clickoutside
+        },
         data: function () {
-            return {}
+            return {
+                show : false,
+                options: [],
+                selectedOption: null,
+            }
         },
         computed: {},
         watch: {},
         ready: function () {
+            this.initChildren();
+            this.$on("option.selected", function (value) {
+                if(this.selectedOption){
+                    this.selectedOption.selected = false;
+                }
+                var len = this.options.length;
+                for(var i=0; i<len; i++){
+                    var option = this.options[i];
+                    if(option.value == value){
+                        option.selected = true;
+                        this.selectedOption = option;
+                        this.value = option.value;
+                        break;
+                    }
+                }
+                this.show = false;
+            })
         },
-        methods: {}
+        methods: {
+            toggle(){
+                this.show = !this.show;
+            },
+            close(){
+                this.show = false;
+            },
+            initChildren: function () {
+                if(this.$children){
+                    this.$children.forEach((option, index) =>{
+                        option.index = index + 1;
+                        option.label = (option.label === undefined) ? option.$el.innerHTML : option.label;
+                        this.options.push(option);
+                    })
+                    console.log(this.options)
+                }
+            }
+        }
     }
 </script>

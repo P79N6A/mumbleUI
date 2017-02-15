@@ -72,6 +72,10 @@ export function configRouter(router){
             title: 'input组件',     //标题
             component: require('./views/pc/input')
         },
+        '/pc/select':{
+            title: 'select组件',     //标题
+            component: require('./views/pc/select')
+        },
 
 
 

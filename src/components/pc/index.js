@@ -23,7 +23,7 @@ import Pagination from './src/components/pagination';
 import { Row, Cell} from './src/components/layout';
 import Icon from './src/components/icon';
 import WbInput from './src/components/input';
-import {WbSelect, wbOption, OptionGroup} from './src/components/select';
+import {WbSelect, WbOption, OptionGroup} from './src/components/select';
 import * as Util from './src/util.js';
 
 
@@ -50,7 +50,7 @@ const UiWebank = {
     Icon,
     WbInput,
     WbSelect,
-    wbOption,
+    WbOption,
     OptionGroup
 };
 
