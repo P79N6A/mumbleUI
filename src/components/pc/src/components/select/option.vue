@@ -41,7 +41,6 @@
         watch: {
         },
         ready: function () {
-            console.log(this)
         },
         methods: {
             select () {

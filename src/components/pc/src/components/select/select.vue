@@ -60,6 +60,7 @@
                         option.selected = true;
                         this.selectedOption = option;
                         this.value = option.value;
+                        this.$emit("on-change", this.value);
                         break;
                     }
                 }
@@ -80,7 +81,6 @@
                         option.label = (option.label === undefined) ? option.$el.innerHTML : option.label;
                         this.options.push(option);
                     })
-                    console.log(this.options)
                 }
             }
         }
