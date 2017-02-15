@@ -1,65 +1,30 @@
 <template>
-    <div class="ui-input-swap" :class="getClass()">
-        <div class="ui-input-group-prepend" v-el:prepend>
-            <slot name="prepend"></slot>
+    <div class="ui-select">
+        <div class="ui-select-selection">
+            <span class="ui-select-placeholder"></span>
+            <span class="ui-select-selected-value"></span>
         </div>
-        <template v-if="icon">
-            <i class="ui-input-icon ui-icon ui-icon-{{icon}}"
-               @click="handleIconClick"></i>
-        </template>
-        <template v-if="password">
-            <i class="ui-input-icon ui-icon ui-icon-eye"
-               :class="{'ui-icon-eye': showPassword, 'ui-icon-eye-o': !showPassword}"
-               @click="changeInputType"></i>
-        </template>
-        <template v-if="isNormal">
-            <input class="ui-input"
-                   v-model="value"
-                   :maxlength="maxlength"
-                   :readonly="readonly"
-                   :type="type"
-                   :disabled="disabled"
-                   :placeholder="placeholder"
-                   @keyup.enter="handleEnter"
-                   @focus="handleFocus"
-                   @blur="handleBlur"
-                   @change="handleChange"
-                   @input="handleInput"/>
-        </template>
-        <template v-if="textarea">
-            <textarea class="ui-input"
-                      v-auto-row="autosize"
-                      :model="value"
-                      v-model="value"
-                      :rows="rows"
-                      :maxlength="maxlength"
-                      :readonly="readonly"
-                      :disabled="disabled"
-                      :placeholder="placeholder"
-                      @keyup.enter="handleEnter"
-                      @focus="handleFocus"
-                      @blur="handleBlur"
-                      @change="handleChange"
-                      @input="handleInput">
-            </textarea>
-        </template>
-        <div class="ui-input-group-append" v-el:append>
-            <slot name="append"></slot>
+        <div class="ui-select-dropdown">
+            <ul class="ui-select-not-found">
+                <li>无匹配数据</li>
+            </ul>
+            <ul class="ui-select-dropdown-list">
+                <li class="ui-select-item">北京市</li>
+                <li class="ui-select-item">上海市</li>
+                <li class="ui-select-item">深圳市</li>
+                <li class="ui-select-item">杭州市</li>
+                <li class="ui-select-item">南京市</li>
+                <li class="ui-select-item">重庆市</li>
+            </ul>
         </div>
     </div>
 </template>
 <script>
     import * as util from "../../util.js";
-    import autoRow from "../../directives/autoRow.js";
     export default {
         props: {
             value: {
-                type: [Number, String],
                 default: ""
-            },
-            type: {
-                type: String,
-                default: "text"
             },
             placeholder: String,
             disabled: {
@@ -70,67 +35,15 @@
                 type: Boolean,
                 default: false
             },
-            maxlength: Number,
-            icon: String,
-            rows: Number,
-            autosize: [Boolean, Object]
         },
-        directives: {
-            autoRow: autoRow
-        },
+        directives: {},
         data: function () {
-            return {
-                password: false,
-                textarea: false,
-                showPassword: true,
-                prepend: true,
-                append: true
-            }
+            return {}
         },
-        computed: {
-            "isNormal": function () {
-                return ["text", "password", "number"].indexOf(this.type) != -1;
-            },
-        },
-        watch: {
-            value () {
-                this.$dispatch('on-form-change', this.value);
-            }
-        },
+        computed: {},
+        watch: {},
         ready: function () {
-            if(this.type == 'password'){
-                this.password = true;
-            }else if(this.type == 'textarea'){
-                this.textarea = true;
-            }
         },
-        methods: {
-            handleIconClick (event) {
-                this.$emit('on-click', event);
-            },
-            handleEnter (event) {
-                this.$emit('on-enter', event);
-            },
-            handleFocus (event) {
-                this.$emit('on-focus', event);
-            },
-            handleBlur (event) {
-                this.$emit('on-blur');
-                this.$dispatch('on-form-blur', this.value, event);
-            },
-            handleInput(event){
-                this.$emit('on-input', event);
-            },
-            handleChange (event) {
-                this.$emit('on-change', event);
-            },
-            getClass(){
-                return `ui-input-${this.type}`
-            },
-            changeInputType(){
-                this.showPassword = !this.showPassword;
-                this.type = this.showPassword ? "password" : "text";
-            }
-        }
+        methods: {}
     }
 </script>

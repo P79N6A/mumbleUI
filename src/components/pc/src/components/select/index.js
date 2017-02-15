@@ -1,2 +1,10 @@
-import Input from './select.vue';
-export default Input;
+import WbSelect from './select.vue';
+import WbOption from './option.vue';
+import OptionGroup from './optionGroup.vue';
+
+export {
+    WbSelect,
+    WbOption,
+    OptionGroup
+}
+
