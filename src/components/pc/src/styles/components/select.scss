@@ -111,11 +111,11 @@
         &:hover {
             background: $disabled-color;
         }
-        &.ivu-select-item-disabled, &.ivu-select-item-disabled:hover {
+        &.ui-select-item-disabled, &.ui-select-item-disabled:hover {
             color: $tip-color;
             cursor: not-allowed;
         }
-        &.ivu-select-item-selected, &.ivu-select-item-selected:hover {
+        &.ui-select-item-selected, &.ui-select-item-selected:hover {
             color: #fff;
             background: $selected-color;
         }

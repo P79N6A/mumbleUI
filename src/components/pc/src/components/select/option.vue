@@ -27,10 +27,10 @@
             getClass(){
                 var arr = [];
                 if(this.selected){
-                    arr.push("ivu-select-item-selected")
+                    arr.push("ui-select-item-selected")
                 }
                 if(this.disabled){
-                    arr.push("ivu-select-item-disabled")
+                    arr.push("ui-select-item-disabled")
                 }
                 return arr;
             },

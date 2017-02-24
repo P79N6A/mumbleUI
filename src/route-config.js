@@ -76,6 +76,10 @@ export function configRouter(router){
             title: 'select组件',     //标题
             component: require('./views/pc/select')
         },
+        '/pc/radio':{
+            title: 'radio组件',     //标题
+            component: require('./views/pc/radio')
+        },
 
 
 

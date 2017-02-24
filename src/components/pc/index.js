@@ -24,6 +24,7 @@ import { Row, Cell} from './src/components/layout';
 import Icon from './src/components/icon';
 import WbInput from './src/components/input';
 import {WbSelect, WbOption, OptionGroup} from './src/components/select';
+import {Radio, RadioGroup} from './src/components/radio';
 import * as Util from './src/util.js';
 
 
@@ -51,7 +52,9 @@ const UiWebank = {
     WbInput,
     WbSelect,
     WbOption,
-    OptionGroup
+    OptionGroup,
+    Radio,
+    RadioGroup
 };
 
 const install = function (Vue) {
