@@ -37,12 +37,12 @@
         },
         watch: {
             "isShow": function () {
-                var body = this.$el;
+                var body = document.body;
                 if (this.isShow) {
                     //必须这样，要不然，这个点击事件会触发
                     setTimeout(() => {
                         body.addEventListener("click", this.clickFn, false)
-                    }, 0)
+                    }, 0);
                     util.addClass(body, "ui-modal-open");
                 } else {
                     util.removeClass(body, "ui-modal-open");
@@ -101,7 +101,7 @@
                 }
             },
             close: function () {
-                //this.isShow = false;
+                this.isShow = false;
                 this.$dispatch("modal.close");
             },
             scroll: function (event) {
