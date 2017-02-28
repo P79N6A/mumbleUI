@@ -1,8 +1,9 @@
 <template>
     <label class="ui-radio-wrapper" :class="getClass">
-        <span class="ui-radio"  :class="{'ui-radio-checked': checked}">
+        <span class="ui-radio" :class="{'ui-radio-checked': checked}">
             <span class="ui-radio-inner"></span>
-            <input class="ui-radio-input" type="radio" :value="value" :checked="checked" :disabled="disabled" @click="click"/>
+            <input class="ui-radio-input" type="radio" :name="name" :value="value" :checked="checked" :disabled="disabled"
+                   @click="click"/>
         </span>
         <span class="ui-radio-content">
             <slot></slot>
@@ -23,7 +24,8 @@
             disabled: {
                 type: Boolean,
                 default: false
-            }
+            },
+            name: String
         },
         data: function () {
             return {
@@ -33,17 +35,16 @@
         computed: {
             getClass(){
                 var arr = [];
-                if(this.checked){
+                if (this.checked) {
                     arr.push("ui-radio-wrapper-checked")
                 }
-                if(this.disabled){
+                if (this.disabled) {
                     arr.push("ui-radio-wrapper-disabled")
                 }
                 return arr;
             },
         },
-        watch: {
-        },
+        watch: {},
         ready: function () {
         },
         methods: {
@@ -52,12 +53,10 @@
                     return false;
                 }
                 this.checked = !this.checked;
-                if(this.checked){
-                    if(this.group){
-                        this.$parent.change(this.value);
-                    }else{
-                        this.$emit("on-change", this.value);
-                    }
+                if (this.group) {
+                    this.$parent.change(this.checked ? this.value : "");
+                } else {
+                    this.$emit("on-change", this.checked ? this.value : "");
                 }
             }
         }

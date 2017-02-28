@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-radio-group">
+    <div class="ui-radio-group" :class="getClass">
         <slot></slot>
     </div>
 </template>
@@ -22,35 +22,46 @@
                 selectedOption: null,
             }
         },
+        computed: {
+            getClass(){
+                var arr = [];
+                if (this.vertical) {
+                    arr.push("ui-radio-group-vertical")
+                }
+                return arr;
+            },
+        },
         watch: {
             "value": function (val) {
-                if (this.$children) {
-                    this.$children.forEach((option, index) => {
-                        if(option.value == val){
-                            if (this.selectedOption) {
-                                this.selectedOption.checked = false;
-                            }
-                            option.checked = true;
-                            this.selectedOption = option;
-                            this.$dispatch("on-change", option.value);
-                        }
-                    })
+                if (this.selectedOption) {
+                    this.selectedOption.checked = false;
+                    this.selectedOption = null;
                 }
+                this.init(val);
+                this.$dispatch("on-change", val);
             }
         },
         ready: function () {
+            var name = "radio_" + new Date().getTime();
             this.$children.forEach((option, index) => {
                 option.group = true;
+                option.name = name;
             });
+            this.init(this.value)
         },
         methods: {
+            init: function (value) {
+                if (this.$children) {
+                    this.$children.forEach((option, index) => {
+                        if(option.value == value){
+                            option.checked = true;
+                            this.selectedOption = option;
+                        }
+                    })
+                }
+            },
             change: function (value, child) {
-//                if (this.selectedOption) {
-//                    this.selectedOption.checked = false;
-//                }
-//                this.selectedOption = child;
                 this.value = value;
-//                this.$emit("on-change", value);
             }
         }
     }
