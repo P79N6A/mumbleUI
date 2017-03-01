@@ -84,6 +84,10 @@ export function configRouter(router){
             title: 'checkbox组件',     //标题
             component: require('./views/pc/checkbox')
         },
+        '/pc/form':{
+            title: 'form组件',     //标题
+            component: require('./views/pc/form')
+        },
 
 
 

@@ -1,0 +1,37 @@
+.ui-form-item{
+    width: 100%;
+    margin-bottom: 24px;
+    zoom: 1;
+}
+
+.ui-form-label{
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    padding-right: 12px;
+    text-align: right;
+    color: $text-color;
+}
+
+.ui-form-content{
+    width: 100%;
+    line-height: 32px;
+}
+
+.ui-form{
+    display: block;
+    &.ui-form-position-left, &.ui-form-position-top{
+        .ui-form-label{
+            text-align: left;
+            padding-right: 0;
+        }
+    }
+    &.ui-form-position-top{
+        .ui-form-label{
+            height: auto;
+            line-height: 1.2;
+            padding-right: 0;
+            padding-bottom: 10px;
+        }
+    }
+}

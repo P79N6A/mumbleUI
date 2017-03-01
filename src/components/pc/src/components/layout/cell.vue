@@ -8,7 +8,7 @@
         props: {
             span: {
                 required: true,
-                type: String
+                type: [String, Number]
             },
             offset: {
                 type: String

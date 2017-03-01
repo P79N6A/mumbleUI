@@ -38,6 +38,16 @@ input::-ms-clear, input::-ms-reveal {
     display: none;
 }
 
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: $tip-color;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: $tip-color;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: $tip-color;
+}
+
 a {
     color: $link-color;
     background: transparent;

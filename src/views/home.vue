@@ -22,6 +22,7 @@
             <li> <a v-link="{ path:'/pc/datePicker'}">DatePicker</a> </li>
             <li> <a v-link="{ path:'/pc/switch'}">Switch</a> </li>
             <li> <a v-link="{ path:'/pc/upload'}">Upload</a> </li>
+            <li> <a v-link="{ path:'/pc/form'}">Form</a> </li>
         </ul>
         <h2>Mobile组件</h2>
     </div>

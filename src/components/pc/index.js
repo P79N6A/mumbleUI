@@ -26,6 +26,7 @@ import WbInput from './src/components/input';
 import {WbSelect, WbOption, OptionGroup} from './src/components/select';
 import {Radio, RadioGroup} from './src/components/radio';
 import {Checkbox, CheckboxGroup} from './src/components/checkbox';
+import {WbForm, FormItem} from './src/components/form';
 import * as Util from './src/util.js';
 
 
@@ -57,7 +58,9 @@ const UiWebank = {
     Radio,
     RadioGroup,
     Checkbox,
-    CheckboxGroup
+    CheckboxGroup,
+    WbForm,
+    FormItem
 };
 
 const install = function (Vue) {
