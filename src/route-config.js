@@ -80,6 +80,10 @@ export function configRouter(router){
             title: 'radio组件',     //标题
             component: require('./views/pc/radio')
         },
+        '/pc/checkbox':{
+            title: 'checkbox组件',     //标题
+            component: require('./views/pc/checkbox')
+        },
 
 
 

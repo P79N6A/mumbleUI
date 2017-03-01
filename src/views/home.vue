@@ -21,6 +21,7 @@
             <li> <a v-link="{ path:'/pc/input'}">Input</a> </li>
             <li> <a v-link="{ path:'/pc/select'}">Select</a> </li>
             <li> <a v-link="{ path:'/pc/radio'}">Radio</a> </li>
+            <li> <a v-link="{ path:'/pc/checkbox'}">Checkbox</a> </li>
         </ul>
         <h2>Mobile组件</h2>
     </div>
