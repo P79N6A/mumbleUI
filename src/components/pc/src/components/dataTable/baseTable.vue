@@ -3,17 +3,20 @@
         <table>
             <thead class="ui-table-thead">
             <tr>
+                <th class="first-col"></th>
                 <th v-for="col in rule"
                     :style="getStyle(col, $index)"
                     :class="getThClass(col, $index)"
                     @click="thColClick(col, $index, $event)">
                     <span>{{col.name}}</span>
                 </th>
+                <th class="last-col"></th>
             </tr>
             </thead>
             <tbody class="ui-table-tbody">
             <tr v-for="(rowIndex, trData) in showData" track-by="$index" class="row_{{rowIndex+1}}"
                 @click="bodyTrClick(trData, rowIndex, $event)">
+                <td class="first-col"></td>
                 <td v-for="(colIndex, col) in rule"
                     track-by="$index"
                     :style="getStyle(col, colIndex)"
@@ -26,6 +29,7 @@
                         </span>
                     </template>
                 </td>
+                <td class="last-col"></td>
             </tr>
             </tbody>
         </table>
@@ -34,7 +38,7 @@
 </template>
 <script>
     import Vue from 'vue'
-    import _ from 'lodash/core';
+    import * as util from "../../util.js";
     import addComponent from '../../directives/initComponent.js';
     export default {
         props: {
@@ -63,12 +67,14 @@
         computed: {
             // 一个计算属性的 getter
             showData: function () {
-                var arr = this.data.slice(0);
-                //给data添加加放个性化子组件的容器
-                arr.forEach((item)=> {
-                    Vue.set(item, "components", {})
-                });
-                return arr
+                if(util.isArray(this.data)){
+                    var arr = this.data.slice(0);
+                    //给data添加加放个性化子组件的容器
+                    arr.forEach((item)=> {
+                        Vue.set(item, "components", {})
+                    });
+                    return arr
+                }
             }
         },
         methods: {
@@ -76,20 +82,20 @@
             render: function (col, tdData, trData) {
                 var rst = "";
                 //如果filter存在
-                if (_.isArray(col.filter)) {
+                if ( util.isArray(col.filter)) {
                     var theOne = col.filter.filter(function (o) {
                         return o.key == tdData;
                     });
                     if (theOne.length > 0) {
                         rst = theOne[0].value
                     }
-                } else if (_.isFunction(col.filter)) {
+                } else if (util.isFunction(col.filter)) {
                     rst = col.filter(tdData)
                 } else {
                     rst = tdData
                 }
                 //如果rst一个Vue的实例
-                if (_.isObject(rst) && rst.constructor == Vue) {
+                if (util.isObject(rst) && rst.constructor == Vue) {
                     if (trData.components) {
                         Vue.set(trData.components, col.name, rst);
                         rst = "";
@@ -110,11 +116,11 @@
                     ["col_" + (index + 1)]: true
                 };
                 if (col.addClass) {
-                    if (_.isString(col.addClass)) {
+                    if (util.isString(col.addClass)) {
                         obj[col.addClass] = true
-                    } else if (_.isFunction(col.addClass)) {
+                    } else if (util.isFunction(col.addClass)) {
                         var rst = col.addClass(tdData);
-                        if (_.isString(rst)) {
+                        if (util.isString(rst)) {
                             obj[rst] = true
                         }
                     }
@@ -130,7 +136,6 @@
             },
             //点击th列
             thColClick: function (col, index, event) {
-                console.log(arguments)
                 this.$dispatch("th-col-click", col, index);
             },
             //点击内容行
@@ -139,10 +144,10 @@
             },
             //触发action动作
             fireAction: function (action, rowData, event) {
-                if (_.isString(action.func)) {
+                if (util.isString(action.func)) {
                     this.$parent[action.func].call(this.$parent, rowData)
                 }
-                if (_.isFunction(action.func)) {
+                if (util.isFunction(action.func)) {
                     action.func(rowData)
                 }
             }

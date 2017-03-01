@@ -3,7 +3,7 @@
 </template>
 <script>
     import Vue from 'vue';
-    import _ from 'lodash/core';
+    import * as util from "../../util.js";
     function parseText(str){
         if(str.startsWith("{") || str.startsWith("[")){
             var func = new Function('return ' + str + ';');
@@ -36,13 +36,13 @@
         ready: function () {
             //把{key:1}变成object
             var filter = this.filter;
-            if(filter && !_.isObject(filter)){
+            if(filter && !util.isObject(filter)){
                 this.filter = parseText(filter);
             }
             var action = this.action;
-            if(action && !_.isObject(action)){
+            if(action && !util.isObject(action)){
                 this.action = parseText(action);
-                if(_.isObject(this.action)){
+                if(util.isObject(this.action)){
                     this.action = [this.action];
                 }
             }

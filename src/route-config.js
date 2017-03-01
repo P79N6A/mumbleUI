@@ -4,12 +4,20 @@ export function configRouter(router){
             title: 'mumble',     //标题
             component: require('./views/home')
         },
+        '/pc/layout':{
+            title: '栅栏布局',     //标题
+            component: require('./views/pc/layout')
+        },
+        '/pc/icon':{
+            title: 'icon',     //标题
+            component: require('./views/pc/icon')
+        },
         '/pc/table':{
-            title: 'PC-table组件',     //标题
+            title: 'table组件',     //标题
             component: require('./views/pc/table')
         },
         '/pc/modal':{
-            title: 'PC-modal组件',     //标题
+            title: 'modal组件',     //标题
             component: require('./views/pc/modal')
         },
         '/pc/toast':{
@@ -55,6 +63,30 @@ export function configRouter(router){
         '/pc/tooltip':{
             title: 'tooltip组件',     //标题
             component: require('./views/pc/tooltip')
+        },
+        '/pc/tab':{
+            title: 'tab组件',     //标题
+            component: require('./views/pc/tab')
+        },
+        '/pc/input':{
+            title: 'input组件',     //标题
+            component: require('./views/pc/input')
+        },
+        '/pc/select':{
+            title: 'select组件',     //标题
+            component: require('./views/pc/select')
+        },
+        '/pc/radio':{
+            title: 'radio组件',     //标题
+            component: require('./views/pc/radio')
+        },
+        '/pc/checkbox':{
+            title: 'checkbox组件',     //标题
+            component: require('./views/pc/checkbox')
+        },
+        '/pc/form':{
+            title: 'form组件',     //标题
+            component: require('./views/pc/form')
         },
 
 

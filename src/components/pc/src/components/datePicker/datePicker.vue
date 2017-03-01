@@ -9,7 +9,14 @@
             </svg>
         </span>
             <span class="flatpickr-current-month">
-            <span class="cur-month" v-text="months[current.month]"></span>
+            <span class="cur-month">
+                {{months[current.month]}}
+                <ul class="cur-month-months">
+                    <li v-for="month in months" :class="{selected: $index==current.month }" @click="chooseMonth($index)">
+                        {{month}}
+                    </li>
+                </ul>
+            </span>
             <input class="cur-year" type="number" title="Scroll to increment" v-model="current.year"
                    @input="changeYear | debounce 300">
         </span>
@@ -27,19 +34,19 @@
                 <span class="flatpickr-weekday" v-for="week in weeks" v-text="week"></span>
             </div>
             <div class="flatpickr-days" tabindex="-1">
-            <span class="flatpickr-day" tabindex="0" v-for="item in days" track-by="$index"
-                  @click="choose(item, $event)"
-                  @mouseover="preChoose(item, $event)"
-                  :class="{
-                        disabled: item.disabled,
-                        prevMonthDay: item.month<current.month,
-                        nextMonthDay:item.month>current.month,
-                        today: (item.year == today.year) && (item.month == today.month) && (item.date == today.date),
-                        selected: isSelected(item),
-                        inRange: isInRange(item)
-                    }">
-                {{item.date}}
-            </span>
+                <span class="flatpickr-day" tabindex="0" v-for="item in days" track-by="$index"
+                      @click="choose(item, $event)"
+                      @mouseover="preChoose(item, $event)"
+                      :class="{
+                            disabled: item.disabled,
+                            prevMonthDay: item.month<current.month,
+                            nextMonthDay:item.month>current.month,
+                            today: (item.year == today.year) && (item.month == today.month) && (item.date == today.date),
+                            selected: isSelected(item),
+                            inRange: isInRange(item)
+                        }">
+                    {{item.date}}
+                </span>
             </div>
         </div>
         <div class="flatpickr-time" tabindex="-1" v-if="enableTime" :class="{'has-seconds': enableSeconds}">
@@ -65,7 +72,7 @@
     };
 
     //静态数据
-    var weeks = ["一", "二", "三", "四", "五", "六", "日"];
+    var weeks = ["日", "一", "二", "三", "四", "五", "六"];
     var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
     /**
      * 计算一个日期年月日
@@ -84,17 +91,6 @@
             minute: date.getMinutes(),
             second: date.getSeconds()
         }
-    };
-
-    var dateToString = function (date, enableTime, enableSeconds) {
-        var str = date.year + "-" + (date.month + 1) + "-" + date.date;
-        if (enableTime) {
-            str += " " + date.hour + ":" + (date.minute < 10 ? ( "0" + date.minute ) : date.minute);
-            if (enableSeconds) {
-                str += ":" + (date.second < 10 ? ( "0" + date.second ) : date.second);
-            }
-        }
-        return str
     };
 
     export default {
@@ -143,7 +139,7 @@
                 }
             },
             value: [Array, Number],
-            result: [Array, Number]
+//            result: [Array, Number]
         },
         data: function () {
             var today = parseDay(new Date());
@@ -163,54 +159,13 @@
                 preChooseDate: null,
             }
         },
+        watch: {
+            "value": function () {
+                this.changeValue();
+            }
+        },
         ready: function () {
-            if (this.value) {
-                this.result = this.value;
-                if (this.model == "single") {
-                    if (util.isNumber(this.result)) {
-                        var _current = parseDay(this.result);
-                        this.current.year = _current.year;
-                        this.current.month = _current.month;
-                        this.current.hour = _current.hour;
-                        this.current.minute = _current.minute;
-                        this.current.second = _current.second;
-                        this.selectedDays.push(_current)
-                    }
-                }
-                else if (this.model == "multiple" || this.model == "range") {
-                    if (Array.isArray(this.result)) {
-                        var _arr = this.result.slice(0).sort(function (a, b) {
-                            return a > b
-                        });
-                        var len = _arr.length;
-                        for (var i = 0; i < len; i++) {
-                            var date = parseDay(_arr[i]);
-                            if (i == 0) {
-                                this.current.year = date.year;
-                                this.current.month = date.month;
-                            }
-                            if (i == len - 1) {
-                                this.current.hour = date.hour;
-                                this.current.minute = date.minute;
-                                this.current.second = date.second;
-                            }
-                            this.selectedDays.push(date);
-                        }
-                    }
-                }
-                this.setInputValue();
-            }
-            if (this.enableTime) {
-                this.hourElem = this.$el.querySelector(".flatpickr-hour");
-                this.hourElem.addEventListener("wheel", this.wheelHour, false);
-                this.minuteElem = this.$el.querySelector(".flatpickr-minute");
-                this.minuteElem.addEventListener("wheel", this.wheelMinute, false);
-                if (this.enableSeconds) {
-                    this.secondElem = this.$el.querySelector(".flatpickr-second");
-                    this.secondElem.addEventListener("wheel", this.wheelSeconds, false)
-                }
-            }
-            this.getDays();
+            this.init();
         },
         destroy: function () {
             if (this.enableTime) {
@@ -222,43 +177,67 @@
             }
         },
         methods: {
-            setInputValue: function () {
-                if (this.result) {
-                    var str = "";
-                    if (this.model == "single") {
-                        str += dateToString(parseDay(this.result), this.enableTime, this.enableSeconds);
+            init: function () {
+                this.changeValue();
+                if (this.enableTime) {
+                    this.hourElem = this.$el.querySelector(".flatpickr-hour");
+                    this.hourElem.addEventListener("wheel", this.wheelHour, false);
+                    this.minuteElem = this.$el.querySelector(".flatpickr-minute");
+                    this.minuteElem.addEventListener("wheel", this.wheelMinute, false);
+                    if (this.enableSeconds) {
+                        this.secondElem = this.$el.querySelector(".flatpickr-second");
+                        this.secondElem.addEventListener("wheel", this.wheelSeconds, false)
                     }
-                    if (this.model == "multiple") {
-                        if (Array.isArray(this.result)) {
-                            var len = this.result.length;
+                }
+            },
+            changeValue: function () {
+                //从外面改变value值，更新datePicker内部状态
+                if (this.value) {
+                    this.selectedDays = [];
+                    if (this.model == "single") {
+                        if (util.isNumber(this.value)) {
+                            var _current = parseDay(this.value);
+                            this.current.year = _current.year;
+                            this.current.month = _current.month;
+                            this.current.hour = _current.hour;
+                            this.current.minute = _current.minute;
+                            this.current.second = _current.second;
+                            this.selectedDays.push(_current)
+                        }
+                    }
+                    else if (this.model == "multiple" || this.model == "range") {
+                        if (util.isArray(this.value)) {
+                            var _arr = this.value.slice(0).sort(function (a, b) {
+                                return a > b
+                            });
+                            var len = _arr.length;
                             for (var i = 0; i < len; i++) {
-                                if (i == len - 1) {
-                                    str += dateToString(parseDay(this.result[i]), this.enableTime, this.enableSeconds)
-                                } else {
-                                    str += dateToString(parseDay(this.result[i]), this.enableTime, this.enableSeconds) + ";"
+                                var date = parseDay(_arr[i]);
+                                if (i == 0) {
+                                    this.current.year = date.year;
+                                    this.current.month = date.month;
                                 }
+                                if (i == len - 1) {
+                                    this.current.hour = date.hour;
+                                    this.current.minute = date.minute;
+                                    this.current.second = date.second;
+                                }
+                                this.selectedDays.push(date);
                             }
                         }
                     }
-                    if (this.model == "range") {
-                        var _arr = this.result.slice(0).sort(function (a, b) {
-                            return a > b
-                        });
-                        str += dateToString(parseDay(_arr[0]), this.enableTime, this.enableSeconds) + " 至 " +
-                            dateToString(parseDay(_arr[_arr.length - 1]), this.enableTime, this.enableSeconds)
-                    }
-                    this.$dispatch("update", {
-                        value: this.result,
-                        text: str
-                    });
                 }
+                this.getDays();
+            },
+            updateValue: function () {
+                this.$dispatch("update", this.value);
             },
             getDays: function () {
                 var firstDay = parseDay(new Date(this.current.year, this.current.month, 1));
                 var arr = [];
                 for (var i = 0; i < 42; i++) {
                     var date = parseDay(new Date(this.current.year, this.current.month, i + 1 - firstDay.day));
-                    date.disabled = !this.isEnable(date)
+                    date.disabled = !this.isEnable(date);
                     arr.push(date)
                 }
                 this.days = arr;
@@ -348,37 +327,53 @@
                     var index = this.isSelected(date);
                     if (index) {
                         this.selectedDays.splice(index - 1, 1);
-                        this.result.splice(index - 1, 1)
+                        this.value.splice(index - 1, 1)
                     } else {
                         this.selectedDays.push(date);
                         var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        if (!this.result) {
-                            this.result = [];
+                        if (!this.value) {
+                            this.value = [];
                         }
-                        this.result.push(thatDate.getTime())
+                        this.value.push(thatDate.getTime())
                     }
                 }
                 else if (this.model == "single") {
                     this.selectedDays = [];
                     this.selectedDays.push(date);
                     var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                    this.result = thatDate.getTime();
+                    this.value = thatDate.getTime();
+                    this.$dispatch("over");
                 }
                 else if (this.model == "range") {
-                    if (!this.result) {
-                        this.result = [];
+                    if (!this.value) {
+                        this.value = [];
                     }
-                    if (this.selectedDays.length < 2) {
-                        this.selectedDays.push(date);
-                    } else {
+                    if(this.selectedDays.length == 2 && !this.rangeOne){
                         this.selectedDays = [];
-                        this.result = [];
-                        this.selectedDays.push(date);
+                        this.value = [];
                     }
                     var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                    this.result.push(thatDate.getTime())
+                    if(this.value.length == 0){
+                        this.value.push(thatDate.getTime());
+                        this.value.push(thatDate.getTime());
+                        this.selectedDays.push(date);
+                        this.selectedDays.push(date);
+                        this.rangeOne = true;
+                    }else{
+                        if(thatDate.getTime() < this.value[0]){
+                            this.selectedDays.$set(0, date);
+                            this.value.$set(0, thatDate.getTime());
+                        }else{
+                            this.selectedDays.$set(1, date);
+                            this.value.$set(1, thatDate.getTime());
+                        }
+                        this.rangeOne = false;
+                        //选完两次就关闭日历
+                        this.$dispatch("over");
+                    }
+
                 }
-                this.setInputValue();
+                this.updateValue();
                 return false
             },
             lastMonth: function () {
@@ -397,6 +392,10 @@
                     this.current.year += 1;
                     this.current.month = 0;
                 }
+                this.getDays();
+            },
+            chooseMonth(index){
+                this.current.month = index;
                 this.getDays();
             },
             wheelHour: function (e) {
@@ -458,7 +457,7 @@
                     var date = this.selectedDays[0];
                     if (date) {
                         var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        this.result = thatDate.getTime();
+                        this.value = thatDate.getTime();
                     }
                 }
                 if (this.model == "multiple" || this.model == "range") {
@@ -466,10 +465,10 @@
                     var date = this.selectedDays[lastIndex];
                     if (date) {
                         var thatDate = new Date(date.year, date.month, date.date, this.current.hour, this.current.minute, this.current.second);
-                        this.result[lastIndex] = thatDate.getTime();
+                        this.value[lastIndex] = thatDate.getTime();
                     }
                 }
-                this.setInputValue();
+                this.updateValue();
             },
             changeYear: function () {
                 this.getDays();
@@ -489,7 +488,7 @@
             },
             isInRange: function (date) {
                 if (this.model == "range") {
-                    if (this.selectedDays.length == 1 && this.preChooseDate) {
+                    if (this.rangeOne && this.preChooseDate) {
                         var arr = [this.selectedDays[0], this.preChooseDate].sort(function (a, b) {
                             return a.me.getTime() > b.me.getTime()
                         });

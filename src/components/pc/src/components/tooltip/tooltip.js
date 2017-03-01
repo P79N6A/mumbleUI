@@ -9,29 +9,6 @@ var triggerMap = {
     outsideClick: ["click", "outsideClick"]
 };
 
-function triggerBind() {
-    if(!this.tooltipComponent) return;
-    this.tooltipComponent.show = !this.tooltipComponent.show;
-}
-
-function showTooltipBind() {
-    if(!this.tooltipComponent) return;
-    this.tooltipComponent.show = true;
-}
-
-function hideTooltipBind() {
-    if(!this.tooltipComponent) return;
-    this.tooltipComponent.show = false;
-}
-
-function bodyHideTooltipBind(e) {
-    if(!this.tooltipComponent) return;
-    if (this.el != e.target && this.tooltipComponent.$el != e.target
-        && !util.contains(this.el, e.target) && !util.contains(this.tooltipComponent.$el, e.target)){
-        this.tooltipComponent.show = false;
-    }
-}
-
 function create(parent, option){
     var tooltipComponent = new Vue({
         replace: false,
@@ -43,6 +20,7 @@ function create(parent, option){
                 styleObject: {},
                 text: "",
                 html: "",
+                confirm: false,
                 component: null
             };
             return util.extend(defaultOption, option || {})
@@ -50,11 +28,28 @@ function create(parent, option){
         components: {
             Tooltip: Tooltip
         },
-        template: '<tooltip v-show="show" :direction="direction" :align="align" :text="text" :html="html" ' +
-        ':component="component" :style-object="styleObject" transition="fade"></tooltip>',
+        template: '<tooltip v-show="show" @mouseenter="mouseenter" @mouseleave="mouseleave"  @tooltip.ok="ok" @tooltip.cancel="cancel" ' +
+        ':direction="direction" :align="align" :text="text" :html="html" ' +
+        ':component="component" :confirm="confirm" :style-object="styleObject" transition="fade"></tooltip>',
         ready: function () {
         },
         methods:{
+            mouseenter: function () {
+                if("mouseenter" == parent.params.tooltipOption.trigger){
+                    this.show = true;
+                }
+            },
+            mouseleave: function () {
+                if("mouseenter" == parent.params.tooltipOption.trigger){
+                    this.show = false;
+                }
+            },
+            ok: function () {
+                option.onOk && option.onOk.call(parent.vm);
+            },
+            cancel: function () {
+                option.onCancel && option.onCancel.call(parent.vm);
+            }
         }
     });
     tooltipComponent.$mount().$appendTo(parent.el.parentNode);
@@ -87,16 +82,39 @@ export  default {
             this.tooltipComponent = create(this, this.params.tooltipOption);
         });
 
+
+        this.triggerBind = ()=> {
+            if(!this.tooltipComponent) return;
+            this.tooltipComponent.show = !this.tooltipComponent.show;
+        };
+
+        this.showTooltipBind = ()=> {
+            if(!this.tooltipComponent) return;
+            this.tooltipComponent.show = true;
+        };
+
+        this.hideTooltipBind = ()=> {
+            if(!this.tooltipComponent) return;
+            this.tooltipComponent.show = false;
+        };
+
+        this.bodyHideTooltipBind = (e)=> {
+            if(!this.tooltipComponent) return;
+            if (this.el != e.target && this.tooltipComponent.$el != e.target
+                && !util.contains(this.el, e.target) && !util.contains(this.tooltipComponent.$el, e.target)){
+                this.tooltipComponent.show = false;
+            }
+        };
         var show = triggerMap[this.params.tooltipOption.trigger][0];
         var hide = triggerMap[this.params.tooltipOption.trigger][1];
         if (hide === 'outsideClick') {
-            $dom.addEventListener('click', triggerBind.bind(this), false);
-            document.addEventListener('click', bodyHideTooltipBind.bind(this), false);
+            $dom.addEventListener('click', this.triggerBind, false);
+            document.addEventListener('click', this.bodyHideTooltipBind, false);
         } else if (show === hide) {
-            $dom.addEventListener(show, triggerBind.bind(this), false);
+            $dom.addEventListener(show, this.triggerBind, false);
         } else{
-            $dom.addEventListener(show, showTooltipBind.bind(this), false);
-            $dom.addEventListener(hide, hideTooltipBind.bind(this), false);
+            $dom.addEventListener(show, this.showTooltipBind, false);
+            $dom.addEventListener(hide, this.hideTooltipBind, false);
         }
     },
     update: function (newValue, oldValue) {
@@ -109,13 +127,13 @@ export  default {
         var show = triggerMap[this.params.tooltipOption.trigger][0];
         var hide = triggerMap[this.params.tooltipOption.trigger][1];
         if (hide === 'outsideClick') {
-            this.el.removeEventListener('click', triggerBind.bind(this));
-            document.removeEventListener('click', bodyHideTooltipBind.bind(this));
+            this.el.removeEventListener('click', this.triggerBind);
+            document.removeEventListener('click', this.bodyHideTooltipBind);
         } else if (show === hide) {
-            this.el.removeEventListener(show, triggerBind.bind(this));
+            this.el.removeEventListener(show, this.triggerBind);
         } else{
-            this.el.removeEventListener(show, showTooltipBind.bind(this));
-            this.el.removeEventListener(hide, hideTooltipBind.bind(this));
+            this.el.removeEventListener(show, this.showTooltipBind);
+            this.el.removeEventListener(hide, this.hideTooltipBind);
         }
     }
 }

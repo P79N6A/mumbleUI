@@ -22,7 +22,7 @@
     font-size: 14px;
     border-radius: 3px;
     position: absolute;
-    min-width: 200px;
+    min-width: 240px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -151,7 +151,42 @@
 .flatpickr-current-month .cur-month {
     font-weight: 500;
     color: inherit;
-    margin-right: 10px;
+    padding: 2px 10px 2px 0;
+    cursor: default;
+    position: relative;
+    &:hover{
+        background: #efefef;
+        .cur-month-months{
+            display: block;
+        }
+    }
+    .cur-month-months{
+        display: none;
+        background: #efefef;
+        position: absolute;
+        top: 22px;
+        left: 0;
+        width: 120px;
+        font-size: 0;
+        z-index: 3;
+        li{
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            line-height: 25px;
+            margin: 0;
+            font-size: 14px;
+            cursor: pointer;
+            &.selected{
+                background: #4f99ff;
+                color: #ffffff;
+            }
+            &:hover{
+                background: #4f99ff;
+                color: #ffffff;
+            }
+        }
+    }
 }
 
 .flatpickr-current-month .cur-year {

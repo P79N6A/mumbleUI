@@ -1,6 +1,6 @@
 $table-head-background-color: $background-color-base;
 .ui-table {
-    font-size: $font-size-base;
+    font-size: $font-size-small;
     color: $text-color;
     overflow: hidden;
     position: relative;
@@ -15,6 +15,8 @@ $table-head-background-color: $background-color-base;
         overflow: hidden;
     }
     &-thead > tr > th {
+        border-top: 1px solid $border-color-base;
+        border-bottom: 1px solid $border-color-base;
         background: $table-head-background-color;
         font-weight: bold;
         @include transition(background .3s ease);
@@ -42,10 +44,12 @@ $table-head-background-color: $background-color-base;
     &-tbody > tr > td {
         padding: 16px 8px;
         word-break: break-all;
+        &.first-col, &.last-col{
+            width: 30px;
+        }
     }
 
     &-tbody > tr.ui-table-row-selected {
         background: #cfe8fb;
     }
-
 }

@@ -25,11 +25,14 @@
             },
             subTitle: {
                 type: String
+            },
+            isShow: {
+                type: Boolean
             }
         },
         data: function () {
             return {
-                isShow: false
+
             }
         },
         watch: {
@@ -39,7 +42,7 @@
                     //必须这样，要不然，这个点击事件会触发
                     setTimeout(() => {
                         body.addEventListener("click", this.clickFn, false)
-                    }, 0)
+                    }, 0);
                     util.addClass(body, "ui-modal-open");
                 } else {
                     util.removeClass(body, "ui-modal-open");
@@ -83,7 +86,6 @@
 
         },
         destroyed: function () {
-            body.removeEventListener("click", this.clickFn)
             document.removeEventListener("keydown", this.esc)
         },
         methods: {
