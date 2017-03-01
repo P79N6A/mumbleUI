@@ -18,7 +18,7 @@
             },
             labelWidth: {
                 type: Number,
-                default: 7          //  7/24
+                default: 80
             }
         },
         data: function () {
@@ -33,17 +33,21 @@
             }
         },
         ready: function () {
-            this.$children.forEach((child, index) => {
-                if(child.constructor.name == "FormItem"){
-                    child.labelWidth = this.labelWidth;
-                    child.labelPosition = this.labelPosition;
-                }
-                console.log(child)
-            })
+            this.initItem(this);
         },
         destroy: function () {
         },
         methods: {
+            initItem: function (parent) {
+                parent.$children.forEach((child, index) => {
+                    if(child.constructor.name == "FormItem"){
+                        child.labelWidth = this.labelWidth;
+                        child.labelPosition = this.labelPosition;
+                    }else{
+                        this.initItem(child)
+                    }
+                })
+            },
             init: function (value) {
             },
         }

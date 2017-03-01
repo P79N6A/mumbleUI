@@ -1,10 +1,19 @@
 <template>
     <div class="home-panel">
         <h2>Form</h2>
-        <Wb-form>
-            <Form-item label="输入框">
-                <wb-input :value.sync="text" placeholder="我是文本哦"></wb-input>
-            </Form-item>
+        <Wb-form :label-width="100">
+            <Row>
+                <Cell span="12">
+                    <Form-item label="输入框">
+                        <wb-input :value.sync="text" placeholder="我是文本哦"></wb-input>
+                    </Form-item>
+                </Cell>
+                <Cell span="12">
+                    <Form-item label="输入框">
+                        <wb-input :value.sync="text" placeholder="我是文本哦"></wb-input>
+                    </Form-item>
+                </Cell>
+            </Row>
             <Form-item label="下拉框">
                 <wb-select :value.sync="select">
                     <wb-option :value="1">北京市</wb-option>

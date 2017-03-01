@@ -2,9 +2,14 @@
     width: 100%;
     margin-bottom: 24px;
     zoom: 1;
+    &:after, &:before {
+        content: "";
+        display: table
+    }
 }
 
 .ui-form-label{
+    float: left;
     display: block;
     height: 32px;
     line-height: 32px;
@@ -14,7 +19,6 @@
 }
 
 .ui-form-content{
-    width: 100%;
     line-height: 32px;
 }
 
@@ -28,6 +32,7 @@
     }
     &.ui-form-position-top{
         .ui-form-label{
+            float: none;
             height: auto;
             line-height: 1.2;
             padding-right: 0;
