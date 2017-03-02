@@ -5,6 +5,7 @@
 </template>
 <script type="text/ecmascript-6">
     export default {
+        name: "WbForm",
         props: {
             value: {
                 type: Object
@@ -19,6 +20,10 @@
             labelWidth: {
                 type: Number,
                 default: 80
+            },
+            showMessage: {
+                type: Boolean,
+                default: true
             }
         },
         data: function () {

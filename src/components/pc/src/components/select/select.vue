@@ -54,7 +54,11 @@
             }
         },
         computed: {},
-        watch: {},
+        watch: {
+            value () {
+                this.$dispatch('on-form-change', this.value);
+            }
+        },
         ready: function () {
             this.initChildren();
             this.$on("option.selected", function (value) {

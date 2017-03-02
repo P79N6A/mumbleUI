@@ -39,6 +39,7 @@
                 }
                 this.init(val);
                 this.$dispatch("on-change", val);
+                this.$dispatch('on-form-change', val);
             }
         },
         ready: function () {

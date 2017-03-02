@@ -4,17 +4,17 @@
         <Wb-form :label-width="100">
             <Row>
                 <Cell span="12">
-                    <Form-item label="输入框">
-                        <wb-input :value.sync="text" placeholder="我是文本哦"></wb-input>
+                    <Form-item label="输入框"  prop="text1">
+                        <wb-input :value.sync="text1" placeholder="我是文本哦"></wb-input>
                     </Form-item>
                 </Cell>
                 <Cell span="12">
                     <Form-item label="输入框">
-                        <wb-input :value.sync="text" placeholder="我是文本哦"></wb-input>
+                        <wb-input :value.sync="text2" placeholder="我是文本哦"></wb-input>
                     </Form-item>
                 </Cell>
             </Row>
-            <Form-item label="下拉框">
+            <Form-item label="下拉框" prop="select">
                 <wb-select :value.sync="select">
                     <wb-option :value="1">北京市</wb-option>
                     <wb-option :value="2">上海市</wb-option>
@@ -24,7 +24,7 @@
                     <wb-option :value="6">重庆市</wb-option>
                 </wb-select>
             </Form-item>
-            <Form-item label="单选框">
+            <Form-item label="单选框" prop="radio">
                 <Radio-group :value.sync="radio">
                     <Radio value="1">
                         <Icon type="apple-o"></Icon>apple
@@ -37,7 +37,7 @@
                     </Radio>
                 </Radio-group>
             </Form-item>
-            <Form-item label="多选框">
+            <Form-item label="多选框" prop="checkbox">
                 <Checkbox-group :value.sync="checkbox">
                     <Checkbox value="1">
                         <Icon type="apple-o"></Icon>apple
@@ -56,7 +56,7 @@
                     <span slot="open">开</span>
                 </switch>
             </Form-item>
-            <Form-item label="文本域">
+            <Form-item label="文本域" prop="textarea">
                 <wb-input :autosize="true" :value.sync="textarea" placeholder="我是文本域" type="textarea"></wb-input>
             </Form-item>
             <Form-item>
@@ -147,6 +147,7 @@
     export default {
         data: function () {
             return {
+                text1: "",
                 text: "",
                 select: "",
                 radio: "1",

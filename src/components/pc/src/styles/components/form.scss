@@ -19,8 +19,18 @@
 }
 
 .ui-form-content{
+    position: relative;
     line-height: 32px;
     font-size: 12px;
+}
+
+.ui-form-error-tip{
+    position: absolute;
+    left: 0;
+    top: 100%;
+    line-height: 1;
+    margin-top: 6px;
+    color: $error-color;
 }
 
 .ui-form{

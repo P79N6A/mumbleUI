@@ -120,8 +120,8 @@
                 this.$emit('on-focus', event);
             },
             handleBlur (event) {
-                this.$emit('on-blur');
-                this.$dispatch('on-form-blur', this.value, event);
+                this.$emit('on-blur', event);
+                this.$dispatch('on-form-blur', this.value);
             },
             handleInput(event){
                 this.$emit('on-input', event);
