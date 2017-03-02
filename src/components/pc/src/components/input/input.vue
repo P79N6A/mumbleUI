@@ -45,7 +45,7 @@
     </div>
 </template>
 <script>
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
     import autoRow from "../../directives/autoRow.js";
     export default {
         props: {

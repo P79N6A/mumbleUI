@@ -16,7 +16,7 @@
     </div>
 </template>
 <script>
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
     import clickoutside from "../../directives/clickoutside.js";
     export default {
         props: {

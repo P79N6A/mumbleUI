@@ -65,7 +65,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
 
     Date.prototype.fp_incr = function (days) {
         return new Date(this.getFullYear(), this.getMonth(), this.getDate() + parseInt(days, 10));

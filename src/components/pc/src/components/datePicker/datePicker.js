@@ -1,6 +1,6 @@
 import Vue from "vue";
 import datePicker from "./index";
-import * as util from "../../util.js";
+import * as util from "../../utils/util.js";
 
 function create(parent, datePickerOption){
     var datePickerComponent = new Vue({

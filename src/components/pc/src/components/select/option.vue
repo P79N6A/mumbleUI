@@ -2,7 +2,7 @@
     <li class="ui-select-item" :class="getClass" @click="select"><slot>{{ showLabel }}</slot></li>
 </template>
 <script>
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
     export default {
         props: {
             value: {

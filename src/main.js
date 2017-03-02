@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import vueRouter from 'vue-router'
-import UiWebank from './components/pc/index.js'
+import UiWebank from './components/pc/src/index.js'
 import App from './App'
 
 //=====================加载路由配置=================

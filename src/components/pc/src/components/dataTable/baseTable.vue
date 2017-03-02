@@ -38,7 +38,7 @@
 </template>
 <script>
     import Vue from 'vue'
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
     import addComponent from '../../directives/initComponent.js';
     export default {
         props: {

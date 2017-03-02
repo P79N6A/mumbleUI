@@ -11,7 +11,7 @@
     </label>
 </template>
 <script>
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
     export default {
         props: {
             value: {

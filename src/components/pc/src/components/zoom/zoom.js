@@ -1,6 +1,6 @@
 import Vue from "vue";
 import zoom from "./zoom.vue";
-import * as util from "../../util.js";
+import * as util from "../../utils/util.js";
 
 function create(parent, zoomOption){
     var zoomComponent = new Vue({

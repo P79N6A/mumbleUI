@@ -1,6 +1,6 @@
 import Vue from "vue";
 import messageComponent from "./message.vue";
-import * as util from "../../util.js";
+import * as util from "../../utils/util.js";
 
 var showingMessage = null;
 var defaultOpt = {

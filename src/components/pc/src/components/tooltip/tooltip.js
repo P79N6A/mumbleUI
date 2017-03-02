@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Tooltip from "./tooltip.vue";
-import * as util from "../../util.js";
+import * as util from "../../utils/util.js";
 
 var triggerMap = {
     mouseenter: ["mouseenter", "mouseleave"],

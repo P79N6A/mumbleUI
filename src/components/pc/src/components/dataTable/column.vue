@@ -3,7 +3,7 @@
 </template>
 <script>
     import Vue from 'vue';
-    import * as util from "../../util.js";
+    import * as util from "../../utils/util.js";
     function parseText(str){
         if(str.startsWith("{") || str.startsWith("[")){
             var func = new Function('return ' + str + ';');
