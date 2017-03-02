@@ -1,16 +1,7 @@
 <template>
     <div class="ui-form-item">
-        <label class="ui-form-label" :style="getLabelStyle">{{label}}</label>
+        <label class="ui-form-label" v-if="hasLabel" v-el:label :style="getLabelStyle">{{label}}</label>
         <div class="ui-form-content" :style="getContentStyle"><slot></slot></div>
-        <!--<label v-if="labelPosition=='top'" class="ui-form-label">{{label}}</label>-->
-        <!--<Row>-->
-            <!--<Cell :span="labelWidth" v-if="labelPosition!='top'">-->
-                <!--<label class="ui-form-label">{{label}}</label>-->
-            <!--</Cell>-->
-            <!--<Cell :span="contentWdith">-->
-                <!--<div class="ui-form-content"><slot></slot></div>-->
-            <!--</Cell>-->
-        <!--</Row>-->
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -30,7 +21,8 @@
         },
         data: function () {
             return {
-                labelPosition: ""
+                labelPosition: "",
+                hasLabel: true
             }
         },
         computed: {
@@ -46,6 +38,7 @@
             },
         },
         ready: function () {
+            this.hasLabel = this.$els.label.innerHTML !== '';
         },
         destroy: function () {
         },

@@ -2,6 +2,7 @@
     display: inline-block;
     width: 100%;
     position: relative;
+    vertical-align: middle;
 }
 
 .ui-input-swap {
@@ -132,7 +133,8 @@
     }
 
     &.ui-input-textarea{
-
+        line-height: 1.5;
+        vertical-align: top
     }
 }
 
