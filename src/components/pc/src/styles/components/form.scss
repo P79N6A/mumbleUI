@@ -6,6 +6,42 @@
         content: "";
         display: table
     }
+    &.ui-form-item-required{
+        .ui-form-label:before{
+            content: "*";
+            line-height: 1;
+            margin-right: 4px;
+            color: $error-color;
+            font-family: SimSun;
+            font-size: 12px;
+        }
+    }
+    &.ui-form-item-error{
+        .ui-input{
+            border-color: $error-color;
+            &:hover{
+                border-color: $error-color;
+            }
+            &:focus{
+                border-color: $error-color;
+                box-shadow: 0 0 0 2px rgba(255,85,0,.2);
+            }
+        }
+        .ui-select{
+            .ui-select-selection{
+                border-color: $error-color;
+                &:hover{
+                    border-color: $error-color;
+                }
+            }
+            &.ui-select-visible {
+                .ui-select-selection {
+                    box-shadow: 0 0 0 2px rgba(255,85,0,.2);
+                }
+            }
+        }
+
+    }
 }
 
 .ui-form-label{

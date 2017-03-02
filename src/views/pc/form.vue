@@ -1,7 +1,7 @@
 <template>
     <div class="home-panel">
         <h2>Form</h2>
-        <Wb-form :label-width="100">
+        <Wb-form :label-width="100" :rule="ruleValidate">
             <Row>
                 <Cell span="12">
                     <Form-item label="输入框"  prop="text1">
@@ -153,7 +153,15 @@
                 radio: "1",
                 checkbox: [],
                 on: true,
-                textarea: ""
+                textarea: "",
+                ruleValidate: {
+                    text1: [
+                        { required: true, message: '不能为空' }
+                    ],
+                    select: [
+                        { required: true, message: '不能为空' }
+                    ]
+                }
             }
         },
         ready: function () {

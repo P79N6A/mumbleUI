@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-form-item">
+    <div class="ui-form-item" :class="getClsss">
         <label class="ui-form-label" v-if="hasLabel" v-el:label :style="getLabelStyle">{{label}}</label>
         <div class="ui-form-content" :style="getContentStyle">
             <slot></slot>
@@ -25,17 +25,29 @@
             showMessage: {
                 type: Boolean,
                 default: true
-            }
+            },
         },
         data: function () {
             return {
                 labelPosition: "",
                 hasLabel: true,
-                validateState: "error",
-                validateMessage:  "请输入XXXX"
+                validateState: "",
+                validateMessage:  "",
+                rule: [],
+                required: false
             }
         },
         computed: {
+            getClsss(){
+                var arr = [];
+                if(this.required){
+                    arr.push("ui-form-item-required")
+                }
+                if(this.validateState == "error"){
+                    arr.push("ui-form-item-error")
+                }
+                return arr
+            },
             form(){
                 let parent = this.$parent;
                 while (parent.$options.name !== 'WbForm') {
@@ -64,13 +76,25 @@
         destroy: function () {
         },
         methods: {
+            validate(value){
+                this.validateState = "validating";
+                var descriptor = {};
+                var model = {};
+                descriptor[this.prop] = this.rule;
+                model[this.prop] = value;
+                var validator = new AsyncValidator(descriptor);
+                validator.validate(model, (errors, fields) => {
+                    if(errors) {
+                        this.validateState = "error";
+                        this.validateMessage = errors[0].message;
+                    }
+                });
+            },
             onFieldBlur(val){
-                console.log("onFieldBlur")
-                console.log(val)
+                this.validate(val)
             },
             onFieldChange(val){
-                console.log("onFieldChange")
-                console.log(val)
+                this.validate(val)
             }
         }
     }

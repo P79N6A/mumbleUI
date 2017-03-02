@@ -24,7 +24,8 @@
             showMessage: {
                 type: Boolean,
                 default: true
-            }
+            },
+            rule: Object
         },
         data: function () {
             return {
@@ -48,6 +49,14 @@
                     if(child.constructor.name == "FormItem"){
                         child.labelWidth = this.labelWidth;
                         child.labelPosition = this.labelPosition;
+                        if(child.prop && this.rule){
+                            child.rule = this.rule[child.prop] || [];
+                            if(child.rule.filter((rule)=>{
+                                    return rule.required
+                                }).length > 0){
+                                child.required = true
+                            }
+                        }
                     }else{
                         this.initItem(child)
                     }
