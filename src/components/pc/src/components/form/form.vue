@@ -72,7 +72,6 @@
                         }
                     }
                 });
-                console.log(this.validateFormItems)
             },
             /**
              * 校验整个form

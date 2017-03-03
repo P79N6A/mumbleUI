@@ -60,7 +60,7 @@
                 <wb-input :autosize="true" :value.sync="textarea" placeholder="我是文本域" type="textarea"></wb-input>
             </Form-item>
             <Form-item>
-                <div class="ui-button" @click.stop="click">提交</div>
+                <Wb-button @click="click">提交</Wb-button>
             </Form-item>
         </Wb-form>
 
