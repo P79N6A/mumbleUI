@@ -43,12 +43,10 @@
     &-buttons{
         margin-top: 30px;
         float: right;
-        button:first-child{
-            color: #fff;
-            background-color: $primary-color;
-            border-color: $primary-color;
+        .ui-button:first-child{
+            @extend .ui-button-type-primary
         }
-        button + button {
+        .ui-button + .ui-button {
             margin-left: 10px;
             margin-bottom: 0;
         }
@@ -61,27 +59,3 @@
         vertical-align: middle;
     }
 }
-
-.ui-button{
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: 500;
-    text-align: center;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    background-image: none;
-    border: 1px solid #d9d9d9;
-    white-space: nowrap;
-    line-height: 1.5;
-    padding: 4px 15px;
-    font-size: 14px;
-    @include radius(4px);
-    @include user-select(none);
-    @include transition( all 0.3s $ease-in-out);
-    position: relative;
-    color: #666;
-    background-color: transparent;
-}
-
-

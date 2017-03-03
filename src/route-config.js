@@ -8,6 +8,10 @@ export function configRouter(router){
             title: '栅栏布局',     //标题
             component: require('./views/pc/layout')
         },
+        '/pc/button':{
+            title: 'button',     //标题
+            component: require('./views/pc/button')
+        },
         '/pc/icon':{
             title: 'icon',     //标题
             component: require('./views/pc/icon')

@@ -10,8 +10,8 @@
                 </div>
             </div>
             <div class="ui-message-buttons">
-                <button v-show="button.show" v-for="button in buttons" class="ui-button {{button.class}}"
-                     @click="click($index, $event)" v-text="button.text"></button>
+                <div v-show="button.show" v-for="button in buttons" class="ui-button {{button.class}}"
+                     @click="click($index, $event)" v-text="button.text"></div>
             </div>
         </div>
     </div>

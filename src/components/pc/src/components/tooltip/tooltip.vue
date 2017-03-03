@@ -11,8 +11,8 @@
                 <div v-if="isHtml">{{{html}}}</div>
                 <div v-if="isComponent" v-add-component="component"></div>
                 <div class="ui-tooltip-buttons" v-if="confirm">
-                    <button class="ui-button" @click="ok">确定</button>
-                    <button class="ui-button" @click="cancel">取消</button>
+                    <div class="ui-button" @click="ok">确定</div>
+                    <div class="ui-button" @click="cancel">取消</div>
                 </div>
             </div>
         </div>

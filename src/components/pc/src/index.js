@@ -5,6 +5,7 @@
  */
 require("./styles/index.scss") ;
 
+import WbButton from './components/button';
 import Banner from './components/banner';
 import { DataTable, SortTable, TreeTable, TableColumn} from './components/dataTable';
 import DatePicker from './components/datePicker';
@@ -31,6 +32,7 @@ import * as Util from './utils/util.js';
 
 
 const UiWebank = {
+    WbButton,
     Banner,
     DataTable,
     SortTable,
