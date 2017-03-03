@@ -39,8 +39,16 @@
                     box-shadow: 0 0 0 2px rgba(255,85,0,.2);
                 }
             }
+            .ui-icon-caret-down{
+                color: $error-color;
+            }
         }
-
+        .ui-radio .ui-radio-inner{
+            border-color: $error-color;
+        }
+        .ui-checkbox .ui-checkbox-inner{
+            border-color: $error-color;
+        }
     }
 }
 

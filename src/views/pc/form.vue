@@ -150,7 +150,7 @@
                 text1: "",
                 text: "",
                 select: "",
-                radio: "1",
+                radio: "",
                 checkbox: [],
                 on: true,
                 textarea: "",
@@ -160,6 +160,12 @@
                     ],
                     select: [
                         { required: true, message: '不能为空' }
+                    ],
+                    radio:  [
+                        { required: true, message: '不能为空' }
+                    ],
+                    checkbox: [
+                        { required: true, message: '不能为空', type: 'array', min: 1 }
                     ]
                 }
             }
