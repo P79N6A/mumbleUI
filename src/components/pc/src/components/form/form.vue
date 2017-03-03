@@ -29,6 +29,7 @@
         },
         data: function () {
             return {
+                validateFormItems: []
             }
         },
         computed: {
@@ -44,26 +45,92 @@
         destroy: function () {
         },
         methods: {
+            /**
+             * 初始化item的状态
+             * @param parent
+             */
             initItem: function (parent) {
+                this.validateFormItems = [];
                 parent.$children.forEach((child, index) => {
-                    if(child.constructor.name == "FormItem"){
-                        child.labelWidth = this.labelWidth;
-                        child.labelPosition = this.labelPosition;
-                        if(child.prop && this.rule){
-                            child.rule = this.rule[child.prop] || [];
-                            if(child.rule.filter((rule)=>{
+                    let _child = child;
+                    while (_child &&　_child.$options.name !== 'FormItem') {
+                        _child = _child.$children[0];
+                    }
+                    if(_child){
+                        _child.labelWidth = this.labelWidth;
+                        _child.labelPosition = this.labelPosition;
+                        if(_child.prop && this.rule){
+                            _child.rule = this.rule[_child.prop] || [];
+                            if(_child.rule.filter((rule)=>{
                                     return rule.required
                                 }).length > 0){
-                                child.required = true
+                                _child.required = true
+                            }
+                            if(_child.rule.length > 0){
+                                this.validateFormItems.push(_child);
                             }
                         }
+                    }
+                });
+                console.log(this.validateFormItems)
+            },
+            /**
+             * 校验整个form
+             * @param callback
+             */
+            validate: function (callback) {
+                let len = this.validateFormItems.length;
+                let valid = true;
+                for(var i=0; i<len; i++){
+                    var item =  this.validateFormItems[i];
+                    item.validate(item.$children[0].value, (error)=>{
+                        if(error){
+                            valid = false;
+                        }
+                        if(typeof callback === 'function' && (i == len-1)){
+                            callback(valid)
+                        }
+                    })
+                }
+            },
+            /**
+             * 校验filed
+             * @param  filed
+             * @param  callback
+             */
+            validateField: function (filed, callback) {
+                let len = this.validateFormItems.length;
+                let valid = true;
+                for(var i=0; i<len; i++){
+                    var item =  this.validateFormItems[i];
+                    if(filed && item.prop == filed){
+                        item.validate(item.$children[0].value, (error)=>{
+                            if(error){
+                                valid = false;
+                            }
+                            if(typeof callback === 'function'){
+                                callback(valid)
+                            }
+                        });
+                        break;
+                    }
+                }
+            },
+            /**
+             * 重置校验结果, 如果传了filed则只重置这个，如果没有则重置所有
+             * @param filed
+             */
+            resetFields: function (filed) {
+                this.validateFormItems.forEach(item =>{
+                    if(!filed){
+                        item.resetField();
                     }else{
-                        this.initItem(child)
+                        if(item.prop == filed){
+                            item.resetField();
+                        }
                     }
                 })
-            },
-            init: function (value) {
-            },
+            }
         }
     }
 </script>

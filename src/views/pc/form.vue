@@ -1,7 +1,7 @@
 <template>
     <div class="home-panel">
         <h2>Form</h2>
-        <Wb-form :label-width="100" :rule="ruleValidate">
+        <Wb-form :label-width="100" :rule="ruleValidate" v-ref:form-validate>
             <Row>
                 <Cell span="12">
                     <Form-item label="输入框"  prop="text1">
@@ -60,7 +60,7 @@
                 <wb-input :autosize="true" :value.sync="textarea" placeholder="我是文本域" type="textarea"></wb-input>
             </Form-item>
             <Form-item>
-                <button class="ui-button">提交</button>
+                <div class="ui-button" @click.stop="click">提交</div>
             </Form-item>
         </Wb-form>
 
@@ -167,7 +167,11 @@
         ready: function () {
         },
         methods: {
-
+            click(){
+                this.$refs["formValidate"].validate(valid => {
+                    console.log(valid)
+                })
+            }
         }
     }
 </script>

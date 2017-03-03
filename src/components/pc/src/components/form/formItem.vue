@@ -76,7 +76,11 @@
         destroy: function () {
         },
         methods: {
-            validate(value){
+            validate(value, callback = function () {}){
+                if (!this.rule || this.rule.length === 0) {
+                    callback();
+                    return true;
+                }
                 this.validateState = "validating";
                 var descriptor = {};
                 var model = {};
@@ -87,8 +91,15 @@
                     if(errors) {
                         this.validateState = "error";
                         this.validateMessage = errors[0].message;
+                        callback(errors[0]);
+                    }else{
+                        callback();
                     }
                 });
+            },
+            resetField(){
+                this.validateState = "";
+                this.validateMessage = "";
             },
             onFieldBlur(val){
                 this.validate(val)
