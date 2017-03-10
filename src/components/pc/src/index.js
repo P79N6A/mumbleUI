@@ -1,10 +1,8 @@
 /*!
- * Ui.webank v1.0.0
+ * Ui-webank v1.0.0
  * (c) 2016 harrywan
  * Released under the MIT License.
  */
-require("./styles/index.scss") ;
-
 import WbButton from './components/button';
 import Banner from './components/banner';
 import { DataTable, SortTable, TreeTable, TableColumn} from './components/dataTable';
@@ -82,4 +80,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }
 
-module.exports = Object.assign(UiWebank, {install});
+module.exports = Object.assign(UiWebank, {
+    install: install,
+    version: "1.0.0"
+});   // eslint-disable-line no-undef

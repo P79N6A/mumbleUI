@@ -1,7 +1,15 @@
 import Vue from 'vue'
+
+console.log(Vue)
+console.log(window)
+
 import vueRouter from 'vue-router'
-import UiWebank from './components/pc/src/index.js'
+import UiWebank from './components/pc/dist/ui-webank.js'
+// import UiWebank from './components/pc/src/index.js'
+import './components/pc/dist/styles/ui-webank.css'
 import App from './App'
+
+console.log(UiWebank)
 
 //=====================加载路由配置=================
 import { configRouter } from './route-config'
