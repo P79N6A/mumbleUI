@@ -1,2 +1,6 @@
-# mumbleUI
-vue相关的UI组件
+# mumble-ui
+
+## 安装：
+npm i mumble-ui
+
+## 文档：
